@@ -1,0 +1,193 @@
+project:
+  type: book
+
+book:
+  title: "Gids voor Effect Sizes en Betrouwbaarheids Intervallen"
+  downloads: [pdf, docx]
+  repo-url: https://github.com/MatthewBJane/guide-to-effect-sizes-and-confidence-intervals
+  cover-image: cover-image.png
+  twitter-card:
+    image: social-preview.png
+    creator: "@MatthewBJane"
+    title: "Gids voor Effect Sizes en Betrouwbaarheids Intervallen"
+  site-url: https://matthewbjane.quarto.pub/guide-to-effect-sizes-and-confidence-intervals/
+  sidebar: 
+    background: 'white'
+    border: true
+    header: |
+      ![](margin-header.png)
+    title: "Inhoudsopgave"
+  author:
+  - name: Matthew B. Jané
+    email: matthew.jane@uconn.edu
+    url: https://matthewbjane.com
+    orcid: 0000-0002-3121-7769
+    affiliations:
+      - name: University of Connecticut
+        department: Department of Psychological Sciences
+  - name: Qinyu Xiao
+    email: qinyu.xiao@univie.ac.at
+    orcid: 0000-0002-9824-9247
+    affiliations:
+      - name: University of Vienna
+        department: Department of Occupational, Economic, and Social Psychology
+  - name: Siu Kit Yeung
+    email: yskjdmmh@gmail.com
+    orcid: 0000-0002-5835-0981
+    affiliations:
+      - name: Chinese University of Hong Kong
+        department: Department of Psychology
+  - name: Mattan S. Ben-Shachar
+    orcid: 0000-0002-4287-4801
+    email: mattansb@msbstats.info
+    affiliations:
+      - name: Independent Researcher
+  - name: Aaron R. Caldwell
+    orcid: 0000-0002-4541-6283
+    affiliations:
+      - name: University of Arkansas for Medical Sciences
+        department: Fay W. Boozman College of Public Health
+  - name: Denis Cousineau
+    email: denis.cousineau@uottawa.ca
+    orcid: 0000-0001-5908-0402
+    affiliations:
+      - id: id7
+        name: Université d’Ottawa
+  - name: Daniel J. Dunleavy
+    email: djd09e@my.fsu.edu
+    orcid: 0000-0002-3597-7714
+    affiliations:
+      - id: id4
+        name: Florida State
+        department: College of Social Work
+  - name: Mahmoud Elsherif
+    email: mahmoud.medhat.elsherif@gmail.com
+    orcid: 0000-0002-0540-3998
+    affiliations:
+      - id: id6
+        name: University of Birmingham
+  - name: Blair T. Johnson
+    orcid: 0000-0002-2688-0398
+    email: blair.t.johnson@uconn.edu
+    affiliations:
+      - name: University of Connecticut
+        department: Department of Psychological Sciences
+  - name: David Moreau
+    email: d.moreau@auckland.ac.nz
+    orcid: 0000-0002-1957-1941
+    affiliations:
+      - name: University of Auckland
+        department: Centre for Brain Research
+  - name: Paul Riesthuis
+    orcid: 0000-0001-6520-2453
+    affiliations:
+      - name: KU Leuven & Maastricht University
+        department: Centre for Brain Research
+  - name: Lukas Röseler
+    email: roeseler.lukas@gmail.com
+    orcid: 0000-0002-6446-1901
+    affiliations:
+      - id: id5
+        name: University of Bamberg
+  - name: James Steele
+    email: james.steele@solent.ac.uk
+    orcid: 0000-0002-8003-0757
+    affiliations:
+      - name: Solent University
+        department: School of Sport, Health and Social Sciences
+  - name: Felipe F. Vieira
+    orcid: 0009-0006-0949-6569
+    affiliations:
+      - name: Ghent University
+        department: Department of Applied Mathematics, Computer Science and Statistics
+  - name: Mircea Zloteanu
+    orcid: 0000-0002-2753-637X
+    email: mircea.zloteanu.11@ucl.ac.uk
+    affiliations:
+      - name: Kingston University London
+  - name: Gilad Feldman
+    corresponding: true
+    email: gfeldman@hku.hk
+    orcid: 0000-0003-2812-6599
+    affiliations:
+      - name: University of Hong Kong
+        department: Department of Psychology
+  date: "01/01/2024"
+  date-format: "YYYY"
+  chapters:
+    - text: "Basis"
+      href: index.qmd
+    - text: "Definiëren van Effect Sizes"
+      href: Defining-Effect-Sizes.qmd
+    - text: "Referentiepunten"
+      href: Benchmarks.qmd
+    - text: "Rapporteren van Effect Sizes"
+      href: Reporting-Effect-Sizes.qmd
+    - text: "Interpreteren van Betrouwvaarheidsintervallen"
+      href: Interpreting-Confidence-Intervals.qmd
+    - text: "Reporteren van Betrouwbaarheidsintervallen"
+      href: Reporting-Confidence-Intervals.qmd
+    - text: "R Gebruiken"
+      href: Useful-R-Packages.qmd
+    - part: "**Gestandaardiseerde Effect Sizes**"
+      chapters:
+        - text: "Gemiddelde Verschillen"
+          href: Standardized-Mean-Differences.qmd
+        - text: "Correlaties"
+          href: Correlations.qmd
+        - text: "Categoriale/Proportionele Data"
+          href: Categorical-Proportional-Data.qmd
+        - text: "ANOVA's"
+          href: Effect-Sizes-for-ANOVAs.qmd
+        - text: "Verschillen in Variabiliteit"
+          href: Differences-in-Variance.qmd
+        - text: "Non-Parametrische Effect Sizes"
+          href: Non-Parametric-Effect-Sizes.qmd
+        - text: "Regressie"
+          href: Regression.qmd
+        - text: "Artifacten en Vertekeningen in Effect Sizes"
+          href: Artifacts-and-Bias.qmd
+    - part: "**Effect Sizes Omrekenen**"
+      chapters:
+        - text: "Omrekenen naar Cohen's d"
+          href: Converting-to-Cohens-d.qmd
+        - text: "Omrekenen naar Correlaties"
+          href: Converting-to-Correlation.qmd
+        - text: "Omrekenen naar Odds Ratios"
+          href: Converting-to-Odds-Ratio.qmd
+    - part: "**Conclusie**"
+      chapters:
+      - text: "Conclusie"
+        href: Conclusion.qmd
+      - text: "Referenties"
+        href: references.qmd
+
+comments:
+  hypothesis: true
+
+keywords: [samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap]
+
+bibliography: references.bib
+
+format:
+  html:
+    theme: Simplex
+    backgroundcolor: 'white'
+    title-block-style: default
+    code-block-bg: '#f1f1f1'
+  pdf:
+    documentclass: scrreprt
+    mainfont: 'Arial'
+    code-block-bg: '#f1f1f1'
+    code-block-border-left: false
+    header-includes: |
+      \titlehead{\includegraphics[width=6in]{cover-image.png}}
+  docx:
+    documentclass: scrreprt
+    mainfont: 'Arial'
+    code-block-bg: '#f1f1f1'
+    code-block-border-left: false
+    toc: true
+
+editor: source
+

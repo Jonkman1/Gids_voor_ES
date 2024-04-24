@@ -1,0 +1,46 @@
+# R Gebruiken
+
+## Waarom R gebruiken?
+We raden sterk aan om open-source software zoals `R` of `Python` te gebruiken voor het berekenen van effectgroottes en betrouwbaarheidsintervallen. In deze handleiding richten we ons op `R`, dat verschillende voordelen heeft:   
+
+- **Reproduceerbaarheid**: De syntaxis van R kan worden gedeeld zodat anderen uw analyses kunnen reproduceren. Dit bevordert transparantie en betrouwbaarheid in onderzoek.   
+
+- **Flexibiliteit**: CRAN repositories bevatten duizenden door gebruikers bijgedragen pakketten voor gespecialiseerde statistische technieken. Dit maakt het mogelijk om een breed scala aan effectgroottes en CI-metrieken te berekenen.
+
+- **Gratis en open source**: `R` is gratis te downloaden en te gebruiken. De open source aard betekent community-gedreven innovatie en pakketten.
+
+- **Visualisaties**: Met `R` kunt u eenvoudig grafieken van publicatiekwaliteit maken om uw resultaten te visualiseren.
+
+- **Scripts**: Het automatiseren van analyses door middel van `R`-scripts verbetert de efficiëntie en consistentie.
+
+- **Range reeks pakketten**: Pakketten zoals `effectsize`, `MBESS`, `metafor` en meer bevatten een verscheidenheid aan effectgrootte- en CI-functies.
+
+Veel (zo niet alle) van deze voordelen worden gedeeld met `Python` en een aantal andere programmeertalen. Hoewel online calculators of GUI software ook betrouwbaarheidsintervallen en effect sizes kunnen berekenen, biedt open source software zoals `R` transparantie, reproduceerbaarheid en toegang tot een groot aantal technieken. In het geval van `R` is de leercurve zeker de moeite waard voor het uitvoeren van robuuste, state-of-the-art effectgrootte- en betrouwbaarheidsintervalschattingen.
+
+
+## Bruikbare `R`-pakketten
+
+De volgende `R`-pakketten zijn handig voor effect size- en CI-berekeningen, conversies tussen verschillende effectgroottes en conversies van teststatistieken naar effectgroottes. Als je een van de onderstaande pakketten gebruikt, zorg er dan voor dat je ze citeert om de auteurs de eer te geven die hen toekomt! Om citaties voor pakketten te verkrijgen, kun je de `citation()` functie gebruiken en de naam van het pakket als string invoeren.
+
+- `MOTE` [@MOTE]: Dit pakket wordt sterk aanbevolen voor het berekenen van effect sizes, dat een grote verscheidenheid aan effectgroottes kan verwerken in de verschilfamilie (de $d$-familie) en variantie-overlapfamilie ($r$, $eta$, $omega$, $epsilon$). De functies geven ook niet-centrale betrouwbaarheidsintervallen voor elke effectgrootte en uitvoer in APA-stijl in LaTeX. `MOTE` heeft een online shiny toepassing ([doomlab.shinyapps.io/mote/](https://doomlab.shinyapps.io/mote/)). Het CRAN project kan hier gevonden worden: [cran.r-project.org/package=MOTE](https://cran.r-project.org/package=MOTE).
+
+
+-   `effectsize` [@effectsize]: Dit pakket is vooral nuttig bij gegevensanalyse. Een groot voordeel van dit pakket is dat het veel verschillende modelobjecten aanneemt en direct effectgroottes en CI's uitvoert. Het implementeert ook conversies tussen een breed scala aan indices en beschikt over functies om geautomatiseerde effectgrootte-interpretaties uit te voeren op basis van bestaande richtlijndrempels. Het CRAN-project kan hier worden gevonden: [cran.r-project.org/package=effectsize](https://cran.r-project.org/package=effectsize).
+
+-   `MBESS` [@MBESS]: Een van de meest uitgebreide en nuttige pakketten voor effectgrootte- en betrouwbaarheidsintervalberekeningen. Het biedt functies die ES's en CI's kunnen berekenen uit teststatistieken en de p-waarde. Het CRAN-project kan hier gevonden worden: [cran.r-project.org/package=MBESS](https://cran.r-project.org/package=MBESS).
+
+-   `metafor` [@metafor]: Waarschijnlijk het meest uitgebreide meta-analysepakket dat momenteel beschikbaar is. Bevat de functie `escalc()` die verschillende soorten effectgroottes berekent uit teststatistieken, samenvattende statistieken en meer. Het CRAN project kan hier gevonden worden:cran.r-project.org/package=metafor](https://cran.r-project.org/package=metafor).
+
+-   `psych` [@psych]: Een van de meest uitgebreide en algemene pakketten voor veelgebruikte statistische procedures in psychologisch onderzoek. Het bevat ook enkele functies voor het berekenen van effectgroottes en CI's (bijvoorbeeld `cohen.d()`). Het CRAN project kan hier gevonden worden: [cran.r-project.org/package=psych](https://cran.r-project.org/package=psych).
+
+-   `esc` [@esc]: Dit pakket kan helpen bij het converteren tussen verschillende effectgroottes (pp. 4-12 in de referentiehandleiding). Het is ook nuttig als er alleen onvolledige informatie (bijv. alleen beschrijvende gegevens of alleen p-waarden) in de publicatie is opgenomen en we daaruit effectgroottes willen berekenen. Een ander pakket dat vergelijkbare conversiefuncties biedt, is het pakket `compute.es`. Het CRAN-project kan hier worden gevonden: [cran.r-project.org/package=esc](https://cran.r-project.org/package=esc).
+
+-   `psychmeta` [@psychmeta]: Dit pakket wordt voornamelijk gebruikt voor psychometrische meta-analyses. Het heeft een functie voor het converteren van verschillende effectgroottes/teststatistieken (convert_es, p. 38 in de referentiehandleiding), waaronder $r$, $d$, $t$-statistiek (en zijn p-waarde), $F$ (en zijn p-waarde in twee-groep eenrichtings-ANOVA), chi-kwadraat (één vrijheidsgraad), enz., naar $r$, $d$ en de gebruikelijke taaleffectgroottes (CLES, A, AUC). Het CRAN-project kan hier gevonden worden [cran.r-project.org/package=psychmeta](https://cran.r-project.org/package=psychmeta).
+
+-   `effsize` [@effsize]: Dit is een relatief licht pakket dat d, g, Cliff delta en Vargha-Delaney A) behandelt. Het CRAN project kan hier gevonden worden: [cran.r-project.org/package=effsize](https://cran.r-project.org/package=effsize).
+
+-   `MAd` [@MAd]: Dit pakket is een verzameling functies voor het uitvoeren van een meta-analyse met gegevens over gemiddelde verschillen. Het biedt ook conversiefuncties. Het CRAN-project kan hier gevonden worden: [cran.r-project.org/package=MAd](https://cran.r-project.org/package=MAd).
+
+-   `TOSTER` [@TOSTER; @caldwell]: Dit pakket is ontworpen voor gelijkwaardigheidstesten. Het bevat veel functies om te testen op verschillen in effectgroottes, samen met andere nuttige functies voor effectgroottevergelijkingen. Het CRAN-project kan hier worden gevonden: [cran.r-project.org/package=TOSTER](https://cran.r-project.org/package=TOSTER).
+
+-   `DeclareDesign` [@DeclareDesign]: Dit simulatieraamwerk kan worden gebruikt om te beoordelen of procedures voor het berekenen van betrouwbaarheidsintervallen geldig zijn en kan worden gebruikt voor willekeurige ontwerpen. De functie `diagnose_design()` berekent de dekking voor ontwerpen met schattingsstrategieën die betrouwbaarheidsintervallen produceren. Het CRAN-project kan hier gevonden worden: [cran.r-project.org/package=DeclareDesign](https://cran.r-project.org/package=DeclareDesign).

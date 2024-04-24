@@ -1,0 +1,28 @@
+# Rapporteren van Betrouwbaarheidsintervallen
+
+Betrouwbaarheidsintervallen moeten worden berekend en gerapporteerd voor elke effect size die je hebt verkregen en in je manuscript hebt vermeld. Als je een replicatie doet en je doelartikel/studie geen CI's rapporteerde voor de effect size, moet je CI's berekenen en rapporteren. 
+
+
+Normaal gesproken berekenen we 95% betrouwbaarheidsintervallen (d.w.z. 95% van deze intervallen zal naar verwachting de ware parameterwaarde bevatten als we een oneindig aantal identieke studies uitvoeren).
+
+
+::: callout-note
+## Alpha niveau
+
+Het betrouwbaarheidsinterval hangt af van het alfa-niveau, dat wil zeggen het deel van de CI's bij herhaalde bemonstering dat de ware parameter niet zal bevatten. Als het ware effect nul is (of nul), vertegenwoordigt het alfa-niveau het fout-positieve percentage (d.w.z. het percentage waarbij een significant effect wordt waargenomen terwijl er geen is). De 95% CI is gebaseerd op een alfa-niveau van .05, maar onderzoekers kunnen elke waarde kiezen (tussen 0 en 1), zolang deze maar goed is gemotiveerd [@lakens2022].
+:::
+
+
+Desalniettemin berekenen we voor sommige effectgroottes (bijv. eta-kwadraat, partiële eta-kwadraat, R-kwadraat) 90% betrouwbaarheidsintervallen. Dit komt omdat $\eta^2$ gekwadrateerd en altijd positief is, en F-tests eenzijdig zijn. Het rapporteren van 95% CI voor eta kwadraat kan leiden tot situaties waarin de CI nul bevat maar de p-waarde onder .05 valt, terwijl het rapporteren van 90% CI een dergelijk probleem voorkomt. Lees voor meer informatie over dit onderwerp Daniel Lakens blog over betrouwbaarheidsintervallen en @steiger2004.
+
+
+Betrouwbaarheidsintervallen moeten direct na een effectgrootte worden gerapporteerd, bijvoorbeeld Cohen's $d$ = 0,40, 95% CI [0,20, 0,60]. Na de eerste keer dat ze in een manuscript worden gerapporteerd, kan elke volgende CI eenvoudig tussen haakjes worden gezet zonder "95% CI" ervoor.
+
+
+Tenzij je iets meet dat betekenisvol is in het echte leven (bijv. inkomen, aantal jaren ervaring, bedrag dat iemand bereid is te doneren), zorg er dan voor dat de CI die je hebt berekend een CI is van de effect sizes en niet van andere statistieken, zoals de teststatistieken of het gemiddelde verschil in ruwe eenheden.
+
+
+Als je ziet dat de schatting van de effectgrootte niet binnen je CI valt, heb je waarschijnlijk een probleem. Voor gemiddelden en voor verschil in gemiddelden moet de schatting precies het midden van je CI zijn; voor andere statistieken (bijv. correlatie, proportie, frequentie, standaardafwijking) kan de ene arm langer zijn dan de andere, zodat de schatting mogelijk niet het midden is. 
+
+
+Voor meer informatie over de berekening en rapportage van effectgroottes en betrouwbaarheidsintervallen, zie @steiger2004 en @lakens2014.
