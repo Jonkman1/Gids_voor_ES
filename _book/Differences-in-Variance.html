@@ -8,7 +8,7 @@
 
 <meta name="keywords" content="samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap">
 
-<title>Gids voor Effect Sizes en Betrouwbaarheids Intervallen - 11&nbsp; Differences in Variability</title>
+<title>Gids voor Effect Sizes en Betrouwbaarheids Intervallen - 11&nbsp; Verschillen in variabiliteit</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -388,10 +388,10 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#sec-vr" id="toc-sec-vr" class="nav-link active" data-scroll-target="#sec-vr"><span class="header-section-number">11.1</span> Variability Ratios</a>
+  <li><a href="#sec-vr" id="toc-sec-vr" class="nav-link active" data-scroll-target="#sec-vr"><span class="header-section-number">11.1</span> Verhoudingen variabiliteit</a>
   <ul class="collapse">
-  <li><a href="#sec-vr-ind" id="toc-sec-vr-ind" class="nav-link" data-scroll-target="#sec-vr-ind"><span class="header-section-number">11.1.1</span> Natural Logarithm of Variability Ratio for Independent Groups (<span class="math inline">\(lnVR_\text{ind}\)</span>)</a></li>
-  <li><a href="#sec-vr-dep" id="toc-sec-vr-dep" class="nav-link" data-scroll-target="#sec-vr-dep"><span class="header-section-number">11.1.2</span> Natural Logarithm of Variability Ratio for Dependent Groups (<span class="math inline">\(lnVR_\text{dep}\)</span>)</a></li>
+  <li><a href="#sec-vr-ind" id="toc-sec-vr-ind" class="nav-link" data-scroll-target="#sec-vr-ind"><span class="header-section-number">11.1.1</span> Natuurlijke logaritme van de variabiliteitsratio voor onafhankelijke groepen (<span class="math inline">\(lnVR_\text{ind}\)</span>)</a></li>
+  <li><a href="#sec-vr-dep" id="toc-sec-vr-dep" class="nav-link" data-scroll-target="#sec-vr-dep"><span class="header-section-number">11.1.2</span> Natuurlijke logaritme van variabiliteitsratio voor afhankelijke groepen (<span class="math inline">\(lnVR_\text{dep}\)</span>)</a></li>
   </ul></li>
   <li><a href="#sec-cvr" id="toc-sec-cvr" class="nav-link" data-scroll-target="#sec-cvr"><span class="header-section-number">11.2</span> Coefficient of Variation Ratios</a>
   <ul class="collapse">
@@ -406,7 +406,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><strong>Gestandaardiseerde Effect Sizes</strong></a></li><li class="breadcrumb-item"><a href="./Differences-in-Variance.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Verschillen in Variabiliteit</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Differences in Variability</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Verschillen in variabiliteit</span></h1>
 </div>
 
 
@@ -429,7 +429,7 @@ window.Quarto = {
 </header>
 
 
-<p>Occasionally researchers would like to compare the variations between two conditions or groups rather than the mean. Two commonly used are the natural logarithms of variability ratio (<span class="math inline">\(lnVR\)</span>) and the coefficient of variance ratio (<span class="math inline">\(lnCVR\)</span>). The latter of these can be useful when there may be a mean-variance relationship present (i.e., variances tend to increase with mean values) in order to account for this. An lnVR or lnCVR of zero therefore would indicate no difference in variation between the two groups, an lnVR or lnCVR of &gt;0 would indicate larger variance in group 1, and an lnVR or lnCVR of &lt;0 would indicate larger variance in group 2. There are both independent and dependent versions of these effect sizes <span class="citation" data-cites="senior2020">(see <a href="references.html#ref-senior2020" role="doc-biblioref">Senior, Viechtbauer, and Nakagawa 2020</a>)</span>. To obtain confidence intervals of a the lnVR or lnCVR then we, for example 95% confidence intervals, we merely multiply the standard error for the parameter by 1.96 similarly to other effect size statistics,</p>
+<p>Soms willen onderzoekers de variaties tussen twee condities of groepen vergelijken in plaats van het gemiddelde. Twee veelgebruikte methoden zijn de natuurlijke logaritme van de variabiliteitsratio (<span class="math inline">\(lnVR\)</span>) en de variantiecoëfficiëntratio (<span class="math inline">\(lnCVR\)</span>). Deze laatste kan nuttig zijn als er een gemiddelde-variantieverhouding aanwezig kan zijn (d.w.z. varianties neigen toe te nemen met gemiddelde waarden) om hiermee rekening te houden. Een lnVR of lnCVR van nul zou daarom duiden op geen verschil in variatie tussen de twee groepen, een lnVR of lnCVR van &gt;0 zou duiden op grotere variantie in groep 1, en een lnVR of lnCVR van &lt;0 zou duiden op grotere variantie in groep 2. Er zijn zowel onafhankelijke als afhankelijke versies van deze effectgroottes <span class="citation" data-cites="senior2020">(zie <a href="references.html#ref-senior2020" role="doc-biblioref">Senior, Viechtbauer, and Nakagawa 2020</a>)</span>. Om betrouwbaarheidsintervallen van een lnVR of lnCVR te verkrijgen, bijvoorbeeld 95% betrouwbaarheidsintervallen, vermenigvuldigen we simpelweg de standaardfout voor de parameter met 1,96, net als bij andere effectgrootte statistieken,</p>
 <p><span class="math display">\[
 CI_{lnVR/lnCVR}=lnVR \pm 1.96\cdot SE_{lnVR/lnCVR}
 \]</span></p>
@@ -483,30 +483,30 @@ CI_{lnVR/lnCVR}=lnVR \pm 1.96\cdot SE_{lnVR/lnCVR}
 </table>
 </section>
 <section id="sec-vr" class="level2" data-number="11.1">
-<h2 data-number="11.1" class="anchored" data-anchor-id="sec-vr"><span class="header-section-number">11.1</span> Variability Ratios</h2>
+<h2 data-number="11.1" class="anchored" data-anchor-id="sec-vr"><span class="header-section-number">11.1</span> Verhoudingen variabiliteit</h2>
 <section id="sec-vr-ind" class="level3" data-number="11.1.1">
-<h3 data-number="11.1.1" class="anchored" data-anchor-id="sec-vr-ind"><span class="header-section-number">11.1.1</span> Natural Logarithm of Variability Ratio for Independent Groups (<span class="math inline">\(lnVR_\text{ind}\)</span>)</h3>
-<p>The variability ratio for independent groups can be calculated by taking the natural logarithm of the <em>standard deviation</em> within one group divided by the standard deviation in another group,</p>
+<h3 data-number="11.1.1" class="anchored" data-anchor-id="sec-vr-ind"><span class="header-section-number">11.1.1</span> Natuurlijke logaritme van de variabiliteitsratio voor onafhankelijke groepen (<span class="math inline">\(lnVR_\text{ind}\)</span>)</h3>
+<p>De variabiliteitsratio voor onafhankelijke groepen kan worden berekend door de natuurlijke logaritme te nemen van de <em>standaardafwijking</em> binnen één groep gedeeld door de standaardafwijking in een andere groep,</p>
 <p><span class="math display">\[
 lnVR_\text{ind}=\ln\left(\frac{S_T}{S_C}\right) + CF
 \]</span></p>
-<p>Where <span class="math inline">\(CF\)</span> is a small sample correction factor calculated as,</p>
+<p>Waarbij <span class="math inline">\(CF\)</span> een kleine steekproefcorrectiefactor is, berekend als,</p>
 <p><span class="math display">\[
 CF=\frac{1}{2(n_T-1)}-\frac{1}{2(n_C-1)}
 \]</span></p>
-<p>A <span class="math inline">\(lnVR\)</span> of zero therefore would indicate no difference in variation between the two groups, a <span class="math inline">\(lnVR\)</span> of &gt;0 would indicate larger variance in group 1, and <span class="math inline">\(lnVR\)</span> of &lt;0 would indicate larger variance in group 2. The standard error of the VR can be calculated as,</p>
+<p>Een <span class="math inline">\(lnVR\)</span> van nul zou dus duiden op geen verschil in variatie tussen de twee groepen, een <span class="math inline">\(lnVR\)</span> van &gt;0 zou duiden op een grotere variantie in groep 1, en <span class="math inline">\(lnVR\)</span> van &lt;0 zou duiden op een grotere variantie in groep 2. De standaardfout van de VR kan als volgt worden berekend,</p>
 <p><span class="math display">\[
 SE_{lnVR_\text{ind}}=\sqrt{\frac{n_T}{2(n_T-1)^2}+\frac{n_C}{2(n_C-1)^2}}
 \]</span></p>
-<p>In R, we can simply use the metafor packages <code>escalc()</code> function from the <code>metafor</code> package <span class="citation" data-cites="metafor">(<a href="references.html#ref-metafor" role="doc-biblioref">Viechtbauer 2010</a>)</span> as follows:</p>
+<p>In R kunnen we eenvoudigweg de <code>escalc()</code> functie uit het <code>metafor</code> pakket <span class="citation" data-cites="metafor">(<a href="references.html#ref-metafor" role="doc-biblioref">Viechtbauer 2010</a>)</span> als volgt gebruiken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1: standard deviation = 4.5, sample size = 50</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 2: standard deviation = 3.5, sample size = 50</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 1: standaard deviatie = 4.5, sample size = 50</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 2: standaard deviatie = 3.5, sample size = 50</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the data</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># data voorbereiden</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>SD1 <span class="ot">&lt;-</span> <span class="fl">4.5</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>SD2 <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> n2 <span class="ot">&lt;-</span> <span class="dv">50</span></span>
@@ -522,7 +522,7 @@ SE_{lnVR_\text{ind}}=\sqrt{\frac{n_T}{2(n_T-1)^2}+\frac{n_C}{2(n_C-1)^2}}
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>lnVRind<span class="sc">$</span>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lnVRind<span class="sc">$</span>vi)</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate confidence interval</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># berekenen van betrouwbaarheidsinterval</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>lnVRind_low <span class="ot">&lt;-</span> lnVRind<span class="sc">$</span>yi <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>lnVRind<span class="sc">$</span>SE</span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>lnVRind_high <span class="ot">&lt;-</span> lnVRind<span class="sc">$</span>yi <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>lnVRind<span class="sc">$</span>SE</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
@@ -535,35 +535,35 @@ SE_{lnVR_\text{ind}}=\sqrt{\frac{n_T}{2(n_T-1)^2}+\frac{n_C}{2(n_C-1)^2}}
 1   0.251      -0.029        0.531</code></pre>
 </div>
 </div>
-<p>From the example, we obtain a natural log variability ratio of <span class="math inline">\(lnVR_\text{ind}\)</span> = 0.25 [-0.03, 0.53].</p>
+<p>Uit het voorbeeld krijgen we een natuurlijke logvariabiliteitsratio van <span class="math inline">\(lnVR_text{ind}\)</span> = 0,25 [-0,03, 0,53].</p>
 </section>
 <section id="sec-vr-dep" class="level3" data-number="11.1.2">
-<h3 data-number="11.1.2" class="anchored" data-anchor-id="sec-vr-dep"><span class="header-section-number">11.1.2</span> Natural Logarithm of Variability Ratio for Dependent Groups (<span class="math inline">\(lnVR_\text{dep}\)</span>)</h3>
-<p>The variability ratio for dependent groups can similarly be calculated by taking the natural logarithm of the <em>standard deviation</em> within one group divided by the <em>standard deviation</em> in another group,</p>
+<h3 data-number="11.1.2" class="anchored" data-anchor-id="sec-vr-dep"><span class="header-section-number">11.1.2</span> Natuurlijke logaritme van variabiliteitsratio voor afhankelijke groepen (<span class="math inline">\(lnVR_\text{dep}\)</span>)</h3>
+<p>De variabiliteitsratio voor afhankelijke groepen kan op vergelijkbare wijze worden berekend door de natuurlijke logaritme te nemen van de <em>standaardafwijking</em> binnen de ene groep gedeeld door de <em>standaardafwijking</em> in een andere groep,</p>
 <p><span class="math display">\[
 lnVR_\text{dep}=\ln\left(\frac{S_T}{S_C}\right)
 \]</span></p>
-<p>Note, the correction factor for small sample size bias is not relevant here as due to its calculation its value is zero.</p>
+<p>Opmerking: de correctiefactor voor vertekening door kleine steekproefomvang is hier niet relevant, omdat de waarde ervan door de berekening nul is.</p>
 <p><span class="math display">\[
 SE_{lnVR_\text{dep}}=\sqrt{\frac{n}{n-1} - \frac{r^2}{n-1} +  \frac{r^4\left(S^8_T+S^8_C\right)}{2(n-1)^2 S^4_T+S^4_C}}
 \]</span></p>
-<p>In R, we can simply use the metafor packages <code>escalc()</code> function as follows:</p>
+<p>In R kunnen we eenvoudigweg de functie <code>escalc()</code> van het metafor-pakket als volgt gebruiken:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 1: standard deviation = 4.5</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Group 2: standard deviation = 3.5</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 1: standaard deviatie = 4.5</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 2: standaard deviatie = 3.5</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample size = 50</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlation = 0.4</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlatie = 0.4</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare the data</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># data voorbereiden</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>SD1 <span class="ot">&lt;-</span> <span class="fl">4.5</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>SD2 <span class="ot">&lt;-</span> <span class="fl">3.5</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">50</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># use escalc to compute lnVRdep</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># gebruik escalc om lnVRdep te berekenen</span></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>lnVRdep <span class="ot">&lt;-</span> <span class="fu">escalc</span>(</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">measure =</span> <span class="st">"VRC"</span>,</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1i =</span> SD1,</span>
@@ -575,11 +575,11 @@ SE_{lnVR_\text{dep}}=\sqrt{\frac{n}{n-1} - \frac{r^2}{n-1} +  \frac{r^4\left(S^8
 <span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>lnVRdep<span class="sc">$</span>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lnVRdep<span class="sc">$</span>vi)</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate confidence interval</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken betrouwbaarheidsinterval</span></span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>lnVRdep_low <span class="ot">&lt;-</span> lnVRdep<span class="sc">$</span>yi <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>lnVRdep<span class="sc">$</span>SE</span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>lnVRdep_high <span class="ot">&lt;-</span> lnVRdep<span class="sc">$</span>yi <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>lnVRdep<span class="sc">$</span>SE</span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># print the VR value and confidence intervals</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de VR waarde af en de betrouwbaarheidsintervallen </span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">lnVRdep =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnVRdep<span class="sc">$</span>yi),</span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">lnVRdep_low =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnVRdep_low),</span>
 <span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">v_high =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnVRdep_high))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

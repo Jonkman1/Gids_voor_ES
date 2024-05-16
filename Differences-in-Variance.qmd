@@ -1,6 +1,6 @@
-# Differences in Variability
+# Verschillen in variabiliteit
 
-Occasionally researchers would like to compare the variations between two conditions or groups rather than the mean. Two commonly used are the natural logarithms of variability ratio ($lnVR$) and the coefficient of variance ratio ($lnCVR$). The latter of these can be useful when there may be a mean-variance relationship present (i.e., variances tend to increase with mean values) in order to account for this. An lnVR or lnCVR of zero therefore would indicate no difference in variation between the two groups, an lnVR or lnCVR of \>0 would indicate larger variance in group 1, and an lnVR or lnCVR of \<0 would indicate larger variance in group 2. There are both independent and dependent versions of these effect sizes [see @senior2020]. To obtain confidence intervals of a the lnVR or lnCVR then we, for example 95% confidence intervals, we merely multiply the standard error for the parameter by 1.96 similarly to other effect size statistics,
+Soms willen onderzoekers de variaties tussen twee condities of groepen vergelijken in plaats van het gemiddelde. Twee veelgebruikte methoden zijn de natuurlijke logaritme van de variabiliteitsratio ($lnVR$) en de variantiecoëfficiëntratio ($lnCVR$). Deze laatste kan nuttig zijn als er een gemiddelde-variantieverhouding aanwezig kan zijn (d.w.z. varianties neigen toe te nemen met gemiddelde waarden) om hiermee rekening te houden. Een lnVR of lnCVR van nul zou daarom duiden op geen verschil in variatie tussen de twee groepen, een lnVR of lnCVR van \>0 zou duiden op grotere variantie in groep 1, en een lnVR of lnCVR van \<0 zou duiden op grotere variantie in groep 2. Er zijn zowel onafhankelijke als afhankelijke versies van deze effectgroottes [zie @senior2020]. Om betrouwbaarheidsintervallen van een lnVR of lnCVR te verkrijgen, bijvoorbeeld 95% betrouwbaarheidsintervallen, vermenigvuldigen we simpelweg de standaardfout voor de parameter met 1,96, net als bij andere effectgrootte statistieken,
 
 $$
 CI_{lnVR/lnCVR}=lnVR \pm 1.96\cdot SE_{lnVR/lnCVR}
@@ -19,39 +19,39 @@ $$
 |  $lnCVR_\text{dep}$ - Natural Logarithm of coefficient variation ratio for dependent groups | Used to compare the variation between paired groups (i.e., repeated measures). More useful than a variability ratio ($lnVR_\text{dep}$) when there is a relationship between the mean and variance. | @sec-cvr-ind |
 
 
-## Variability Ratios {#sec-vr}
+## Verhoudingen variabiliteit {#sec-vr}
 
-### Natural Logarithm of Variability Ratio for Independent Groups ($lnVR_\text{ind}$) {#sec-vr-ind}
+### Natuurlijke logaritme van de variabiliteitsratio voor onafhankelijke groepen ($lnVR_\text{ind}$) {#sec-vr-ind}
 
-The variability ratio for independent groups can be calculated by taking the natural logarithm of the *standard deviation* within one group divided by the standard deviation in another group,
+De variabiliteitsratio voor onafhankelijke groepen kan worden berekend door de natuurlijke logaritme te nemen van de *standaardafwijking* binnen één groep gedeeld door de standaardafwijking in een andere groep,
 
 $$
 lnVR_\text{ind}=\ln\left(\frac{S_T}{S_C}\right) + CF
 $$
 
-Where $CF$ is a small sample correction factor calculated as,
+Waarbij $CF$ een kleine steekproefcorrectiefactor is, berekend als,
+
 
 $$
 CF=\frac{1}{2(n_T-1)}-\frac{1}{2(n_C-1)}
 $$
 
-A $lnVR$ of zero therefore would indicate no difference in variation between the two groups, a $lnVR$ of \>0 would indicate larger variance in group 1, and $lnVR$ of \<0 would indicate larger variance in group 2. The standard error of the VR can be calculated as,
+Een $lnVR$ van nul zou dus duiden op geen verschil in variatie tussen de twee groepen, een $lnVR$ van \>0 zou duiden op een grotere variantie in groep 1, en $lnVR$ van \<0 zou duiden op een grotere variantie in groep 2. De standaardfout van de VR kan als volgt worden berekend,
 
 $$
 SE_{lnVR_\text{ind}}=\sqrt{\frac{n_T}{2(n_T-1)^2}+\frac{n_C}{2(n_C-1)^2}}
 $$
 
-In R, we can simply use the metafor packages `escalc()` function from the `metafor` package [@metafor] as follows:
-
+In R kunnen we eenvoudigweg de `escalc()` functie uit het `metafor` pakket [@metafor] als volgt gebruiken:
 
 ```{r, echo=TRUE, message=FALSE}
-# Example:
-# Group 1: standard deviation = 4.5, sample size = 50
-# Group 2: standard deviation = 3.5, sample size = 50
+# Voorbeeld:
+# Groep 1: standaard deviatie = 4.5, sample size = 50
+# Groep 2: standaard deviatie = 3.5, sample size = 50
 
 library(metafor)
 
-# prepare the data
+# data voorbereiden
 SD1 <- 4.5
 SD2 <- 3.5
 n1 <- n2 <- 50
@@ -67,7 +67,7 @@ lnVRind <- escalc(
 
 lnVRind$SE <- sqrt(lnVRind$vi)
 
-# calculate confidence interval
+# berekenen van betrouwbaarheidsinterval
 lnVRind_low <- lnVRind$yi - 1.96*lnVRind$SE
 lnVRind_high <- lnVRind$yi + 1.96*lnVRind$SE
 
@@ -78,44 +78,41 @@ data.frame(lnVRind = MOTE::apa(lnVRind$yi),
 
 ```
 
-
-From the example, we obtain a natural log variability ratio of $lnVR_\text{ind}$ = 0.25 \[-0.03, 0.53\].
-
+Uit het voorbeeld krijgen we een natuurlijke logvariabiliteitsratio van $lnVR_text{ind}$ = 0,25 \[-0,03, 0,53].
 
 
-### Natural Logarithm of Variability Ratio for Dependent Groups ($lnVR_\text{dep}$) {#sec-vr-dep}
+### Natuurlijke logaritme van variabiliteitsratio voor afhankelijke groepen ($lnVR_\text{dep}$) {#sec-vr-dep}
 
-The variability ratio for dependent groups can similarly be calculated by taking the natural logarithm of the *standard deviation* within one group divided by the *standard deviation* in another group,
+De variabiliteitsratio voor afhankelijke groepen kan op vergelijkbare wijze worden berekend door de natuurlijke logaritme te nemen van de *standaardafwijking* binnen de ene groep gedeeld door de *standaardafwijking* in een andere groep,
 
 $$
 lnVR_\text{dep}=\ln\left(\frac{S_T}{S_C}\right)
 $$
 
-Note, the correction factor for small sample size bias is not relevant here as due to its calculation its value is zero. 
+Opmerking: de correctiefactor voor vertekening door kleine steekproefomvang is hier niet relevant, omdat de waarde ervan door de berekening nul is.
 
 $$
 SE_{lnVR_\text{dep}}=\sqrt{\frac{n}{n-1} - \frac{r^2}{n-1} +  \frac{r^4\left(S^8_T+S^8_C\right)}{2(n-1)^2 S^4_T+S^4_C}}
 $$
 
-In R, we can simply use the metafor packages `escalc()` function as follows:
-
+In R kunnen we eenvoudigweg de functie `escalc()` van het metafor-pakket als volgt gebruiken:
 
 ```{r,echo=TRUE, message=FALSE}
-# Example:
-# Group 1: standard deviation = 4.5
-# Group 2: standard deviation = 3.5
+# Voorbeeld:
+# Groep 1: standaard deviatie = 4.5
+# Groep 2: standaard deviatie = 3.5
 # Sample size = 50
-# Correlation = 0.4
+# Correlatie = 0.4
 
 library(metafor)
 
-# prepare the data
+# data voorbereiden
 SD1 <- 4.5
 SD2 <- 3.5
 n <- 50
 r <- 0.4
 
-# use escalc to compute lnVRdep
+# gebruik escalc om lnVRdep te berekenen
 lnVRdep <- escalc(
   measure = "VRC",
   sd1i = SD1,
@@ -127,11 +124,11 @@ lnVRdep <- escalc(
 
 lnVRdep$SE <- sqrt(lnVRdep$vi)
 
-# calculate confidence interval
+# bereken betrouwbaarheidsinterval
 lnVRdep_low <- lnVRdep$yi - 1.96*lnVRdep$SE
 lnVRdep_high <- lnVRdep$yi + 1.96*lnVRdep$SE
 
-# print the VR value and confidence intervals
+# druk de VR waarde af en de betrouwbaarheidsintervallen 
 data.frame(lnVRdep = MOTE::apa(lnVRdep$yi),
            lnVRdep_low = MOTE::apa(lnVRdep_low),
            v_high = MOTE::apa(lnVRdep_high))

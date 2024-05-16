@@ -5,7 +5,7 @@ book:
   title: "Gids voor Effect Sizes en Betrouwbaarheids Intervallen"
   downloads: [pdf, docx]
   repo-url: https://github.com/MatthewBJane/guide-to-effect-sizes-and-confidence-intervals
-  cover-image: cover-image.png
+  cover-image: cover-hj.png
   twitter-card:
     image: social-preview.png
     creator: "@MatthewBJane"
