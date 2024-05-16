@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="keywords" content="samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap">
+
+<title>Gids voor Effect Sizes en Betrouwbaarheids Intervallen - 7&nbsp; Gemiddelde verschillen</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Correlations.html" rel="next">
+<link href="./Useful-R-Packages.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Gids voor Effect Sizes en Betrouwbaarheids Intervallen">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/guide-to-effect-sizes-and-confidence-intervals/social-preview.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="1417">
+<meta name="twitter:image-width" content="2835">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><strong>Gestandaardiseerde Effect Sizes</strong></a></li><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gemiddelde Verschillen</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><img src="margin-header.png" class="img-fluid"></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Inhoudsopgave</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/guide-to-effect-sizes-and-confidence-intervals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Gids-voor-Effect-Sizes-en-Betrouwbaarheids-Intervallen.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Gids-voor-Effect-Sizes-en-Betrouwbaarheids-Intervallen.docx">
+              <i class="bi bi-bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Defining-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Definiëren van Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Benchmarks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Referentiepunten</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reporting-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Rapporteren van Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interpreting-Confidence-Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interpreteren van Betrouwvaarheidsintervallen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reporting-Confidence-Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reporteren van Betrouwbaarheidsintervallen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Useful-R-Packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R Gebruiken</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text"><strong>Gestandaardiseerde Effect Sizes</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Standardized-Mean-Differences.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gemiddelde Verschillen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Correlaties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Categorical-Proportional-Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Categoriale/Proportionele Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Effect-Sizes-for-ANOVAs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ANOVA’s</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Differences-in-Variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Verschillen in Variabiliteit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Non-Parametric-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Parametrische Effect Sizes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Artifacts-and-Bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Artifacten en Vertekeningen in Effect Sizes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text"><strong>Effect Sizes Omrekenen</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Cohens-d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Omrekenen naar Cohen’s d</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Omrekenen naar Correlaties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Odds-Ratio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Omrekenen naar Odds Ratios</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text"><strong>Conclusie</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Conclusie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referenties</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#een-t-test-met-effectgrootte-en-ci-rapporteren" id="toc-een-t-test-met-effectgrootte-en-ci-rapporteren" class="nav-link active" data-scroll-target="#een-t-test-met-effectgrootte-en-ci-rapporteren"><span class="header-section-number">7.1</span> Een t-test met effectgrootte en CI rapporteren</a></li>
+  <li><a href="#sec-single-group" id="toc-sec-single-group" class="nav-link" data-scroll-target="#sec-single-group"><span class="header-section-number">7.2</span> Enkelvoudig Groep Designs</a></li>
+  <li><a href="#sec-two-ind-group" id="toc-sec-two-ind-group" class="nav-link" data-scroll-target="#sec-two-ind-group"><span class="header-section-number">7.3</span> Twee Onafhankelijke Groepen Design</a>
+  <ul class="collapse">
+  <li><a href="#sec-two-ind-group-pooled" id="toc-sec-two-ind-group-pooled" class="nav-link" data-scroll-target="#sec-two-ind-group-pooled"><span class="header-section-number">7.3.1</span> Gestanstaardiseerd met Gepoolde Standaard Deviatie (<span class="math inline">\(d_p\)</span>)</a></li>
+  <li><a href="#sec-two-ind-group-glass" id="toc-sec-two-ind-group-glass" class="nav-link" data-scroll-target="#sec-two-ind-group-glass"><span class="header-section-number">7.3.2</span> Gestandaardiseerd door Controle Groep Standaard Deviatie (<span class="math inline">\(d_{\Delta}\)</span>)</a></li>
+  </ul></li>
+  <li><a href="#sec-repeated-measures" id="toc-sec-repeated-measures" class="nav-link" data-scroll-target="#sec-repeated-measures"><span class="header-section-number">7.4</span> Herhaalde Metingen Designs</a>
+  <ul class="collapse">
+  <li><a href="#sec-repeated-measures-dz" id="toc-sec-repeated-measures-dz" class="nav-link" data-scroll-target="#sec-repeated-measures-dz"><span class="header-section-number">7.4.1</span> Verschilscore <span class="math inline">\(d\)</span> (<span class="math inline">\(d_z\)</span>)</a></li>
+  <li><a href="#sec-repeated-measures-drm" id="toc-sec-repeated-measures-drm" class="nav-link" data-scroll-target="#sec-repeated-measures-drm"><span class="header-section-number">7.4.2</span> Herhaalde Metingen <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{rm}\)</span>)</a></li>
+  <li><a href="#sec-repeated-measures-dav" id="toc-sec-repeated-measures-dav" class="nav-link" data-scroll-target="#sec-repeated-measures-dav"><span class="header-section-number">7.4.3</span> Gemiddelde variantie <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{av}\)</span>)</a></li>
+  <li><a href="#sec-becker" id="toc-sec-becker" class="nav-link" data-scroll-target="#sec-becker"><span class="header-section-number">7.4.4</span> Becker’s <span class="math inline">\(d\)</span> (<span class="math inline">\(d_b\)</span>)</a></li>
+  <li><a href="#vergelijken-herhaalde-metingen-d-waarden" id="toc-vergelijken-herhaalde-metingen-d-waarden" class="nav-link" data-scroll-target="#vergelijken-herhaalde-metingen-d-waarden"><span class="header-section-number">7.4.5</span> Vergelijken Herhaalde Metingen <span class="math inline">\(d\)</span> waarden</a></li>
+  </ul></li>
+  <li><a href="#sec-ppc" id="toc-sec-ppc" class="nav-link" data-scroll-target="#sec-ppc"><span class="header-section-number">7.5</span> Pretest-Posttest-Controle Groep Designs</a>
+  <ul class="collapse">
+  <li><a href="#sec-ppc1" id="toc-sec-ppc1" class="nav-link" data-scroll-target="#sec-ppc1"><span class="header-section-number">7.5.1</span> PPC1 - afzonderlijke pre-test standaard deviaties</a></li>
+  <li><a href="#sec-ppc2" id="toc-sec-ppc2" class="nav-link" data-scroll-target="#sec-ppc2"><span class="header-section-number">7.5.2</span> PPC2 - gepoolde pre-test standaard deviaties</a></li>
+  <li><a href="#sec-ppc3" id="toc-sec-ppc3" class="nav-link" data-scroll-target="#sec-ppc3"><span class="header-section-number">7.5.3</span> PPC3 - gepoolde pre- en post-test</a></li>
+  </ul></li>
+  <li><a href="#vertekening-van-d-waarden-in-kleine-steekproeven" id="toc-vertekening-van-d-waarden-in-kleine-steekproeven" class="nav-link" data-scroll-target="#vertekening-van-d-waarden-in-kleine-steekproeven"><span class="header-section-number">7.6</span> Vertekening van <span class="math inline">\(d\)</span> waarden in kleine steekproeven</a></li>
+  <li><a href="#sec-rr" id="toc-sec-rr" class="nav-link" data-scroll-target="#sec-rr"><span class="header-section-number">7.7</span> Verhoudingen van gemiddelden</a>
+  <ul class="collapse">
+  <li><a href="#sec-rrind" id="toc-sec-rrind" class="nav-link" data-scroll-target="#sec-rrind"><span class="header-section-number">7.7.1</span> lnRR voor onafhankelijke groepen (<span class="math inline">\(lnRR_{ind}\)</span>)</a></li>
+  <li><a href="#sec-rrdep" id="toc-sec-rrdep" class="nav-link" data-scroll-target="#sec-rrdep"><span class="header-section-number">7.7.2</span> lnRR voor afhankelijke groepen (<span class="math inline">\(lnRR_\text{dep}\)</span>)</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><strong>Gestandaardiseerde Effect Sizes</strong></a></li><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gemiddelde Verschillen</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gemiddelde verschillen</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap</p>
+  </div>
+</div>
+
+</header>
+
+
+<p>T-tests zijn de meest gebruikte statistische tests voor het onderzoeken van verschillen tussen groepsgemiddelden of het onderzoeken van een groepsgemiddelde ten opzichte van een constante. Het berekenen van effect sizes voor t-tests is vrij eenvoudig. Er zijn echter gevallen waarin cruciale cijfers voor de berekening ontbreken (wat vaak voorkomt in oudere artikelen). Daarom documenteren we methoden die gebruikmaken van gedeeltelijke informatie (bijvoorbeeld alleen de M en de SD, of alleen de t-statistiek en df) voor de berekening. Er zijn meerdere soorten effectgroottes die worden gebruikt om gestandaardiseerde gemiddelde verschillen (d.w.z. Cohen’s <span class="math inline">\(d\)</span>) te berekenen, maar onderzoekers identificeren heel vaak niet welk type <span class="math inline">\(d\)</span> waarde ze rapporteren <span class="citation" data-cites="lakens2013">(zie <a href="references.html#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. Hier documenteren we de vergelijkingen en code die nodig zijn voor het berekenen van elk type <span class="math inline">\(d\)</span> -waarde uit meerdere bronnen <span class="citation" data-cites="becker1988 cohen1988 lakens2013 caldwell glass1981a">(<a href="references.html#ref-becker1988" role="doc-biblioref">Becker 1988</a>; <a href="references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>; <a href="references.html#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>; <a href="references.html#ref-caldwell" role="doc-biblioref">Caldwell 2022</a>; <a href="references.html#ref-glass1981a" role="doc-biblioref">Glass, McGaw, and Smith 1981</a>)</span>. Een <span class="math inline">\(d\)</span> waarde berekend op basis van een steekproef bevat ook steekproeffouten, daarom tonen we ook de vergelijkingen om de standaardfout te berekenen. Met de standaard kunnen we dan het betrouwbaarheidsinterval berekenen. Voor elke formulering in de onderstaande paragrafen kan het betrouwbaarheidsinterval op dezelfde manier worden berekend, dat wil zeggen,</p>
+<p><span class="math display">\[
+CI_d = d \pm 1.96\times SE
+\]</span></p>
+<p>Tot slot leveren we voorbeeld R-code zodat je deze kunt toepassen op je eigen gegevens.</p>
+<section id="hier-is-een-tabel-voor-elke-effectgrootte-die-in-dit-hoofdstuk-is-besproken" class="level4 unnumbered">
+<h4 class="unnumbered anchored" data-anchor-id="hier-is-een-tabel-voor-elke-effectgrootte-die-in-dit-hoofdstuk-is-besproken"><strong>Hier is een tabel voor elke effectgrootte die in dit hoofdstuk is besproken:</strong></h4>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 43%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Beschrijving</th>
+<th style="text-align: center;">Sectie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Enkelvoudig Groep Design</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><a href="#sec-single-group" class="quarto-xref"><span>Section 7.2</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_s\)</span> - Enkelvoudige groep</td>
+<td style="text-align: left;">Gestandardiseerd gemiddelde verschil voor vergelijken van een enkelvoudige met een bepaalde constante</td>
+<td style="text-align: center;"><a href="#sec-single-group" class="quarto-xref"><span>Section 7.2</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Twee Onafhankelijke Groepen Design</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><a href="#sec-two-ind-group" class="quarto-xref"><span>Section 7.3</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_p\)</span> - Gepoolde Standaard Deviatie</td>
+<td style="text-align: left;">Gebruik gemiddelde tussen-groep standaard deviatie om het gemiddelde standaard verschil te standaardiseren. Kan direct worden berekend van een onafhankelijke sample t-test. Gaat uit van homogeniteit van variantie tussen groepen.</td>
+<td style="text-align: center;"><a href="#sec-two-ind-group-pooled" class="quarto-xref"><span>Section 7.3.1</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(d_\Delta\)</span> - Controle Groep Standaard Deviatie</td>
+<td style="text-align: left;">Gebruikt de standaard deviatie van de controle groep om het gemiddelde standaard verschil te standaardiseren (vaak aangeduid met Glass’s Delta). Veronderstelt geen homogeniteit van variantie tussen behandel/interventie en controle groep.</td>
+<td style="text-align: center;"><a href="#sec-two-ind-group-glass" class="quarto-xref"><span>Section 7.3.2</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Herhaalde Metingen (Gepaard Groepen) Design</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><a href="#sec-repeated-measures" class="quarto-xref"><span>Section 7.4</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(d_z\)</span> - Verschilscore standaard deviatie</td>
+<td style="text-align: left;">Gebruikt de standaard deviatie van verschilscores (ook bekend als veranderingsscores) om de tussenpersoon gemiddelde scoreverschil te standaardiseren (b.v., pre/post-verandering).</td>
+<td style="text-align: center;"><a href="#sec-repeated-measures-dz" class="quarto-xref"><span>Section 7.4.1</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_{rm}\)</span> - Herhaalde metingen</td>
+<td style="text-align: left;">Gebruikt de standaarddeviatie binnen een persoon die een correctie op <span class="math inline">\(d_z\)</span> toepast om de invloed van de pre/post-correlatie op de effectgrootte te verminderen. Gaat uit van homogeniteit van variantie tussen condities.</td>
+<td style="text-align: center;"><a href="#sec-repeated-measures-drm" class="quarto-xref"><span>Section 7.4.2</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(d_{av}\)</span> - Gemiddelde variantie</td>
+<td style="text-align: left;">Gebruikt de gepoolde variantie tussen condities (pre/post test). Maakt geen gebruik van de correlatie tussen condities. Gaat uit van homogeniteit van variantie tussen condities.</td>
+<td style="text-align: center;"><a href="#sec-repeated-measures-dav" class="quarto-xref"><span>Section 7.4.3</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_{b}\)</span> - Becker’s <em>d</em></td>
+<td style="text-align: left;">Gebruikt de standaarddeviatie van de pre-test om het verschil tussen het gemiddelde voor en na de test te standaardiseren. Gaat niet uit van homogeniteit van variantie tussen pre- en posttest.</td>
+<td style="text-align: center;"><a href="#sec-becker" class="quarto-xref"><span>Section 7.4.4</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Pre-Post-Controle Design</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><a href="#sec-ppc" class="quarto-xref"><span>Section 7.5</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_{PPC1}\)</span> - Afzonderlijke standaarddeviaties van de pre-test</td>
+<td style="text-align: left;">Gedefinieerd als het verschil tussen de Becker’s <em>d</em> tussen de behandel- en controlegroep. Met name het standaardiseren van de gemiddelde verandering voor/na door de pre-test van de betreffende groep.</td>
+<td style="text-align: center;"><a href="#sec-ppc1" class="quarto-xref"><span>Section 7.5.1</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(d_{PPC2}\)</span> - Standaarddeviatie gepoolde pre-test</td>
+<td style="text-align: left;">Standaardiseert het verschil in gemiddelde veranderingen tussen de behandel- en controlegroep. Gaat uit van homogeniteit van variantie tussen de pre-test van de controle- en behandelingsconditie.</td>
+<td style="text-align: center;"><a href="#sec-ppc2" class="quarto-xref"><span>Section 7.5.2</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(d_{PPC3}\)</span> - Standaarddeviatie gepoolde pre-test en post-test</td>
+<td style="text-align: left;">Poolt de standaardafwijking tussen pre-test en post-test in behandeling en controleconditie. Gaat uit van homogeniteit van variantie tussen pre-/posttestscores <em>en</em> behandel- en controleconditie. Betrouwbaarheidsintervallen zijn niet eenvoudig te berekenen.</td>
+<td style="text-align: center;"><a href="#sec-ppc3" class="quarto-xref"><span>Section 7.5.3</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Gemiddelde verhoudingen</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: center;"><a href="Categorical-Proportional-Data.html#sec-rr" class="quarto-xref"><span>Section 9.2.8</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(lnRR_\text{ind}\)</span> - Responsratio tussen onafhankelijke groepen</td>
+<td style="text-align: left;">De verhouding tussen de gemiddelden van twee groepen. Gebruikt de standaarddeviatie niet in de formule voor de effectgrootte.</td>
+<td style="text-align: center;">Responsratio tussen afhankelijke groepen</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="een-t-test-met-effectgrootte-en-ci-rapporteren" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="een-t-test-met-effectgrootte-en-ci-rapporteren"><span class="header-section-number">7.1</span> Een t-test met effectgrootte en CI rapporteren</h2>
+<p>Welke effectgrootte en CI je ook wilt rapporteren, je kunt deze rapporteren naast de t-teststatistieken (d.w.z. de t-waarde en de p-waarde). Bijvoorbeeld,</p>
+<blockquote class="blockquote">
+<p>De behandelgroep had een significant hoger gemiddelde dan de controlegroep (<em>t</em> = 2,76, <em>p</em> = .009, <em>n</em> = 35, <em>d</em> = 0,47 [0,11, 0,81]).</p>
+</blockquote>
+</section>
+<section id="sec-single-group" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-single-group"><span class="header-section-number">7.2</span> Enkelvoudig Groep Designs</h2>
+<p>Voor een ontwerp met één groep hebben we één groep en willen we het gemiddelde van die groep vergelijken met een constante, <span class="math inline">\(C\)</span> (d.w.z. een doelwaarde). Het gestandaardiseerde gemiddelde verschil voor een enkele groep kan worden berekend met <span class="citation" data-cites="cohen1988">(vergelijking 2.3.3, <a href="references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>,</p>
+<p><span class="math display">\[
+d_s = \frac{M-C}{S_1}
+\]</span></p>
+<p>Een positieve <span class="math inline">\(d_s\)</span> waarde geeft aan dat het gemiddelde groter is dan de doelwaarde, <span class="math inline">\(C\)</span>. Deze formulering gaat ervan uit dat de steekproef getrokken wordt uit een normale verdeling. De standaardisator (d.w.z. de noemer) is de standaardafwijking van de steekproef. De bijbehorende standaardafwijking voor <span class="math inline">\(d_s\)</span> is <span class="citation" data-cites="caldwell">(zie documentatie voor <a href="references.html#ref-caldwell" role="doc-biblioref">Caldwell 2022</a>)</span>,</p>
+<p><span class="math display">\[
+SE_{d_s} = \sqrt{\frac{1}{n}+\frac{d_s^2}{2n}}.
+\]</span></p>
+<p>In R kunnen we de functie <code>d.single.t</code> uit het pakket <code>MOTE</code> gebruiken om het gestandaardiseerde gemiddelde verschil voor één groep te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installeer pakketten als ze al niet geínstalleerd zijn</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('MOTE')</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d voor één gropp</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample Gemiddelde = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Doelwaarde, C = 15</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.single.t</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="fl">30.4</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">u =</span> <span class="dv">15</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">22.53</span>,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af </span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.684 0.460 0.904</code></pre>
+</div>
+</div>
+<p>Zoals je kunt zien, laat de uitvoer zien dat de effectgrootte <span class="math inline">\(d_s\)</span> = 0,68, 95% CI [0,46, 0,90]. Merk op dat de <code>apa</code> functie in <code>MOTE</code> een waarde aanneemt en een APA geformatteerde effectgrootte waarde teruggeeft (d.w.z., voorloopnul en drie decimalen).</p>
+</section>
+<section id="sec-two-ind-group" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="sec-two-ind-group"><span class="header-section-number">7.3</span> Twee Onafhankelijke Groepen Design</h2>
+<section id="sec-two-ind-group-pooled" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="sec-two-ind-group-pooled"><span class="header-section-number">7.3.1</span> Gestanstaardiseerd met Gepoolde Standaard Deviatie (<span class="math inline">\(d_p\)</span>)</h3>
+<p>Voor een tweegroepsdesign (d.w.z. between-groups design) willen we de gemiddelden van twee groepen (groep 1 en groep 2) vergelijken. Het gestandaardiseerde gemiddelde verschil tussen twee groepen kan worden berekend met <span class="citation" data-cites="glass1981a">(vergelijking 5.1, <a href="references.html#ref-glass1981a" role="doc-biblioref">Glass, McGaw, and Smith 1981</a>)</span>,</p>
+<p><span class="math display">\[
+d_p = \frac{M_1-M_2}{S_p}.
+\]</span></p>
+<p>Een positieve <span class="math inline">\(d_p\)</span> waarde zou aangeven dat het gemiddelde van groep 1 groter is dan het gemiddelde van groep 2. Het gemiddelde verschil delen door de gepoolde standaardafwijking, <span class="math inline">\(S_p\)</span>, is de klassieke formulering van Cohen’s <span class="math inline">\(d\)</span>. De gepoolde standaardafwijking, <span class="math inline">\(S_p\)</span>, kan worden berekend als de vierkantswortel van de gemiddelde variantie (gewogen door de vrijheidsgraden, <span class="math inline">\(df=n-1\)</span>) van groep 1 en groep 2 <span class="citation" data-cites="glass1981a">(pp.&nbsp;108, <a href="references.html#ref-glass1981a" role="doc-biblioref">Glass, McGaw, and Smith 1981</a>)</span>:</p>
+<p><span class="math display">\[
+S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
+\]</span></p>
+<p>Merk op dat de term <em>variantie</em> verwijst naar het kwadraat van de standaardafwijking (<span class="math inline">\(S^2\)</span>). Cohen’s <span class="math inline">\(d_p\)</span> is gerelateerd aan de t-statistiek van een onafhankelijke t-test. In feite kunnen we de <span class="math inline">\(d_p\)</span> waarde uit de <span class="math inline">\(t\)</span>-statistiek berekenen met de volgende formule <span class="citation" data-cites="glass1981a">(vergelijking 5.3, <a href="references.html#ref-glass1981a" role="doc-biblioref">Glass, McGaw, and Smith 1981</a>)</span>:</p>
+<p><span class="math display">\[
+d = t\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}.
+\]</span></p>
+<p>De bijbehorende standaardfout van <span class="math inline">\(d_p\)</span> is,</p>
+<p><span class="math display">\[
+SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
+\]</span></p>
+<p>In R kunnen we de <code>d.ind.t</code> functie uit het <code>MOTE</code> pakket gebruiken om het gestandaardiseerde gemiddelde verschil tussen twee groepen te berekenen. Omdat we het <code>MOTE</code> pakket al hebben geladen, hoeven we dat niet nog een keer te doen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d voor twee onafhankelijke groepen</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven gemiddelden en SDs</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 1 Gemiddelde = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 2 Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.ind.t</span>(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n1 =</span> <span class="dv">96</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n2 =</span> <span class="dv">96</span>,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af </span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.426 0.140 0.712</code></pre>
+</div>
+</div>
+<p>De output laat de resultaten zien: <span class="math inline">\(d_p\)</span> = 0.43, 95% CI [0.14, 0.71].</p>
+</section>
+<section id="sec-two-ind-group-glass" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="sec-two-ind-group-glass"><span class="header-section-number">7.3.2</span> Gestandaardiseerd door Controle Groep Standaard Deviatie (<span class="math inline">\(d_{\Delta}\)</span>)</h3>
+<p>Als twee groepen aanzienlijk verschillen in hun standaarddeviaties, kunnen we in plaats daarvan standaardiseren met de standaarddeviatie van de controlegroep (<span class="math inline">\(S_C\)</span>), zodat,</p>
+<p><span class="math display">\[
+d_{\Delta} = \frac{M_T-M_C}{S_C}.
+\]</span></p>
+<p>Waarbij de subscripts, <span class="math inline">\(T\)</span> en <span class="math inline">\(C\)</span>, respectievelijk de behandelgroep en controlegroep aanduiden. Deze formulering wordt gewoonlijk Glass’ <span class="math inline">\(Delta\)</span> genoemd <span class="citation" data-cites="glass1981">(<a href="references.html#ref-glass1981" role="doc-biblioref">Glass 1981</a>)</span>. De standaardfout voor <span class="math inline">\(d_{\Delta}\)</span> kan worden gedefinieerd als,</p>
+<p><span class="math display">\[
+SE_{d_{\Delta}} = \sqrt{\frac{n_T+n_C}{n_T n_C} + \frac{d_\Delta^2}{n_C+1} }
+\]</span></p>
+<p>Merk op dat als we alleen standaardiseren door de standaardafwijking van de controlegroep (in plaats van poolen), we minder vrijheidsgraden hebben (<span class="math inline">\(df=n_C-1\)</span>) en dus meer steekproeffout dan wanneer we delen door de gepoolde standaardafwijking (<span class="math inline">\(df= n_T + n_C - 2\)</span>). In R kunnen we de functie <code>delta.ind.t.diff</code> uit het pakket <code>MOTE</code> gebruiken om <span class="math inline">\(d_Delta\)</span> te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's dz voor verschilscores</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven verschilscore gemiddelden en SDs</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Controle groep Gemiddelde = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Behandel groep Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correlatie tussen condities: r = .40</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">delta.ind.t</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">n1 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n2 =</span> <span class="dv">96</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.399 0.140 0.712</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-repeated-measures" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="sec-repeated-measures"><span class="header-section-number">7.4</span> Herhaalde Metingen Designs</h2>
+<p>In een ontwerp met herhaalde metingen worden dezelfde proefpersonen (of items, enz.) gemeten op twee of meer afzonderlijke gelegenheden of in meerdere omstandigheden binnen één sessie. Tegelijk willen het gemiddelde verschil weten tussen die gelegenheden of omstandigheden <span class="citation" data-cites="baayen2008mixed barr2013random">(<a href="references.html#ref-baayen2008mixed" role="doc-biblioref">Baayen, Davidson, and Bates 2008</a>; <a href="references.html#ref-barr2013random" role="doc-biblioref">Barr et al. 2013</a>)</span>. Een voorbeeld hiervan is een pre/post-vergelijking waarbij proefpersonen worden getest voor en na het ondergaan van een bepaalde behandeling (zie <a href="#fig-repeatedmeasures" class="quarto-xref">Figure&nbsp;<span>7.1</span></a> voor een visualisatie). Een gestandaardiseerd gemiddeld verschil in een ontwerp met herhaalde metingen kan een paar verschillende vormen aannemen die we hieronder definiëren.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-repeatedmeasures" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-repeatedmeasures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Standardized-Mean-Differences_files/figure-html/fig-repeatedmeasures-1.png" class="img-fluid figure-img" width="2100">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-repeatedmeasures-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.1: Figuur met gesimuleerde data van een herhaalde metingen ontwerp, de x-as toont de conditie (bijv. pre-test en post-test) en de y-as zijn de scores. Lijnen geven de verandering binnen de persoon voor/na aan.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sec-repeated-measures-dz" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="sec-repeated-measures-dz"><span class="header-section-number">7.4.1</span> Verschilscore <span class="math inline">\(d\)</span> (<span class="math inline">\(d_z\)</span>)</h3>
+<p>In plaats van de gemiddelden van twee sets scores met elkaar te vergelijken, kunnen we bij een within subject design de scores verkregen in conditie 1 aftrekken van de scores in conditie 2. Deze verschilscores (<span class="math inline">\(X_{{diff}}=X_2-X_1\)</span>) kunnen op dezelfde manier worden gebruikt als bij het single group design (als de doelwaarde nul was, d.w.z. <span class="math inline">\(C=0\)</span>), zodat <span class="citation" data-cites="cohen1988">(vergelijking 2.3.5, <a href="references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>,</p>
+<p><span class="math display">\[
+d_z = \frac{M_{\text{diff}}}{S_{\text{diff}}}
+\]</span></p>
+<p>Het verschil tussen deze formulering en het enkelvoudig groep design is de aard van de scores (verschilscores in plaats van ruwe scores). Het handige van <span class="math inline">\(d_z\)</span> is dat het een direct verband heeft met de <span class="math inline">\(t\)</span>-statistiek, <span class="math inline">\(d_z=\frac{t}{\sqrt{n}}\)</span>. Dit maakt het erg nuttig voor poweranalyses. Als de standaardafwijking van de verschilscores niet toegankelijk is, kan deze berekend worden met de standaardafwijking van conditie 1 (<span class="math inline">\(S_1\)</span>), de standaardafwijking van conditie 2 (<span class="math inline">\(S_2\)</span>) en de correlatie tussen condities (<span class="math inline">\(r\)</span>) <span class="citation" data-cites="cohen1988">(vergelijking 2.3.6, <a href="references.html#ref-cohen1988" role="doc-biblioref">Cohen 1988</a>)</span>:</p>
+<p><span class="math display">\[
+S_{\text{diff}}=\sqrt{S^2_1 + S^2_2 - 2 r S_1 S_2}
+\]</span></p>
+<p>Het is belangrijk op te merken dat wanneer de correlatie tussen groepen groot is, de <span class="math inline">\(d_z\)</span> waarde ook groter zal zijn, terwijl een kleine correlatie een kleinere <span class="math inline">\(d_z\)</span> waarde zal opleveren. De standaardafwijking van <span class="math inline">\(d_z\)</span> kan op dezelfde manier worden berekend als bij het ontwerp met één groep, zodat,</p>
+<p><span class="math display">\[
+SE_{d_z} = \sqrt{\frac{1}{n}+\frac{d_z^2}{2n}}
+\]</span></p>
+<p>In R kunnen we de functie <code>d.ind.t.diff</code> uit het pakket <code>MOTE</code> gebruiken om <span class="math inline">\(d_z\)</span> te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's dz voor verschilscores</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven verschilscore gemiddelden en SDs</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Verschilscore Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.diff</span>(</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m =</span> <span class="fl">21.4</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd =</span> <span class="fl">19.59</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 1.092 0.837 1.344</code></pre>
+</div>
+</div>
+<p>De uitvoer laat zien dat de effectgrootte <span class="math inline">\(d_z\)</span> = 1,09, 95% CI [0,84, 1,34].</p>
+</section>
+<section id="sec-repeated-measures-drm" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="sec-repeated-measures-drm"><span class="header-section-number">7.4.2</span> Herhaalde Metingen <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{rm}\)</span>)</h3>
+<p>Voor een binnen-groep design willen we de gemiddelden van scores verkregen uit conditie 1 en conditie 2 vergelijken. Het repeated measures gestandaardiseerde gemiddelde verschil tussen de twee condities kan worden berekend met <span class="citation" data-cites="lakens2013">(vergelijking 9, <a href="references.html#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>,</p>
+<p><span class="math display">\[
+d_{rm} = \frac{M_2-M_1}{S_w}.
+\]</span></p>
+<p>Een positieve <span class="math inline">\(d_{rm}\)</span> waarde zou aangeven dat het gemiddelde van toestand 2 groter is dan het gemiddelde van toestand 1. Het gaat hier om de standaardafwijking binnen het onderwerp, <span class="math inline">\(S_w\)</span>. De standaardafwijking binnen het onderwerp kan als volgt worden gedefinieerd,</p>
+<p><span class="math display">\[
+S_{w}=\sqrt{\frac{S^2_1 + S^2_2 - 2 r S_1 S_2}{2(1-r)}}.
+\]</span></p>
+<p>We kunnen <span class="math inline">\(S_w\)</span> ook uitdrukken in termen van de standaardafwijking van de verschilscores (<span class="math inline">\(S_{{diff}}\)</span>),</p>
+<p><span class="math display">\[
+S_w = \frac{S_{\text{diff}}}{ \sqrt{2(1-r)} }.
+\]</span></p>
+<p>Verder kunnen we <span class="math inline">\(d_{rm}\)</span> zelfs uitdrukken in termen van de verschilscore gestandaardiseerd gemiddeld verschil (<span class="math inline">\(d_z\)</span>),</p>
+<p><span class="math display">\[
+d_{rm} = d_z \times \sqrt{2(1-r)}.
+\]</span></p>
+<p>Uiteindelijk is <span class="math inline">\(d_{rm}\)</span> meer geschikt als effectgrootteschatting voor gebruik in meta-analyses, terwijl <span class="math inline">\(d_z\)</span> meer geschikt is voor poweranalyse <span class="citation" data-cites="lakens2013">(<a href="references.html#ref-lakens2013" role="doc-biblioref">Lakens 2013</a>)</span>. De standaardfout voor <span class="math inline">\(d_{rm}\)</span> kan als volgt worden berekend,</p>
+<p><span class="math display">\[
+SE_{d_{rm}} = \sqrt{\left(\frac{1}{n} + \frac{d^2_{rm}}{2n}\right) \times 2(1-r)}
+\]</span></p>
+<p>In R kunnen we de <code>d.ind.t.rm</code> functie uit het <code>MOTE</code> pakket gebruiken om het repeated measures standardized mean difference (<span class="math inline">\(d_{rm}\)</span>) te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d voor herhaalde metingen</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven gemiddelden en SDs en correlatie</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditie 1 Gemiddelde = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditie 2 Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># correlatie tussen condities: r = .40</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.rm</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">r =</span> .<span class="dv">40</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.425 0.215 0.633</code></pre>
+</div>
+</div>
+<p>De uitvoer laat zien dat de effectgrootte <span class="math inline">\(d_{rm}\)</span> = 0,42, 95% CI [0,21, 0,63] is.</p>
+</section>
+<section id="sec-repeated-measures-dav" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="sec-repeated-measures-dav"><span class="header-section-number">7.4.3</span> Gemiddelde variantie <span class="math inline">\(d\)</span> (<span class="math inline">\(d_{av}\)</span>)</h3>
+<p>Het probleem met <span class="math inline">\(d_{z}\)</span> en <span class="math inline">\(d_{rm}\)</span> is dat ze de correlatie tussen condities vereisen. In de praktijk worden correlaties tussen condities vaak niet gerapporteerd. Een alternatieve schatter van Cohen’s <span class="math inline">\(d\)</span> bij een ontwerp met herhaalde metingen is om gewoon de klassieke variatie van Cohen’s <span class="math inline">\(d\)</span> te gebruiken (d.w.z. gepoolde standaardafwijking). In een ontwerp met herhaalde metingen verandert de steekproefgrootte niet tussen condities. Daarom is het wegen van de variantie van toestand 1 en toestand 2 met hun respectieve vrijheidsgraden (d.w.z. <span class="math inline">\(df=n-1\)</span>) een onnodige stap. In plaats daarvan kunnen we standaardiseren met de vierkantswortel van het gemiddelde van de varianties van toestand 1 en 2 <span class="citation" data-cites="algina2003">(zie vergelijking 5, <a href="references.html#ref-algina2003" role="doc-biblioref">Algina and Keselman 2003</a>)</span>:</p>
+<p><span class="math display">\[
+d_{av} = \frac{M_2 - M_1}{\sqrt{\frac{S_1^2 + S_2^2}{2}}}
+\]</span></p>
+<p>Deze formulering is vooral handig als de correlatie niet aanwezig is, maar zonder de correlatie wordt er geen rekening gehouden met de consistentie van verandering tussen condities. De standaardfout van de <span class="math inline">\(d_{av}\)</span> kan worden uitgedrukt als <span class="citation" data-cites="algina2003">(vergelijking 9, <a href="references.html#ref-algina2003" role="doc-biblioref">Algina and Keselman 2003</a>)</span>,</p>
+<p><span class="math display">\[
+SE_{d_{av}}= \sqrt{\frac{2(S^2_1 + S^2_2 - 2rS_1S_2)}{n(S_1^2+S^2)}}
+\]</span></p>
+<p>In R kunnen we de <code>d.ind.t.rm</code> functie uit het <code>MOTE</code> pakket gebruiken om het herhaalde metingen gestandardiseerde gemiddelde verschil (<span class="math inline">\(d_{rm}\)</span>) te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d voor herhaalde metingen (gemiddelde variantie)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven gemiddelde en SDs </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditie 1 Gemiddelde = 30.4, SD = 22.53, N = 96</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditie 2 Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>stats <span class="ot">&lt;-</span> <span class="fu">d.dep.t.avg</span>(</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">m1 =</span> <span class="fl">30.4</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">m2 =</span> <span class="fl">21.4</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd1 =</span> <span class="fl">22.53</span>,</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">sd2 =</span> <span class="fl">19.59</span>,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="dv">96</span>,</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">a =</span> <span class="fl">0.05</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervalel af</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>d), </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dlow), </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(stats<span class="sc">$</span>dhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.427 0.217 0.635</code></pre>
+</div>
+</div>
+<p>De uitvoer laat zien dat de effectgrootte <span class="math inline">\(d_{av}\)</span> = 0,43, 95% CI [0,22, 0,64].</p>
+</section>
+<section id="sec-becker" class="level3" data-number="7.4.4">
+<h3 data-number="7.4.4" class="anchored" data-anchor-id="sec-becker"><span class="header-section-number">7.4.4</span> Becker’s <span class="math inline">\(d\)</span> (<span class="math inline">\(d_b\)</span>)</h3>
+<p>Een nog eenvoudiger variant van herhaalde metingen <span class="math inline">\(d\)</span>waarde komt van <span class="citation" data-cites="becker1988">Becker (<a href="references.html#ref-becker1988" role="doc-biblioref">1988</a>)</span>. Becker’s <span class="math inline">\(d\)</span> standaardiseert eenvoudigweg met de standaardafwijking vóór de test als de vergelijking een pre-post design is,</p>
+<p><span class="math display">\[
+d_b = \frac{M_{\text{post}}-M_{\text{pre}}}{S_{\text{pre}}}.
+\]</span></p>
+<p>De handige interpretatie van “verandering in basislijnstandaarddeviaties” kan heel nuttig zijn. We kunnen de standaardfout ook verkrijgen met <span class="citation" data-cites="becker1988">(vergelijking 13, <a href="references.html#ref-becker1988" role="doc-biblioref">Becker 1988</a>)</span>,</p>
+<p><span class="math display">\[
+SE_{d_b} = \sqrt{\frac{2(1-r)}{n}+\frac{d_b^2}{2n}}
+\]</span></p>
+<p>Merk op dat hoewel de formule voor het berekenen van <span class="math inline">\(d_b\)</span> niet de correlatiecoëfficiënt bevatte, de standaardfout dat wel doet.</p>
+<p>In basis-R kunnen we Becker’s formulering van gestandaardiseerd gemiddelde verschil berekenen met bovenstaande vergelijkingen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installeer het pakket hieronder als je dat al niet gedaan hebt</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(escalc)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d voor herhaalde metingen (becker's d)</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven gemiddelde, de pre-test SDs en de correlatie</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Pre-test Gemiddelde = 21.4, SD = 19.59, N = 96</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Post-test Gemiddelde = 30.4, N = 96</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlatie tussen condities: r = .40</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>Mpre <span class="ot">&lt;-</span> <span class="fl">21.4</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>Mpost <span class="ot">&lt;-</span> <span class="fl">30.4</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>Spre <span class="ot">&lt;-</span> <span class="fl">19.59</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> .<span class="dv">40</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">96</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> (Mpost <span class="sc">-</span> Mpre) <span class="sc">/</span> Spre</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>r)<span class="sc">/</span>n <span class="sc">+</span> d<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>n) )</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintervallen af </span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(d), </span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(d <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE), </span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(d <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.459 0.231 0.688</code></pre>
+</div>
+</div>
+<p>De uitvoer laat zien dat de effectgrootte <span class="math inline">\(d_{rm}\)</span> = 0,46, 95% CI [0,23, 0,69].</p>
+</section>
+<section id="vergelijken-herhaalde-metingen-d-waarden" class="level3" data-number="7.4.5">
+<h3 data-number="7.4.5" class="anchored" data-anchor-id="vergelijken-herhaalde-metingen-d-waarden"><span class="header-section-number">7.4.5</span> Vergelijken Herhaalde Metingen <span class="math inline">\(d\)</span> waarden</h3>
+<p><a href="#fig-correlation-comp" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> toont herhaalde metingen ontwerpen met een hoge (<span class="math inline">\(r=\)</span> .95) en lage (<span class="math inline">\(r=\)</span> .05) correlatie tussen condities. Laten we de standaarddeviaties en gemiddelden voor beide condities (hoge en lage correlatie) vastzetten en alleen de correlatie variëren. Nu kunnen we de herhaalde-maatregelen-schatters op basis van deze twee condities in <a href="#fig-correlation-comp" class="quarto-xref">Figure&nbsp;<span>7.2</span></a> vergelijken:</p>
+<ul>
+<li>Hoge correlatie:
+<ul>
+<li><span class="math inline">\(d_z=1.24\)</span></li>
+<li><span class="math inline">\(d_{rm}=0.39\)</span></li>
+<li><span class="math inline">\(d_{av}=0.43\)</span></li>
+<li><span class="math inline">\(d_{b}=0.40\)</span></li>
+</ul></li>
+<li>Lage correlatie:
+<ul>
+<li><span class="math inline">\(d_z=0.31\)</span></li>
+<li><span class="math inline">\(d_{rm}=0.43\)</span></li>
+<li><span class="math inline">\(d_{av}=0.43\)</span></li>
+<li><span class="math inline">\(d_{b}=0.40\)</span></li>
+</ul></li>
+</ul>
+<p>We merken op dat de correlatie <span class="math inline">\(d_z\)</span> sterker beïnvloedt dan elke andere schatter. De waarde van <span class="math inline">\(d_{rm}\)</span> verandert heel weinig, terwijl <span class="math inline">\(d_{av}\)</span> en <span class="math inline">\(d_{b}\)</span> helemaal geen rekening houden met de correlatie.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-correlation-comp" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-correlation-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Standardized-Mean-Differences_files/figure-html/fig-correlation-comp-1.png" class="img-fluid figure-img" width="2100">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-correlation-comp-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.2: Figuur met gesimuleerde gegevens van een herhaald metingenontwerp, waarbij de x-as de conditie weergeeft (bijv. pre-test en post-test) en de y-as de scores. Het linkerpaneel toont een hoge pre-post correlatie (<span class="math inline">\(r\)</span> = .95) en het rechterpaneel toont een conditie met een lage correlatie (<span class="math inline">\(r\)</span> = .05). Lijnen geven de verandering binnen de persoon voor/na aan.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-ppc" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="sec-ppc"><span class="header-section-number">7.5</span> Pretest-Posttest-Controle Groep Designs</h2>
+<p>In veel onderzoeksgebieden worden zowel tussen als binnen de groep factoren opgenomen. Bij onderzoek waarbij de effecten van een interventie worden onderzocht, wordt een steekproef bijvoorbeeld vaak gerandomiseerd in twee afzonderlijke groepen (interventie en controle) en wordt de uitkomst van belang zowel voor (pretest) als na (posttest) de interventie/controleperiode gemeten. In dit soort 2x2 (groep x tijd) studieontwerpen is het meestal het verschil tussen de gestandaardiseerde gemiddelde verandering voor de interventie/behandeling (<span class="math inline">\(T\)</span>) en de controlegroep (<span class="math inline">\(C\)</span>) dat van belang is. Voor een visualisatie van een pretest-posttest-controlegroepdesign zie <a href="#fig-ppc" class="quarto-xref">Figure&nbsp;<span>7.3</span></a>.</p>
+<p><span class="citation" data-cites="morris2008">Morris (<a href="references.html#ref-morris2008" role="doc-biblioref">2008</a>)</span> geeft drie effectgroottes voor deze pretest-posttest-controle (PPC).</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ppc" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ppc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Standardized-Mean-Differences_files/figure-html/fig-ppc-1.png" class="img-fluid figure-img" width="2100">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ppc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7.3: Illustration of a pre-post control design. Left panel shows the pre-post difference in the control group and right panel shows the pre-post difference in the intervention/treatment group. Lines indicate within person pre/post change.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sec-ppc1" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="sec-ppc1"><span class="header-section-number">7.5.1</span> PPC1 - afzonderlijke pre-test standaard deviaties</h3>
+<p>De afzonderlijke standaarddeviaties van de pre-test (d.w.z. baseline) worden gebruikt om het gemiddelde verschil van de interventiegroep en de controlegroep van voor en na te standaardiseren <span class="citation" data-cites="morris2008">(zie vergelijking 4, <a href="references.html#ref-morris2008" role="doc-biblioref">Morris 2008</a>)</span>,</p>
+<p><span class="math display">\[
+d_T = \frac{M_{T,\text{post}} - M_{T,\text{pre}}}{S_{T,\text{pre}}}
+\]</span></p>
+<p><span class="math display">\[
+d_C = \frac{M_{C,\text{post}} - M_{C,\text{pre}}}{S_{C,\text{pre}}}
+\]</span></p>
+<p>Merk op dat deze effectgroottes identiek zijn aan de <span class="math inline">\(d\)</span> formulering van de SMD van Becker (zie <a href="#sec-becker" class="quarto-xref"><span>Section 7.4.4</span></a>). Daarom is de pretest-posttest-controlegroep effectgrootte simpelweg het verschil tussen de interventie en controle pre/post SMD <span class="citation" data-cites="becker1988">(vergelijking 15, <a href="references.html#ref-becker1988" role="doc-biblioref">Becker 1988</a>)</span>,</p>
+<p><span class="math display">\[
+d_{PPC1} = d_T - d_C
+\]</span></p>
+<p>De asymptotische standaardafwijking van <span class="math inline">\(d_{PPC2}\)</span> werd voor het eerst afgeleid door <span class="citation" data-cites="becker1988">Becker (<a href="references.html#ref-becker1988" role="doc-biblioref">1988</a>)</span> en kan worden uitgedrukt als de vierkantswortel van de som van de steekproefvarianties <span class="citation" data-cites="becker1988">(vergelijking 16, <a href="references.html#ref-becker1988" role="doc-biblioref">Becker 1988</a>)</span>.</p>
+<p><span class="math display">\[
+SE_{d_{PPC1}} = \sqrt{\left[\frac{2(1-r_T)}{n_T} + \frac{d_T}{2n_T}\right] + \left[\frac{2(1-r_C)}{n_C} + \frac{d_C}{2n_C}\right]}
+\]</span></p>
+<p>We kunnen <span class="math inline">\(d_{PPC1}\)</span> en zijn betrouwbaarheidsintervallen berekenen met R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Controle Groep (N = 90)</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 6</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 25, SD = 7</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>M_Cpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>M_Cpost <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>SD_Cpre <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>SD_Cpost <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>rC <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>nC <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Interventie Groep (N = 90)</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 5</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 27, SD = 8</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>M_Tpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>M_Tpost <span class="ot">&lt;-</span> <span class="dv">27</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>SD_Tpre <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>SD_Tpost <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>rT <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>nT <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken het geobserveerde gestandaardiseerde gemiddelde verschil</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>dT <span class="ot">&lt;-</span> (M_Tpost<span class="sc">-</span> M_Tpre) <span class="sc">/</span> SD_Tpre</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>dC <span class="ot">&lt;-</span> (M_Cpost <span class="sc">-</span> M_Cpre) <span class="sc">/</span> SD_Cpre</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>dPPC1 <span class="ot">&lt;-</span> dT <span class="sc">-</span> dC</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken de standaard four (SE)</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>rT)<span class="sc">/</span>nT <span class="sc">+</span> dPPC1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>nT) <span class="sc">+</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>rC)<span class="sc">/</span>nC <span class="sc">+</span> dPPC1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>nC) )</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de d waarde en betrouwbaarheids intervallen af</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC1),</span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC1 <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE),</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC1 <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.567 0.252 0.881</code></pre>
+</div>
+</div>
+<p>De output toont een pre-post interventie-effect van <span class="math inline">\(d_{PPC1}\)</span> = 0,57 [0,25, 0,88].</p>
+</section>
+<section id="sec-ppc2" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="sec-ppc2"><span class="header-section-number">7.5.2</span> PPC2 - gepoolde pre-test standaard deviaties</h3>
+<p>De gepoolde standaarddeviaties vóór de test (d.w.z. bij de uitgangswaarde) kunnen worden gebruikt om het verschil in verandering vóór/na de interventie- en controlegroep te standaardiseren, zodat <span class="citation" data-cites="morris2008">(vergelijking 8, <a href="references.html#ref-morris2008" role="doc-biblioref">Morris 2008</a>)</span>,</p>
+<p><span class="math display">\[
+d_{PPC2} = \frac{(M_{T,\text{post}} - M_{T,\text{pre}}) - (M_{C,\text{post}} - M_{C,\text{pre}})}{S_{p,\text{pre}}}
+\]</span></p>
+<p>waarbij</p>
+<p><span class="math display">\[
+S_{p,\text{pre}} = \sqrt{\frac{(n_T-1)S^2_{T,\text{pre}} + (n_C - 1)S^2_{C,\text{pre}}}{n_T + n_C - 2}}.
+\]</span></p>
+<p>De verdeling van <span class="math inline">\(d_{PPC2}\)</span> werd beschreven door <span class="citation" data-cites="morris2008">Morris (<a href="references.html#ref-morris2008" role="doc-biblioref">2008</a>)</span> en kan worden uitgedrukt als <span class="citation" data-cites="morris2008">(aangepast van vergelijking 16, <a href="references.html#ref-morris2008" role="doc-biblioref">Morris 2008</a>)</span>,</p>
+<p><span class="math display">\[
+\small{SE_{d_{PPC2}} = \sqrt{2\left(1-\frac{n_T r_T + n_C r_C}{n_T + n_C}\right)\left(\frac{n_T + n_C}{n_T n_C}\right)\left[1 + \frac{d^2_{PPC2}}{2\left(1-\frac{n_T r_T + n_C r_C}{n_T + n_C}\right)\left(\frac{n_T + n_C}{n_T n_C}\right)}\right] - d^2_{PPC2}}}
+\]</span></p>
+<p>Merk op dat de oorspronkelijke vergelijking in het artikel van <span class="citation" data-cites="morris2008">Morris (<a href="references.html#ref-morris2008" role="doc-biblioref">2008</a>)</span> de populatie pre-post correlatie <span class="math inline">\(rho\)</span> gebruikt, maar in bovenstaande vergelijking vervangen we <span class="math inline">\(rho\)</span> door het steekproefgrootte gewogen gemiddelde van de Pearson correlatie berekend in de behandelgroep en de controlegroep (d.w.z. <span class="math inline">\(rho approx frac{n_ r_T + n_C r_C}{n_T + n_C}\)</span>).</p>
+<p>We kunnen R gebruiken om <span class="math inline">\(d_{PPC2}\)</span> en betrouwbaarheidsintervallen te verkrijgen:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Controle Groep (N = 90)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 6</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 25, SD = 7</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>M_Cpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>M_Cpost <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>SD_Cpre <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>SD_Cpost <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>rC <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>nC <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Interventie Groep (N = 90)</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 5</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 27, SD = 8</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>M_Tpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>M_Tpost <span class="ot">&lt;-</span> <span class="dv">27</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>SD_Tpre <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>SD_Tpost <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>rT <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>nT <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken het geobserveerde gestandaardiseerde gemiddelde verschil</span></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>dPPC2 <span class="ot">&lt;-</span> ((M_Tpost<span class="sc">-</span> M_Tpre) <span class="sc">-</span> (M_Cpost <span class="sc">-</span> M_Cpre)) <span class="sc">/</span> <span class="fu">sqrt</span>( ( (nT <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(SD_Tpre<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> (nC <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(SD_Cpre<span class="sc">^</span><span class="dv">2</span>) ) <span class="sc">/</span> (nT <span class="sc">+</span> nC <span class="sc">-</span> <span class="dv">2</span>) )</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken de standaard fout (SE)</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span>  <span class="fu">sqrt</span>(<span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>( (nT<span class="sc">*</span>rT<span class="sc">+</span>nC<span class="sc">*</span>rC)<span class="sc">/</span>(nT <span class="sc">+</span> nC))) <span class="sc">*</span> ((nT<span class="sc">+</span>nC)<span class="sc">/</span>(nT<span class="sc">*</span>nC)) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">+</span> (dPPC2<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> (<span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> ((nT<span class="sc">*</span>rT<span class="sc">+</span>nC<span class="sc">*</span>rC)<span class="sc">/</span>(nT<span class="sc">+</span>nC))) <span class="sc">*</span> ((nT<span class="sc">+</span>nC)<span class="sc">/</span>(nT<span class="sc">*</span>nC)))))) <span class="sc">-</span> dPPC2</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de d waarde en betrouwbaarheidsintervallen af </span></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC2),</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC2 <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE),</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC2 <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.362 0.304 0.420</code></pre>
+</div>
+</div>
+<p>De output toont een pre-post interventie-effect van <span class="math inline">\(d_{PPC2}\)</span> = 0,36 [0,30, 0,42].</p>
+</section>
+<section id="sec-ppc3" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="sec-ppc3"><span class="header-section-number">7.5.3</span> PPC3 - gepoolde pre- en post-test</h3>
+<p>De twee vorige effect sizes gebruiken alleen de pretest standaarddeviatie. Maar als we graag aannemen dat pretest- en posttestvarianties homogeen zijn<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, kunnen de gepoolde pre-test- en postteststandaarddeviaties worden gebruikt om het verschil in verandering voor en na de interventie- en controlegroep te standaardiseren, zodat <span class="citation" data-cites="morris2008">(vergelijking 8, <a href="references.html#ref-morris2008" role="doc-biblioref">Morris 2008</a>)</span>,</p>
+<p><span class="math display">\[
+d_{PPC3} = \frac{(M_{T,\text{post}} - M_{T,\text{pre}}) - (M_{C,\text{post}} - M_{C,\text{pre}})}{S_{p,\text{pre-post}}},
+\]</span></p>
+<p>waarbij,</p>
+<p><span class="math display">\[
+S_{p,\text{pre-post}} = \sqrt{\frac{(n_T-1)\left(S^2_{T,\text{pre}} + S^2_{T,\text{post}}\right) + (n_C - 1)\left(S^2_{C,\text{pre}} + S^2_{C,\text{post}}\right)}{2(n_T + n_C - 2)}}.
+\]</span></p>
+<p>De standaardfout voor <span class="math inline">\(d_{PPC2}\)</span> is momenteel onbekend. Een optie om deze standaardfout te schatten is het gebruik van een niet-parametrische of parametrische bootstrap door de ruwe gegevens herhaaldelijk te sampelen, of als de ruwe gegevens niet beschikbaar zijn door gesimuleerde gegevens te sampelen. We kunnen dit doen in basis-R door voor/na data te simuleren met de <code>mvrnorm()</code> functie uit het <code>MASS</code> pakket <span class="citation" data-cites="MASS">(<a href="references.html#ref-MASS" role="doc-biblioref">Venables and Ripley 2002</a>)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Installeer het pakket als het nog niet is geïnstalleerd</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(MASS)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Controle Groep (N = 90)</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 6</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 25, SD = 7</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>M_Cpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>M_Cpost <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>SD_Cpre <span class="ot">&lt;-</span> <span class="dv">6</span></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>SD_Cpost <span class="ot">&lt;-</span> <span class="dv">7</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>rC <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>nC <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Interventie Groep (N = 90)</span></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre-test Gemiddelde = 20, SD = 5</span></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="do">## Post-test Gemiddelde = 27, SD = 8</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Pre/post correlatie = .50</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>M_Tpre <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>M_Tpost <span class="ot">&lt;-</span> <span class="dv">27</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>SD_Tpre <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>SD_Tpost <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>rT <span class="ot">&lt;-</span> .<span class="dv">50</span></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>nT <span class="ot">&lt;-</span> <span class="dv">90</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a><span class="co"># simuleerdata</span></span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>) <span class="co"># set seed voor reproduceerbaarheid</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>boot_dPPC3 <span class="ot">&lt;-</span> <span class="fu">c</span>()</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>){</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simuleer controle groep pre-post data</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>  data_C <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> nC,</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># input geobserveerde gemiddelden</span></span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>                          <span class="at">mu =</span> <span class="fu">c</span>(M_Cpre,M_Cpost),</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># input geobserveerde covariantie matrix</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Sigma =</span> <span class="fu">data.frame</span>(<span class="at">pre =</span> <span class="fu">c</span>(SD_Cpre<span class="sc">^</span><span class="dv">2</span>, rC<span class="sc">*</span>SD_Cpre<span class="sc">*</span>SD_Cpost), </span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">post =</span> <span class="fu">c</span>(rC<span class="sc">*</span>SD_Cpre<span class="sc">*</span>SD_Cpost,SD_Cpost<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>  <span class="co"># simuleer interventie groep pre-post data</span></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>  data_T <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> nT,</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># input geobserveerde gemiddelden</span></span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>                          <span class="at">mu =</span> <span class="fu">c</span>(M_Tpre,M_Tpost),</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>                          <span class="co"># input geobserveerde covariantie matrix</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>                          <span class="at">Sigma =</span> <span class="fu">data.frame</span>(<span class="at">pre =</span> <span class="fu">c</span>(SD_Tpre<span class="sc">^</span><span class="dv">2</span>, rT<span class="sc">*</span>SD_Tpre<span class="sc">*</span>SD_Tpost), </span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>                                             <span class="at">post =</span> <span class="fu">c</span>(rT<span class="sc">*</span>SD_Tpre<span class="sc">*</span>SD_Tpost,SD_Tpost<span class="sc">^</span><span class="dv">2</span>)))</span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bereken het gemiddelde verschil in pre/post verandering (de teller)</span></span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>  MeanDiff <span class="ot">&lt;-</span> (<span class="fu">mean</span>(data_T[,<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">mean</span>(data_T[,<span class="dv">1</span>])) <span class="sc">-</span> (<span class="fu">mean</span>(data_C[,<span class="dv">2</span>]) <span class="sc">-</span> <span class="fu">mean</span>(data_C[,<span class="dv">1</span>]))</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bereken de gepoolde pre-post standaard deviatie (de deler)</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>  S_Pprepost <span class="ot">&lt;-</span>  <span class="fu">sqrt</span>( ( (nT <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(<span class="fu">sd</span>(data_T[,<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span><span class="fu">sd</span>(data_T[,<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> (nC <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(<span class="fu">sd</span>(data_C[,<span class="dv">1</span>])<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span><span class="fu">sd</span>(data_C[,<span class="dv">2</span>])<span class="sc">^</span><span class="dv">2</span>) ) <span class="sc">/</span> (nT <span class="sc">+</span> nC <span class="sc">-</span> <span class="dv">2</span>) )</span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># bereken het gestandaardiseerde gemiddelde verschil voor elke bootstrap iteratie</span></span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>  boot_dPPC3[i] <span class="ot">&lt;-</span> MeanDiff <span class="sc">/</span> S_Pprepost</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken gebootstrapte standaard fout</span></span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> <span class="fu">sd</span>(boot_dPPC3)</span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken de geobserveerde gestandaardiseerde gemiddelde verschil</span></span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>dPPC3 <span class="ot">&lt;-</span> ((M_Tpost<span class="sc">-</span> M_Tpre) <span class="sc">-</span> (M_Cpost <span class="sc">-</span> M_Cpre)) <span class="sc">/</span> <span class="fu">sqrt</span>( ( (nT <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(SD_Tpre<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>SD_Tpost<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> (nC <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">*</span>(SD_Cpre<span class="sc">^</span><span class="dv">2</span><span class="sc">+</span>SD_Cpost<span class="sc">^</span><span class="dv">2</span>) ) <span class="sc">/</span> (nT <span class="sc">+</span> nC <span class="sc">-</span> <span class="dv">2</span>) )</span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a><span class="co">#druk de d waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC3),</span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC3 <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE),</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(dPPC3 <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.214 0.002 0.427</code></pre>
+</div>
+</div>
+<p>De output toont een pre-post interventie-effect van <span class="math inline">\(d_{PPC3}\)</span> = 0,21 [0,002, 0,43].</p>
+</section>
+</section>
+<section id="vertekening-van-d-waarden-in-kleine-steekproeven" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="vertekening-van-d-waarden-in-kleine-steekproeven"><span class="header-section-number">7.6</span> Vertekening van <span class="math inline">\(d\)</span> waarden in kleine steekproeven</h2>
+<p>Alle bovenstaande schatters van <span class="math inline">\(d\)</span> zijn vertekende schattingen van de populatiewaarde <span class="math inline">\(d\)</span>, vooral overschatten ze allemaal de populatiewaarde bij kleine steekproeven. Om voor deze vertekening te corrigeren, kunnen we een correctiefactor toepassen op basis van de vrijheidsgraden. De vrijheidsgraden hangen grotendeels af van de gebruikte schatter. De vrijheidsgraden voor elke schatter staan hieronder vermeld:</p>
+<ul>
+<li>Enkelvoudig Groep design (<span class="math inline">\(d_s\)</span>): <span class="math inline">\(df = n-1\)</span></li>
+<li>Tussen Groepen - Gepoolde Standaard Deviatie (<span class="math inline">\(d_p\)</span>): <span class="math inline">\(df = n_1+n_2-2\)</span></li>
+<li>Tussen Groepen - Controle Groep Standaard Deviatie (<span class="math inline">\(d_\Delta\)</span>): <span class="math inline">\(df = n_C-1\)</span></li>
+<li>Herhaalde metingen - alle types (<span class="math inline">\(d_z\)</span>, <span class="math inline">\(d_{rm}\)</span>, <span class="math inline">\(d_{av}\)</span>, <span class="math inline">\(d_{b}\)</span>): <span class="math inline">\(df = n-1\)</span></li>
+<li>Pretest-Posttest-Controle Afzonderlijke Standaard Deviatie (<span class="math inline">\(d_{PPC1}\)</span>): <span class="math inline">\(df=n_C−1\)</span></li>
+<li>Pretest-Posttest-Controle Gepoolde Pretest Standaard Deviatie (<span class="math inline">\(d_{PPC2}\)</span>): <span class="math inline">\(df=n_T+n_C−2\)</span></li>
+<li>Pretest-Posttest-Controle Gepooled Pretest en Posttest Standaard Deviatie (<span class="math inline">\(d_{PPC3}\)</span>): <span class="math inline">\(df=2(n_T+n_C−2)\)</span></li>
+</ul>
+<p>Met de juiste vrijheidsgraden kunnen we de volgende correctiefactor, <span class="math inline">\(CF\)</span>, gebruiken om een onvertekende schatting van het gestandaardiseerde gemiddelde verschil van de populatie te krijgen:</p>
+<p><span class="math display">\[
+CF = \frac{\Gamma\left(\frac{df}{2}\right)}{\Gamma\left(\frac{df-1}{2}\right)\sqrt{\frac{df}{2}}}
+\]</span></p>
+<p>Waarbij <span class="math inline">\(Gamma(\cdot)\)</span> de gammafunctie is. Een benadering van deze complexe formule gegeven door <span class="citation" data-cites="hedges1981">Hedges (<a href="references.html#ref-hedges1981" role="doc-biblioref">1981</a>)</span> kan worden geschreven als <span class="math inline">\(CF\approx 1-\frac{3}{4\cdot df -1}\)</span>. In R kan dit worden berekend met,</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 1 sample omvang = 20</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 2 sample omvang = 18</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>CF <span class="ot">&lt;-</span> <span class="fu">gamma</span>(df<span class="sc">/</span><span class="dv">2</span>) <span class="sc">/</span> ( <span class="fu">sqrt</span>(df<span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> <span class="fu">gamma</span>((df<span class="dv">-1</span>)<span class="sc">/</span><span class="dv">2</span>) )</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>CF</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9789964</code></pre>
+</div>
+</div>
+<p>Deze correctiefactor kan dan worden toegepast op elk van de bovengenoemde schatters,</p>
+<p><span class="math display">\[
+d^* = d\times CF
+\]</span></p>
+<p>De gecorrigeerde <span class="math inline">\(d\)</span> waarde, <span class="math inline">\(d^*\)</span>, wordt gewoonlijk Hedges’ <span class="math inline">\(g\)</span> of gewoon <span class="math inline">\(g\)</span> genoemd. Om verwarring in de notatie te voorkomen voegen we een sterretje toe aan <span class="math inline">\(d\)</span> om de correctie aan te geven. We moeten ook de standaardfout voor <span class="math inline">\(d^*\)</span> corrigeren</p>
+<p><span class="math display">\[
+SE_{d^*} = SE_{d} \times CF
+\]</span></p>
+<p>Deze standaardfouten kunnen dan worden gebruikt om het betrouwbaarheidsinterval van de gecorrigeerde <span class="math inline">\(d\)</span> -waarde te berekenen,</p>
+<p><span class="math display">\[
+CI_{d*} = d^* \pm 1.96\times SE_{d^*}
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Voorbeeld:</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Cohen's d = .50, SE = .10</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>d <span class="ot">=</span> .<span class="dv">50</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">=</span> .<span class="dv">10</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken d waarde en CI's van kleine sample bias</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>d_corrected <span class="ot">&lt;-</span> d <span class="sc">*</span> CF</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>SE_corrected <span class="ot">&lt;-</span> SE <span class="sc">*</span> CF</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>dlow_corrected <span class="ot">&lt;-</span> d_corrected <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>SE_corrected</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>dhigh_corrected <span class="ot">&lt;-</span> d_corrected <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>SE_corrected</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="co"># druk alleen de d waarde en betrouwbaarheidsintrvallen af</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">d =</span> <span class="fu">apa</span>(d), </span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">dlow =</span> <span class="fu">apa</span>(dlow_corrected), </span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>           <span class="at">dhigh =</span> <span class="fu">apa</span>(dhigh_corrected))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      d  dlow dhigh
+1 0.500 0.298 0.681</code></pre>
+</div>
+</div>
+<p>De output laat zien dat de gecorrigeerde effectgrootte <span class="math inline">\(d^*\)</span> = 0,50, 95% CI [0,30, 0,68].</p>
+</section>
+<section id="sec-rr" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="sec-rr"><span class="header-section-number">7.7</span> Verhoudingen van gemiddelden</h2>
+<p>Een andere veelgebruikte benadering, met name op het gebied van ecologie en evolutie, is het nemen van de natuurlijke logaritme van de verhouding tussen twee gemiddelden; de zogenaamde responsratio (<span class="math inline">\(lnRR\)</span>). Dit is soms gunstiger omdat, doordat bij de constructie ervan de standaarddeviatie in een of andere vorm als noemer wordt gebruikt, de verschillende versies van gestandaardiseerde gemiddelde verschillen worden beïnvloed door de schatting van deze parameter waarvoor studies vaak minder sterk zijn in vergelijking met gemiddelde grootheden <span class="citation" data-cites="yang2022">(<a href="references.html#ref-yang2022" role="doc-biblioref">Yang et al. 2022</a>)</span>. Voor de <span class="math inline">\(lnRR\)</span> heeft de standaarddeviatie echter alleen invloed op de variantieschatting en niet op de puntschatting. Een beperking van de lnRR is echter dat deze beperkt is tot gegevens die worden waargenomen op een verhoudingsschaal (d.w.z. een absoluut nulpunt hebben en gevallen daarvan ordinaal en additief gerelateerd zijn, wat betekent dat beide gemiddelden positief zijn).</p>
+<p>Hoewel de <span class="math inline">\(lnRR\)</span> strikt genomen geen verschil in gemiddelden in additieve zin is, zoals de bovenstaande gestandaardiseerde effectgroottes voor gemiddelde verschillen, kan het in zekere zin worden beschouwd als een weergave van het verschil in gemiddelden op de multiplicatieve schaal. In feite wordt het na berekening vaak getransformeerd om het procentuele verschil of de verandering tussen de gemiddelden weer te geven: <span class="math inline">\(100 maal \exp(lnRR)-1\)</span>. Dit kan echter een door transformatie geïnduceerde vertekening veroorzaken, omdat een niet-lineaire transformatie van een gemiddelde waarde over het algemeen niet gelijk is aan het gemiddelde van de getransformeerde waarde. In de context van een meta-analyse waarin <span class="math inline">\(lnRR\)</span> geschat over verschillende studies worden gecombineerd, kan een correcte factor worden toegepast: <span class="math inline">\(100 maal \exp(lnRR+0,5 S^2_\text{total})-1\)</span>, waarbij <span class="math inline">\(S^2_\text{total}\)</span> de variantie van alle <span class="math inline">\(lnRR\)</span> -waarden is.</p>
+<p>Net als voor de verschillende gestandaardiseerde gemiddelde verschillen, bestaan er verschillende berekeningen voor de lnRR, afhankelijk van de gebruikte studieopzet <span class="citation" data-cites="senior2020">(zie <a href="references.html#ref-senior2020" role="doc-biblioref">Senior, Viechtbauer, and Nakagawa 2020</a>)</span>.</p>
+<section id="sec-rrind" class="level3" data-number="7.7.1">
+<h3 data-number="7.7.1" class="anchored" data-anchor-id="sec-rrind"><span class="header-section-number">7.7.1</span> lnRR voor onafhankelijke groepen (<span class="math inline">\(lnRR_{ind}\)</span>)</h3>
+<p>De lnRR kan als volgt worden berekend als groepen onafhankelijk zijn,</p>
+<p><span class="math display">\[
+lnRR_\text{ind}=\ln\left(\frac{M_T}{M_C}\right)+CF
+\]</span></p>
+<p>Waarbij <span class="math inline">\(M_T\)</span> en <span class="math inline">\(M_C\)</span> de gemiddelden zijn voor respectievelijk de behandel- en controlegroep en <span class="math inline">\(CF\)</span> de kleine steekproefcorrectiefactor is, berekend als,</p>
+<p><span class="math display">\[
+CF = \frac{S^2_T}{2n_TM_T^2} - \frac{S^2_C}{2n_CM_C^2}
+\]</span></p>
+<p>De standaardfout kan als volgt worden berekend,</p>
+<p><span class="math display">\[
+SE_{lnRR_\text{ind}} = \sqrt{ \frac{S^2_T}{n_T M_T^2} + \frac{S^2_C}{n_C M_C^2} +\frac{S^4_T}{2n^2_T M_T^4} + \frac{S^4_C}{2n^2_C M_C^4}}
+\]</span></p>
+<p>In R kunnen we deze effectgrootte eenvoudig berekenen met de functie <code>escalc()</code> in het pakket <code>metafor</code> <span class="citation" data-cites="metafor">(<a href="references.html#ref-metafor" role="doc-biblioref">Viechtbauer 2010</a>)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lnRR voor twee onafhankelijke gropen </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggegeven gemiddelden en SDs</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 1 Gemiddelde = 30.4, Standaard deviatie = 22.53, Sample omvang = 96</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Groep 2 Gemiddelde = 21.4, Standaard deviatie = 19.59, Sample omvang = 96</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># data voorbereiden</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fl">30.4</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fl">21.4</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>SD1 <span class="ot">&lt;-</span> <span class="fl">22.53</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>SD2 <span class="ot">&lt;-</span> <span class="fl">19.59</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>N1 <span class="ot">=</span> <span class="dv">96</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>N2 <span class="ot">=</span> <span class="dv">96</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken lnRRind en standaard fout</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>lnRRind <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">measure =</span> <span class="st">"ROM"</span>, </span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">m1i =</span> M1,</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">m2i =</span> M2,</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd1i =</span> SD1,</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd2i =</span> SD2,</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">n1i =</span> N1,</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">n2i =</span> N2)</span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>lnRRind<span class="sc">$</span>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lnRRind<span class="sc">$</span>vi)</span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken betrouwbaarheisinterval</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>lnRRind<span class="sc">$</span>CIlow <span class="ot">&lt;-</span> lnRRind<span class="sc">$</span>yi <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>lnRRind<span class="sc">$</span>SE</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a>lnRRind<span class="sc">$</span>CIhigh <span class="ot">&lt;-</span>  lnRRind<span class="sc">$</span>yi <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>lnRRind<span class="sc">$</span>SE</span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de VR-waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">lnRRind =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRind<span class="sc">$</span>yi),</span>
+<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>           <span class="at">lnRRind_low =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRind<span class="sc">$</span>CIlow),</span>
+<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>           <span class="at">lnRRind_high =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRind<span class="sc">$</span>CIhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  lnRRind lnRRind_low lnRRind_high
+1   0.351       0.115        0.587</code></pre>
+</div>
+</div>
+<p>Het voorbeeld geeft een natuurlijke log-responsratio van <span class="math inline">\(lnRR_text{ind}\)</span> = 0,35 [0,12, 0,59].</p>
+</section>
+<section id="sec-rrdep" class="level3" data-number="7.7.2">
+<h3 data-number="7.7.2" class="anchored" data-anchor-id="sec-rrdep"><span class="header-section-number">7.7.2</span> lnRR voor afhankelijke groepen (<span class="math inline">\(lnRR_\text{dep}\)</span>)</h3>
+<p>De lnRR kan als volgt worden berekend als de groepen afhankelijk zijn (d.w.z. dezelfde proefpersonen in beide condities), bijvoorbeeld een pre-post vergelijking,</p>
+<p><span class="math display">\[
+lnRR_\text{dep} = \ln\left(\frac{M_2}{M_1}\right) + CF
+\]</span></p>
+<p>Waarbij <span class="math inline">\(CF\)</span> de kleine steekproefcorrectiefactor is, berekend als,</p>
+<p><span class="math display">\[
+CF = \frac{S^2_2}{2nM^2_2} - \frac{S^2_1}{2nM^2_1}
+\]</span></p>
+<p>De standaardfout kan dan worden berekend als,</p>
+<p><span class="math display">\[
+\small{SE_{lnRR_\text{dep}} = \sqrt{ \frac{S^2_1}{n M_1^2} + \frac{S^2_2}{n M_2^2} + \frac{S^4_1}{2n^2M^4_1} +  \frac{S^4_2}{2n^2M^4_2} + \frac{2rS_1 S_2}{n M_1 M_2} + \frac{r^2S^2_1 S^2_2 (M_1^4 + M_2^4)}{2n^2 M_1^4 M_2^4}}}
+\]</span></p>
+<p>In <code>R</code> kunnen we deze effectgrootte eenvoudig berekenen met de functie <code>escalc()</code> uit het pakket <code>metafor</code>, en wel als volgt:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># lnRR voor twee afhankelijke groepen</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># gegeven gemiddelden en SDs</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemiddelde 1 = 30.4, Standaard deviatie 1 = 22.53</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemiddelde 2 = 21.4, Standaard deviatie 2 = 19.59</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample omvang = 96</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlatie = 0.4</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># data voorbereiden</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>M1 <span class="ot">&lt;-</span> <span class="fl">30.4</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>M2 <span class="ot">&lt;-</span> <span class="fl">21.4</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>SD1 <span class="ot">&lt;-</span> <span class="fl">22.53</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>SD2 <span class="ot">&lt;-</span> <span class="fl">19.59</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">96</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>R <span class="ot">=</span> <span class="fl">0.4</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken lnRR en standaard fout</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>lnRRdep <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">measure =</span> <span class="st">"ROMC"</span>, </span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>               <span class="at">m1i =</span> M1,</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>               <span class="at">m2i =</span> M2,</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd1i =</span> SD1,</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>               <span class="at">sd2i =</span> SD2,</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>               <span class="at">ni =</span> N,</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>               <span class="at">ri =</span> R)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="co"># standaardfout berekenen uit wortel van steekproefvariantie</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>lnRRdep<span class="sc">$</span>SE <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(lnRRdep<span class="sc">$</span>vi)</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="co"># bereken betrouwbaarheidsinterval</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>lnRRdep<span class="sc">$</span>CIlow <span class="ot">&lt;-</span> lnRRdep<span class="sc">$</span>yi <span class="sc">-</span> <span class="fl">1.96</span><span class="sc">*</span>lnRRdep<span class="sc">$</span>SE</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>lnRRdep<span class="sc">$</span>CIhigh <span class="ot">&lt;-</span>  lnRRdep<span class="sc">$</span>yi <span class="sc">+</span> <span class="fl">1.96</span><span class="sc">*</span>lnRRdep<span class="sc">$</span>SE</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="co"># druk de VR waarde en betrouwbaarheidsintervallen af</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">lnRRdep =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRdep<span class="sc">$</span>yi),</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>           <span class="at">lnRRdep_low =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRdep<span class="sc">$</span>CIlow),</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>           <span class="at">lnRRdep_high =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(lnRRdep<span class="sc">$</span>CIhigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  lnRRdep lnRRdep_low lnRRdep_high
+1   0.351       0.167        0.535</code></pre>
+</div>
+</div>
+<p>Het voorbeeld geeft een natuurlijke logreactieverhouding van <span class="math inline">\(lnRR_text{dep}\)</span> = 0,35 [0,17, 0,54].</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-algina2003" class="csl-entry" role="listitem">
+Algina, James, and H. J. Keselman. 2003. <span>“Approximate Confidence Intervals for Effect Sizes.”</span> <em>Educational and Psychological Measurement</em> 63 (4): 537–53. <a href="https://doi.org/10.1177/0013164403256358">https://doi.org/10.1177/0013164403256358</a>.
+</div>
+<div id="ref-baayen2008mixed" class="csl-entry" role="listitem">
+Baayen, R Harald, Douglas J Davidson, and Douglas M Bates. 2008. <span>“Mixed-Effects Modeling with Crossed Random Effects for Subjects and Items.”</span> <em>Journal of Memory and Language</em> 59 (4): 390–412.
+</div>
+<div id="ref-barr2013random" class="csl-entry" role="listitem">
+Barr, Dale J, Roger Levy, Christoph Scheepers, and Harry J Tily. 2013. <span>“Random Effects Structure for Confirmatory Hypothesis Testing: Keep It Maximal.”</span> <em>Journal of Memory and Language</em> 68 (3): 255–78.
+</div>
+<div id="ref-becker1988" class="csl-entry" role="listitem">
+Becker, Betsy J. 1988. <span>“Synthesizing Standardized Mean-Change Measures - UConn Library.”</span> <em>British Journal of Mathematical and Statistical Psychology</em> 41 (2): 257278. https://doi.org/<a href="https://doi.org/10.1111/j.2044-8317.1988.tb00901.x">https://doi.org/10.1111/j.2044-8317.1988.tb00901.x</a>.
+</div>
+<div id="ref-caldwell" class="csl-entry" role="listitem">
+Caldwell, Aaron R. 2022. <span>“Exploring Equivalence Testing with the Updated TOSTER r Package.”</span> <em>PsyArXiv</em>. <a href="https://doi.org/10.31234/osf.io/ty8de">https://doi.org/10.31234/osf.io/ty8de</a>.
+</div>
+<div id="ref-cohen1988" class="csl-entry" role="listitem">
+Cohen, Jacob. 1988. <em>Statistical Power Analysis for the Behavioral Sciences</em>. Academic Press.
+</div>
+<div id="ref-glass1981" class="csl-entry" role="listitem">
+Glass, Gene V. 1981. <span>“Meta-Analysis in Social Research.”</span> <em>(No Title)</em>. <a href="https://cir.nii.ac.jp/crid/1130000795088566912">https://cir.nii.ac.jp/crid/1130000795088566912</a>.
+</div>
+<div id="ref-glass1981a" class="csl-entry" role="listitem">
+Glass, Gene V., Barry McGaw, and Mary L. Smith. 1981. <span>“Meta-Analysis in Social Research.”</span> <em>(No Title)</em>. <a href="https://cir.nii.ac.jp/crid/1130000795088566912">https://cir.nii.ac.jp/crid/1130000795088566912</a>.
+</div>
+<div id="ref-hedges1981" class="csl-entry" role="listitem">
+Hedges, Larry V. 1981. <span>“Distribution Theory for Glass’s Estimator of Effect Size and Related Estimators.”</span> <em>Journal of Educational Statistics</em> 6 (2): 107–28. <a href="https://doi.org/10.3102/10769986006002107">https://doi.org/10.3102/10769986006002107</a>.
+</div>
+<div id="ref-lakens2013" class="csl-entry" role="listitem">
+Lakens, Daniël. 2013. <span>“Calculating and Reporting Effect Sizes to Facilitate Cumulative Science: A Practical Primer for t-Tests and ANOVAs.”</span> <em>Frontiers in Psychology</em> 4. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863">https://www.frontiersin.org/articles/10.3389/fpsyg.2013.00863</a>.
+</div>
+<div id="ref-morris2008" class="csl-entry" role="listitem">
+Morris, Scott B. 2008. <span>“Estimating Effect Sizes From Pretest-Posttest-Control Group Designs.”</span> <em>Organizational Research Methods</em> 11 (2): 364–86. <a href="https://doi.org/10.1177/1094428106291059">https://doi.org/10.1177/1094428106291059</a>.
+</div>
+<div id="ref-senior2020" class="csl-entry" role="listitem">
+Senior, Alistair M., Wolfgang Viechtbauer, and Shinichi Nakagawa. 2020. <span>“Revisiting and Expanding the Meta-Analysis of Variation: The Log Coefficient of Variation Ratio.”</span> <em>Research Synthesis Methods</em> 11 (4): 553–67. <a href="https://doi.org/10.1002/jrsm.1423">https://doi.org/10.1002/jrsm.1423</a>.
+</div>
+<div id="ref-MASS" class="csl-entry" role="listitem">
+Venables, W. N., and B. D. Ripley. 2002. <em>Modern Applied Statistics with s</em>. Fourth. New York: Springer. <a href="https://www.stats.ox.ac.uk/pub/MASS4/">https://www.stats.ox.ac.uk/pub/MASS4/</a>.
+</div>
+<div id="ref-metafor" class="csl-entry" role="listitem">
+Viechtbauer, Wolfgang. 2010. <span>“Conducting Meta-Analyses in <span>R</span> with the <span class="nocase">metafor</span> Package.”</span> <em>Journal of Statistical Software</em> 36 (3): 1–48. <a href="https://doi.org/10.18637/jss.v036.i03">https://doi.org/10.18637/jss.v036.i03</a>.
+</div>
+<div id="ref-yang2022" class="csl-entry" role="listitem">
+Yang, Yefeng, Helmut Hillebrand, Malgorzata Lagisz, Ian Cleasby, and Shinichi Nakagawa. 2022. <span>“Low Statistical Power and Overestimated Anthropogenic Impacts, Exacerbated by Publication Bias, Dominate Field Studies in Global Change Biology.”</span> <em>Global Change Biology</em> 28 (3): 969–89. <a href="https://doi.org/10.1111/gcb.15972">https://doi.org/10.1111/gcb.15972</a>.
+</div>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Let op, dit is mogelijk niet het geval, vooral als er een gemiddelde-variantie relatie is en één (meestal de interventie) groep een hogere posttest gemiddelde score heeft.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/matthewbjane\.quarto\.pub\/guide-to-effect-sizes-and-confidence-intervals\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Useful-R-Packages.html" class="pagination-link" aria-label="R Gebruiken">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R Gebruiken</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Correlations.html" class="pagination-link" aria-label="Correlaties">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Correlaties</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

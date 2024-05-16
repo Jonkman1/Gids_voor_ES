@@ -1,0 +1,1839 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.553">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="keywords" content="samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap">
+
+<title>Gids voor Effect Sizes en Betrouwbaarheids Intervallen - 10&nbsp; Effect Sizes voor ANOVAs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./Differences-in-Variance.html" rel="next">
+<link href="./Categorical-Proportional-Data.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta name="twitter:title" content="Gids voor Effect Sizes en Betrouwbaarheids Intervallen">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://matthewbjane.quarto.pub/guide-to-effect-sizes-and-confidence-intervals/social-preview.png">
+<meta name="twitter:creator" content="@MatthewBJane">
+<meta name="twitter:image-height" content="1417">
+<meta name="twitter:image-width" content="2835">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><strong>Gestandaardiseerde Effect Sizes</strong></a></li><li class="breadcrumb-item"><a href="./Effect-Sizes-for-ANOVAs.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ANOVA’s</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto"><div class="quarto-sidebar-header"><div class="sidebar-header-item">
+<p><img src="margin-header.png" class="img-fluid"></p>
+</div></div>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Inhoudsopgave</a> 
+        <div class="sidebar-tools-main">
+    <a href="https://github.com/MatthewBJane/guide-to-effect-sizes-and-confidence-intervals" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Gids-voor-Effect-Sizes-en-Betrouwbaarheids-Intervallen.pdf">
+              <i class="bi bi-bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./Gids-voor-Effect-Sizes-en-Betrouwbaarheids-Intervallen.docx">
+              <i class="bi bi-bi-file-word pe-1"></i>
+            Download Docx
+            </a>
+          </li>
+      </ul>
+    </div>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Defining-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Definiëren van Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Benchmarks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Referentiepunten</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reporting-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Rapporteren van Effect Sizes</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Interpreting-Confidence-Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Interpreteren van Betrouwvaarheidsintervallen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Reporting-Confidence-Intervals.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Reporteren van Betrouwbaarheidsintervallen</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Useful-R-Packages.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">R Gebruiken</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text"><strong>Gestandaardiseerde Effect Sizes</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Standardized-Mean-Differences.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Gemiddelde Verschillen</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Correlations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Correlaties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Categorical-Proportional-Data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Categoriale/Proportionele Data</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Effect-Sizes-for-ANOVAs.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ANOVA’s</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Differences-in-Variance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Verschillen in Variabiliteit</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Non-Parametric-Effect-Sizes.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Non-Parametrische Effect Sizes</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Regressie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Artifacts-and-Bias.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Artifacten en Vertekeningen in Effect Sizes</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text"><strong>Effect Sizes Omrekenen</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Cohens-d.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Omrekenen naar Cohen’s d</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Omrekenen naar Correlaties</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Converting-to-Odds-Ratio.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Omrekenen naar Odds Ratios</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text"><strong>Conclusie</strong></span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./Conclusion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Conclusie</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Referenties</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#anovas" id="toc-anovas" class="nav-link active" data-scroll-target="#anovas"><span class="header-section-number">10.1</span> ANOVAs</a></li>
+  <li><a href="#sec-aov-table" id="toc-sec-aov-table" class="nav-link" data-scroll-target="#sec-aov-table"><span class="header-section-number">10.2</span> ANOVA tabellen</a></li>
+  <li><a href="#eenzijdige-anova-tussen-proefpersonen" id="toc-eenzijdige-anova-tussen-proefpersonen" class="nav-link" data-scroll-target="#eenzijdige-anova-tussen-proefpersonen"><span class="header-section-number">10.3</span> Eenzijdige ANOVA tussen proefpersonen</a>
+  <ul class="collapse">
+  <li><a href="#vrijheidsgraden-vaststellen" id="toc-vrijheidsgraden-vaststellen" class="nav-link" data-scroll-target="#vrijheidsgraden-vaststellen"><span class="header-section-number">10.3.1</span> Vrijheidsgraden vaststellen</a></li>
+  <li><a href="#berekening-van-eta-kwadraat-uit-f-statistiek-en-vrijheidsgraden" id="toc-berekening-van-eta-kwadraat-uit-f-statistiek-en-vrijheidsgraden" class="nav-link" data-scroll-target="#berekening-van-eta-kwadraat-uit-f-statistiek-en-vrijheidsgraden"><span class="header-section-number">10.3.2</span> Berekening van eta-kwadraat uit F-statistiek en vrijheidsgraden</a></li>
+  <li><a href="#sec-eta-table" id="toc-sec-eta-table" class="nav-link" data-scroll-target="#sec-eta-table"><span class="header-section-number">10.3.3</span> Het berekenen van het kwadraat van een ANOVA-tabel</a></li>
+  <li><a href="#cohens-d-berekenen-voor-post-hocvergelijkingen" id="toc-cohens-d-berekenen-voor-post-hocvergelijkingen" class="nav-link" data-scroll-target="#cohens-d-berekenen-voor-post-hocvergelijkingen"><span class="header-section-number">10.3.4</span> Cohen’s d berekenen voor post-hocvergelijkingen</a></li>
+  </ul></li>
+  <li><a href="#een-weg-herhaalde-metingen-anova" id="toc-een-weg-herhaalde-metingen-anova" class="nav-link" data-scroll-target="#een-weg-herhaalde-metingen-anova"><span class="header-section-number">10.4</span> Een-weg herhaalde metingen ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#vrijheidsgraden-bepalen" id="toc-vrijheidsgraden-bepalen" class="nav-link" data-scroll-target="#vrijheidsgraden-bepalen"><span class="header-section-number">10.4.1</span> Vrijheidsgraden bepalen</a></li>
+  <li><a href="#eta-kwadraat-van-rmanova-statistieken" id="toc-eta-kwadraat-van-rmanova-statistieken" class="nav-link" data-scroll-target="#eta-kwadraat-van-rmanova-statistieken"><span class="header-section-number">10.4.2</span> Eta-kwadraat van rmANOVA-statistieken</a></li>
+  </ul></li>
+  <li><a href="#twee-weg-tussen-subjecten-anova" id="toc-twee-weg-tussen-subjecten-anova" class="nav-link" data-scroll-target="#twee-weg-tussen-subjecten-anova"><span class="header-section-number">10.5</span> Twee-weg tussen-subjecten ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#vrijheidsgraden-vaststellen-1" id="toc-vrijheidsgraden-vaststellen-1" class="nav-link" data-scroll-target="#vrijheidsgraden-vaststellen-1"><span class="header-section-number">10.5.1</span> Vrijheidsgraden vaststellen</a></li>
+  <li><a href="#eta-kwadraat-van-twee-weg-anova-statistieken" id="toc-eta-kwadraat-van-twee-weg-anova-statistieken" class="nav-link" data-scroll-target="#eta-kwadraat-van-twee-weg-anova-statistieken"><span class="header-section-number">10.5.2</span> Eta-kwadraat van twee-weg ANOVA-statistieken</a></li>
+  </ul></li>
+  <li><a href="#twee-weg-herhaalde-maatregelen-anova" id="toc-twee-weg-herhaalde-maatregelen-anova" class="nav-link" data-scroll-target="#twee-weg-herhaalde-maatregelen-anova"><span class="header-section-number">10.6</span> Twee-weg herhaalde maatregelen ANOVA</a>
+  <ul class="collapse">
+  <li><a href="#vrijhheidsgraden-vaststellen" id="toc-vrijhheidsgraden-vaststellen" class="nav-link" data-scroll-target="#vrijhheidsgraden-vaststellen"><span class="header-section-number">10.6.1</span> Vrijhheidsgraden vaststellen</a></li>
+  <li><a href="#eta-kwadraat-van-bidirectionele-rmanova" id="toc-eta-kwadraat-van-bidirectionele-rmanova" class="nav-link" data-scroll-target="#eta-kwadraat-van-bidirectionele-rmanova"><span class="header-section-number">10.6.2</span> Eta-kwadraat van bidirectionele rmANOVA</a></li>
+  </ul></li>
+  <li><a href="#effect-sizes-voor-anovas" id="toc-effect-sizes-voor-anovas" class="nav-link" data-scroll-target="#effect-sizes-voor-anovas"><span class="header-section-number">10.7</span> Effect Sizes voor ANOVAs</a>
+  <ul class="collapse">
+  <li><a href="#sec-eta-squared" id="toc-sec-eta-squared" class="nav-link" data-scroll-target="#sec-eta-squared"><span class="header-section-number">10.7.1</span> Eta-kwadraat (<span class="math inline">\(\eta^2\)</span>)</a></li>
+  <li><a href="#sec-etap" id="toc-sec-etap" class="nav-link" data-scroll-target="#sec-etap"><span class="header-section-number">10.7.2</span> Partiële Eta-Kwadraat (<span class="math inline">\(\eta^2_p\)</span>)</a></li>
+  <li><a href="#sec-etaG" id="toc-sec-etaG" class="nav-link" data-scroll-target="#sec-etaG"><span class="header-section-number">10.7.3</span> Generalized Eta-Squared (<span class="math inline">\(\eta^2_G\)</span>)</a></li>
+  <li><a href="#sec-omega" id="toc-sec-omega" class="nav-link" data-scroll-target="#sec-omega"><span class="header-section-number">10.7.4</span> Omega squared corrections (<span class="math inline">\(\omega^2\)</span>, <span class="math inline">\(\omega^2_p\)</span>)</a></li>
+  <li><a href="#sec-f" id="toc-sec-f" class="nav-link" data-scroll-target="#sec-f"><span class="header-section-number">10.7.5</span> Cohen’s <span class="math inline">\(f\)</span></a></li>
+  </ul></li>
+  <li><a href="#reporting-anova-results" id="toc-reporting-anova-results" class="nav-link" data-scroll-target="#reporting-anova-results"><span class="header-section-number">10.8</span> Reporting ANOVA results</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./Standardized-Mean-Differences.html"><strong>Gestandaardiseerde Effect Sizes</strong></a></li><li class="breadcrumb-item"><a href="./Effect-Sizes-for-ANOVAs.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">ANOVA’s</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Effect Sizes voor ANOVAs</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+<div>
+  <div class="keywords">
+    <div class="block-title">Keywords</div>
+    <p>samenwerken, betrouwbaarheidsinterval, effect size, open onderwijsbron, open studiebeurs, open wetenschap</p>
+  </div>
+</div>
+
+</header>
+
+
+<section id="anovas" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="anovas"><span class="header-section-number">10.1</span> ANOVAs</h2>
+<p>Voor ANOVA’s/F-tests moet je altijd twee soorten effecten rapporteren: het omnibuseffect van de factor(en) en het effect van geplande contrasten of post-hocvergelijkingen.</p>
+<p>Stel je bijvoorbeeld voor dat je drie groepen/condities vergelijkt met een eenzijdige ANOVA. De ANOVA zal eerst een F-statistiek, de vrijheidsgraden en de bijbehorende p-waarde opleveren. Hier moet u de grootte van dit omnibusfactoreffect berekenen in eta-kwadraat, partiële eta-kwadraat of gegeneraliseerde eta-kwadraat.</p>
+<p>Stel dat het omnibuseffect significant is. U weet nu dat er ten minste één groep verschilt van de anderen. Je wilt weten welke groep(en) verschilt (verschillen) van de anderen en hoeveel ze verschilt (verschillen). Daarom voer je post hoc vergelijkingen uit op deze groepen. Omdat post hoc vergelijkingen elke groep paarsgewijs vergelijken met de anderen, krijg je een t-statistiek en p-waarde voor elke vergelijking. Hiervoor kun je een gestandaardiseerd gemiddeld verschil berekenen en rapporteren.</p>
+<p>Stel je voor dat je twee onafhankelijke variabelen of factoren hebt en je voert een twee-bij-twee factorial ANOVA uit. Het eerste wat je dan doet, is kijken naar de interactie. Als de interactie significant is, rapporteer je opnieuw de bijbehorende omnibus effectgrootte maten, en ga je verder met het analyseren van de enkelvoudige effecten. Afhankelijk van je onderzoeksvraag vergelijk je de niveaus van de ene IV op elk niveau van de andere IV. U rapporteert d of g voor deze enkelvoudige effecten. Als de interactie niet significant is, kijkt u naar de hoofdeffecten en rapporteert u het bijbehorende omnibuseffect. Vervolgens analyseert u het hoofdeffect door de niveaus van één IV te vergelijken terwijl u de niveaus van de andere IV samenvoegt/aggregeert. U rapporteert d of g voor deze paarsgewijze vergelijkingen. Merk op dat effecten van lagere orde niet direct interpreteerbaar zijn als effecten van hogere orde significant zijn. Als je een significante interactie hebt in een tweezijdige ANOVA, kun je de hoofdeffecten niet direct interpreteren. Als u een significante drieweginteractie hebt in een drieweg ANOVA, kunt u de hoofdeffecten of de tweerichtingsinteracties niet rechtstreeks interpreteren, ongeacht of ze significant zijn of niet.</p>
+</section>
+<section id="sec-aov-table" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="sec-aov-table"><span class="header-section-number">10.2</span> ANOVA tabellen</h2>
+<p>Een ANOVA-tabel bestaat over het algemeen uit de groeperingsfactoren (+ residuen), de som van de kwadraten, de vrijheidsgraden, het gemiddelde kwadraat, de F-statistiek en de p-waarde. In basis-R kunnen we een ANOVA-tabel maken met de functie <code>aov()</code> om het ANOVA-model te genereren en vervolgens met <code>summary.aov()</code> om de tabel te extraheren. Voor een voorbeeldcase gebruiken we het <code>palmerpenguins</code> datasetpakket en onderzoeken we de verschillen in de lichaamsmassa (de uitkomst) van drie pinguïnsoorten (de voorspellende/groeperende variabele):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># construct anova model </span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># formula structure: outcome ~ grouping variable</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>ANOVA_mdl <span class="ot">&lt;-</span> <span class="fu">aov</span>(body_mass_g <span class="sc">~</span> species, </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">data =</span> penguins) <span class="co"># dataset</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ANOVA_table <span class="ot">&lt;-</span> <span class="fu">summary.aov</span>(ANOVA_mdl)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>ANOVA_table</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df    Sum Sq  Mean Sq F value Pr(&gt;F)    
+species       2 146864214 73432107   343.6 &lt;2e-16 ***
+Residuals   339  72443483   213698                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+2 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<p>Standaard rapporteert <code>summary.aov()</code> de <span class="math inline">\(\eta^2\)</span> waarde niet, maar we zullen dit verder bespreken in <a href="#sec-eta-squared" class="quarto-xref"><span>Section 10.7.1</span></a>. De resultaten tonen aan dat de gemiddelde lichaamsmassa van de drie pinguïnsoorten (Adelie, Gentoo, Chinstrap) significant van elkaar verschillen.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Effect-Sizes-for-ANOVAs_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="eenzijdige-anova-tussen-proefpersonen" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="eenzijdige-anova-tussen-proefpersonen"><span class="header-section-number">10.3</span> Eenzijdige ANOVA tussen proefpersonen</h2>
+<p>ANOVA is een uitbreiding van onafhankelijke t-tests. De nulhypothese is dat alle k gemiddelden van k onafhankelijke groepen identiek zijn, terwijl de alternatieve hypothese is dat er minstens twee gemiddelden van deze k groepen verschillen. De aannames zijn onder andere: (1) onafhankelijkheid van waarnemingen, (2) normaliteit van residuen, en (3) gelijkheid (of homogeniteit) van varianties (homoscedasticiteit).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Opmerking. Soms kun je een between-subject one-way ANOVA tegenkomen die slechts twee condities vergelijkt, vooral als het papier oud is. Dit is in wezen een t-toets en de F-statistiek is gewoon t-kwadraat. Het verdient de voorkeur om Cohen’s d voor deze tests te rapporteren. Als je de effectgrootte voor dergelijke tests berekent, kun je het beste Cohen’s d berekenen, of de verstrekte eta-kwadraat omrekenen naar Cohen’s d, omdat Cohen’s d de richting van het effect kan laten zien. Latere analyses (bijv. poweranalyse) kunnen ook worden gebaseerd op Cohen’s d.</p>
+<p>Het is heel eenvoudig om eta-kwadraat te bepalen met een F-statistiek en de twee vrijheidsgraden van een eenzijdige ANOVA <a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. <strong>Merk op dat in het geval van een eenzijdige ANOVA, eta-kwadraat gelijk is aan partiële eta-kwadraat.</strong></p>
+<section id="vrijheidsgraden-vaststellen" class="level3" data-number="10.3.1">
+<h3 data-number="10.3.1" class="anchored" data-anchor-id="vrijheidsgraden-vaststellen"><span class="header-section-number">10.3.1</span> Vrijheidsgraden vaststellen</h3>
+<p>Raadpleeg de volgende tabel om de vrijheidsgraden voor ANOVA-effecten te bepalen, als ze niet zijn gerapporteerd of als je twijfelt of ze verkeerd zijn gerapporteerd.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vrijheidsgraden</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tussen subjecten ANOVA</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Effect</td>
+<td style="text-align: center;"><span class="math inline">\(k-1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fout</td>
+<td style="text-align: center;"><span class="math inline">\(n-k\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Totaal</td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="berekening-van-eta-kwadraat-uit-f-statistiek-en-vrijheidsgraden" class="level3" data-number="10.3.2">
+<h3 data-number="10.3.2" class="anchored" data-anchor-id="berekening-van-eta-kwadraat-uit-f-statistiek-en-vrijheidsgraden"><span class="header-section-number">10.3.2</span> Berekening van eta-kwadraat uit F-statistiek en vrijheidsgraden</h3>
+<p>Met de onderstaande formule kunnen we <span class="math inline">\(eta^2\)</span> van een ANOVA-model berekenen met behulp van de F-statistiek en de vrijheidsgraden,</p>
+<p><span class="math display">\[
+\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{fout}}.
+\]</span></p>
+<p>In R kunnen we de <code>F_to_eta2()</code> functie uit het <code>effectsize</code> pakket gebruiken <span class="citation" data-cites="effectsize">(<a href="references.html#ref-effectsize" role="doc-biblioref">Ben-Shachar, Lüdecke, and Makowski 2020</a>)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">154</span> <span class="co"># aantal subjecten</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">3</span> <span class="co"># aantal groepen</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>f <span class="ot">=</span> <span class="fl">84.3</span> <span class="co"># F-statistiek</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df_effect <span class="ot">=</span> k <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>df_error <span class="ot">=</span> n <span class="sc">-</span> k</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">F_to_eta2</span>(<span class="at">f =</span> f,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">df =</span> df_effect,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">df_error =</span> df_error,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">alternative =</span> <span class="st">'two.sided'</span>) <span class="co"># verkrijgen van tweezijdig CIs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Eta2 (partial) |       95% CI
+-----------------------------
+0.53           | [0.42, 0.61]</code></pre>
+</div>
+</div>
+</section>
+<section id="sec-eta-table" class="level3" data-number="10.3.3">
+<h3 data-number="10.3.3" class="anchored" data-anchor-id="sec-eta-table"><span class="header-section-number">10.3.3</span> Het berekenen van het kwadraat van een ANOVA-tabel</h3>
+<p>Laten we de tabel van het ANOVA-model in <a href="#sec-aov-table" class="quarto-xref"><span>Section 10.2</span></a> gebruiken::</p>
+<table class="table">
+<caption>Eenzijdige ANOVA-tabel</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Sum Sq</th>
+<th style="text-align: right;">Mean Sq</th>
+<th style="text-align: right;">F value</th>
+<th style="text-align: right;">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">species</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">146864214</td>
+<td style="text-align: right;">73432107.1</td>
+<td style="text-align: right;">343.6263</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Residuals</td>
+<td style="text-align: right;">339</td>
+<td style="text-align: right;">72443483</td>
+<td style="text-align: right;">213697.6</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+<p>Uit deze tabel kunnen we de som van de kwadraten van de groepsvariabele (soorten) en de totale som van de kwadraten (<span class="math inline">\(SS_\text{totaal} = SS_\text{effect} + SS_\text{fout}\)</span>) gebruiken om de waarde van <span class="math inline">\(eta^2\)</span> te berekenen met de volgende vergelijking:</p>
+<p><span class="math display">\[
+\eta^2 = \frac{SS_\text{effect}}{SS_\text{totaal}} = \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{fout}}
+\]</span></p>
+<p>In R kunnen we de <code>eta.full.SS()</code> functie uit het <code>MOTE</code> pakket <span class="citation" data-cites="MOTE">(<a href="references.html#ref-MOTE" role="doc-biblioref">Buchanan et al. 2019</a>)</span> gebruiken om <span class="math inline">\(\eta^2\)</span> uit een ANOVA tabel te verkrijgen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> <span class="fu">eta.full.SS</span>(<span class="at">dfm =</span> <span class="dv">2</span>,  <span class="co"># effect vrijheidsgraden</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dfe =</span> <span class="dv">339</span>, <span class="co"># fout vrijheidsgraden</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ssm =</span> <span class="dv">146864214</span>, <span class="co"># `sum of squares` voor het effect</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sst =</span> <span class="dv">146864214</span> <span class="sc">+</span> <span class="dv">72443483</span>, <span class="co"># totaal `sum of squares`</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Fvalue =</span> <span class="fl">343.6263</span>,</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">a =</span> .<span class="dv">05</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">eta_squared =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>eta),</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">etalow =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>etalow),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">etahigh =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>etahigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  eta_squared etalow etahigh
+1       0.670  0.606   0.722</code></pre>
+</div>
+</div>
+<p>De voorbeeldcode geeft <span class="math inline">\(\eta^2\)</span> = .67 [.61, .72]. Dit suggereert dat de soort verantwoordelijk is voor 67% van de totale variatie in lichaamsmassa tussen pinguïns.</p>
+</section>
+<section id="cohens-d-berekenen-voor-post-hocvergelijkingen" class="level3" data-number="10.3.4">
+<h3 data-number="10.3.4" class="anchored" data-anchor-id="cohens-d-berekenen-voor-post-hocvergelijkingen"><span class="header-section-number">10.3.4</span> Cohen’s d berekenen voor post-hocvergelijkingen</h3>
+<p>In een omnibus ANOVA vertelt de p-waarde ons of de gemiddelden van alle groepen uit hetzelfde populatiegemiddelde komen, maar dit informeert ons niet over <em>welke</em> groepen verschillen en met hoeveel. Met hetzelfde voorbeeld als hiervoor, stellen we dat we een specifieke vraag willen beantwoorden zoals: wat is het verschil in lichaamsmassa tussen adéliepinguïns en ezelspinguïns? Om deze vraag te beantwoorden, kunnen we het ruwe gemiddelde verschil tussen de twee groepen berekenen. In R kunnen we dat doen met de volgende code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Madelie <span class="ot">&lt;-</span> <span class="fu">mean</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Adelie'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Mgentoo <span class="ot">&lt;-</span> <span class="fu">mean</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Gentoo'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Mgentoo <span class="sc">-</span> Madelie</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1375.354</code></pre>
+</div>
+</div>
+<p>Gebaseerd op het gemiddelde verschil, zijn ezelspinguïns gemiddeld 1375 gram zwaarder dan Adelia pinguïns in totale lichaamsmassa. We kunnen ook een gestandaardiseerd gemiddeld verschil berekenen met de <code>escalc()</code> functie in het <code>metafor</code> pakket <span class="citation" data-cites="metafor">(<a href="references.html#ref-metafor" role="doc-biblioref">Viechtbauer 2010</a>)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(metafor)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Gemiddelden, SDs en steekproefomvang voor elke groep</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>Madelie <span class="ot">&lt;-</span> <span class="fu">mean</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Adelie'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Mgentoo <span class="ot">&lt;-</span> <span class="fu">mean</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Gentoo'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>SDadelie <span class="ot">&lt;-</span> <span class="fu">sd</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Adelie'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>SDgentoo <span class="ot">&lt;-</span> <span class="fu">sd</span>(penguins<span class="sc">$</span>body_mass_g[penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Gentoo'</span>], <span class="at">na.rm=</span>T)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>Nadelie <span class="ot">&lt;-</span> <span class="fu">sum</span>(penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Adelie'</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>Ngentoo <span class="ot">&lt;-</span> <span class="fu">sum</span>(penguins<span class="sc">$</span>species<span class="sc">==</span><span class="st">'Gentoo'</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">escalc</span>(<span class="at">measure =</span> <span class="st">'SMD'</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">m1i =</span> Mgentoo,</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">m2i =</span> Madelie,</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">sd1i =</span> SDgentoo,</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>         <span class="at">sd2i =</span> SDadelie,</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>         <span class="at">n1i =</span> Ngentoo,</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>         <span class="at">n2i =</span> Nadelie)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+      yi     vi    sei      zi   pval  ci.lb  ci.ub 
+1 2.8602 0.0295 0.1716 16.6629 &lt;.0001 2.5237 3.1966 </code></pre>
+</div>
+</div>
+<p>Het gestandaardiseerde gemiddelde verschil tussen Adélie- en Ezelspinguïns is <span class="math inline">\(d\)</span> = 2,86 [2,52, 3,19], wat aantoont dat Ezelspinguïns een lichaamsmassa hebben die 2,86 standaarddeviaties groter is dan die van Ezelspinguïns.</p>
+<p>We kunnen ook contrasten kwantificeren op basis van samenvattende statistieken uit de ANOVA-tabel en de gemiddelden binnen de groep. We kunnen het gestandaardiseerde gemiddelde verschil berekenen met de gemiddelden van beide groepen en de gemiddelde gekwadrateerde fout (<span class="math inline">\(MSE\)</span>) met de volgende vergelijking:</p>
+<p><span class="math display">\[
+d = \frac{M_1 - M_2}{\sqrt{MSE}}
+\]</span></p>
+<p>Deze methode geeft een gestandaardiseerd gemiddeld verschil dat gelijk is aan de Cohen’s <span class="math inline">\(d\)</span> met de gepoolde standaardafwijking in de noemer (zie hoofdstuk over gemiddelde verschillen). Als we dus de gemiddelde gekwadrateerde fouten (d.w.z. MS van residuen) uit <span class="quarto-unresolved-ref">?sec-eta-tabel</span> halen en de gemiddelden verkrijgen (gemiddelden: Gentoo = 5076, Adelie = 3701), kunnen we het gestandaardiseerde gemiddelde verschil als volgt berekenen: <span class="math inline">\(frac{5076 - 3701}{sqrt{213697.6}} = \frac{1375}{462.27 }}. = 2.974\)</span>. De discrepantie tussen het gestandaardiseerde gemiddelde verschil dat de functie <code>escalc()</code> geeft, komt doordat de functie automatisch een kleine steekproefcorrectiefactor toepast, waardoor het totale effect kleiner wordt.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">Df</th>
+<th style="text-align: right;">Sum Sq</th>
+<th style="text-align: right;">Mean Sq</th>
+<th style="text-align: right;">F value</th>
+<th style="text-align: right;">Pr(&gt;F)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">species</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">146864214</td>
+<td style="text-align: right;">73432107.1</td>
+<td style="text-align: right;">343.6263</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Residuals</td>
+<td style="text-align: right;">339</td>
+<td style="text-align: right;">72443483</td>
+<td style="text-align: right;">213697.6</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Pas op voor de aannames.
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Merk op dat deze methode ALLEEN geldig is als je bereid bent om uit te gaan van gelijke varianties tussen groepen (homoscedasticiteit) en als je een Fisher’s one-way ANOVA uitvoert (in plaats van Welch’s). Deze methode is ook onpraktisch als je rekent met gerapporteerde statistieken en de MSE niet gerapporteerd wordt (wat meestal het geval is).</p>
+<p>Als je niet wilt uitgaan van homogeniteit van varianties, bereken dan Cohen’s d tussen groepen alsof er maar twee groepen zijn om te vergelijken. Je moet echter weten dat het ook weinig zin heeft om een Fisher’s ANOVA uit te voeren in zulke situaties. Je kunt beter overstappen op Welch’s ANOVA, die niet uitgaat van homoscedasticiteit. Als varianties sterk verschillen, kun je alternatieve gestandaardiseerde effectgroottematen gebruiken, zoals Glass’ delta, en betrouwbaarheidsintervallen berekenen met bootstrap.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="een-weg-herhaalde-metingen-anova" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="een-weg-herhaalde-metingen-anova"><span class="header-section-number">10.4</span> Een-weg herhaalde metingen ANOVA</h2>
+<p>Een-weg herhaalde metingen (One-way repeated measures ANOVA, rmANOVA) is een uitbreiding van t-tests met gepaarde steekproeven, met het verschil dat het kan worden gebruikt in twee of meer groepen.</p>
+<section id="vrijheidsgraden-bepalen" class="level3" data-number="10.4.1">
+<h3 data-number="10.4.1" class="anchored" data-anchor-id="vrijheidsgraden-bepalen"><span class="header-section-number">10.4.1</span> Vrijheidsgraden bepalen</h3>
+<p>Raadpleeg de volgende tabel om de vrijheidsgraden voor ANOVA-effecten met herhaalde meting te bepalen.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vrijheidsgraden</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tussen-subject ANOVA (herhaalde metingen)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Effect</td>
+<td style="text-align: center;"><span class="math inline">\(k-1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fout-tussen</td>
+<td style="text-align: center;"><span class="math inline">\((n-1)\times(k-1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fout-binnen</td>
+<td style="text-align: center;"><span class="math inline">\((n-1)\cdot (k-1)\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Totaal (binnen)</td>
+<td style="text-align: center;"><span class="math inline">\(n\cdot (k-1)\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="eta-kwadraat-van-rmanova-statistieken" class="level3" data-number="10.4.2">
+<h3 data-number="10.4.2" class="anchored" data-anchor-id="eta-kwadraat-van-rmanova-statistieken"><span class="header-section-number">10.4.2</span> Eta-kwadraat van rmANOVA-statistieken</h3>
+<p>Gewoonlijk gebruiken we eta kwadraat (<span class="math inline">\(\eta^2\)</span>) of partiële eta kwadraat (<span class="math inline">\(\eta_p^2\)</span>) als maat voor de effectgrootte voor eenrichtings rmANOVA’s, waarvoor deze twee in feite gelijk zijn. Laten we een rmANOVA-model construeren met voorbeeldgegevens uit het pakket <code>datarium</code> <span class="citation" data-cites="datarium">(<a href="references.html#ref-datarium" role="doc-biblioref">Kassambara 2019</a>)</span>. De <code>zelfwaardering/selfesteem</code> dataset toont eenvoudig zelfwaarderingsscores over drie herhaalde metingen bij dezelfde proefpersonen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">### laad in en herschik data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"selfesteem"</span>, <span class="at">package =</span> <span class="st">"datarium"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>selfesteem <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(selfesteem,<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"t1"</span>,<span class="st">"t2"</span>,<span class="st">"t3"</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(selfesteem) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"subject"</span>,<span class="st">"time"</span>,<span class="st">"self_esteem"</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="do">####</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>rmANOVA_mdl <span class="ot">=</span> <span class="fu">aov</span>(<span class="at">formula =</span> self_esteem <span class="sc">~</span> time <span class="sc">+</span> <span class="fu">Error</span>(subject),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> selfesteem)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rmANOVA_mdl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Error: subject
+          Df  Sum Sq Mean Sq F value Pr(&gt;F)
+Residuals  1 0.07667 0.07667               
+
+Error: Within
+          Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+time       2 102.46   51.23   63.07 1.06e-10 ***
+Residuals 26  21.12    0.81                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Effect-Sizes-for-ANOVAs_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Er worden hier twee tabellen weergegeven: de bovenste tabel geeft de effecten tussen de proefpersonen weer en de tabel eronder de effecten binnen de proefpersonen. De vergelijkingen en functies om <span class="math inline">\(eta^2\)</span> te berekenen die in het hoofdstuk over ANOVA’s tussen de proefpersonen zijn genoemd, zijn hier ook van toepassing:</p>
+<p><span class="math display">\[
+\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{fout-within}},
+\]</span></p>
+<p><span class="math display">\[
+\eta^2 = \frac{SS_\text{effect}}{SS_\text{totaal}}
+\]</span></p>
+<p>Merk op dat <span class="math inline">\(SS_text{totaal}\)</span> hier geen <span class="math inline">\(SS_text{fout-tussen}\)</span> bevat omdat we er niet in geïnteresseerd zijn door een rmANOVA uit te voeren. Deze analyse richt zich op een effect dat volgens ons bij elke proefpersoon zou moeten optreden, ongeacht hoe deze proefpersonen van elkaar verschillen. Met andere woorden, de variantie tussen de proefpersonen kan groot of klein zijn, maar we geven er niet om als we onderzoeken of er een effect is of niet over herhaalde metingen heen. Daarom kan de totale som van de kwadraten worden gedefinieerd als</p>
+<p><span class="math display">\[
+SS_\text{totaal} = SS_\text{effect} + SS_\text{fout-within}
+\]</span></p>
+<p>Daarom kunnen we <span class="math inline">\(\eta^2\)</span> berekenen van de rmANOVA tabel als,</p>
+<p><span class="math display">\[
+\eta^2 = \frac{102.46}{21.12 + 102.46} = .83
+\]</span></p>
+<p>We kunnen het rmANOVA model in de <code>eta_squared()</code> functie van het <code>effectsize</code> pakket in R <span class="citation" data-cites="effectsize">(<a href="references.html#ref-effectsize" role="doc-biblioref">Ben-Shachar, Lüdecke, and Makowski 2020</a>)</span> stoppen om <span class="math inline">\(eta^2\)</span> te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(rmANOVA_mdl,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Group  | Parameter | Eta2 (partial) |       95% CI
+--------------------------------------------------
+Within |      time |           0.83 | [0.69, 0.89]</code></pre>
+</div>
+</div>
+<p>Zoals verwacht vinden we dezelfde puntschatting van onze handberekening. Om <span class="math inline">\(\eta^2\)</span> te berekenen uit de F-statistiek en vrijheidsgraden kunnen we het <code>MOTE</code> pakket <span class="citation" data-cites="MOTE">(<a href="references.html#ref-MOTE" role="doc-biblioref">Buchanan et al. 2019</a>)</span> gebruiken zoals we deden in <a href="#sec-eta-table" class="quarto-xref"><span>Section 10.3.3</span></a></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MOTE)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>eta <span class="ot">&lt;-</span> <span class="fu">eta.full.SS</span>(<span class="at">dfm =</span> <span class="dv">2</span>,  <span class="co"># effect vrijheidsgraden</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">dfe =</span> <span class="dv">26</span>, <span class="co"># fout vrijheidsgraaden</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">ssm =</span> <span class="fl">102.46</span>, <span class="co"># sum of squares voor het effect</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">sst =</span> <span class="fl">102.46</span> <span class="sc">+</span> <span class="fl">21.12</span>, <span class="co"># totale sum of squares</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Fvalue =</span> <span class="fl">63.07</span>,</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>                   <span class="at">a =</span> .<span class="dv">05</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">data.frame</span>(<span class="at">eta_squared =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>eta),</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">etalow =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>etalow),</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">etahigh =</span> <span class="fu">apa</span>(eta<span class="sc">$</span>etahigh))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  eta_squared etalow etahigh
+1       0.829  0.644   0.910</code></pre>
+</div>
+</div>
+<p>Let op de discrepantie tussen betrouwbaarheidsintervallen die worden geretourneerd door <code>MOTE</code> en <code>effectsize</code>. Dit komt door verschillen in de berekening.</p>
+</section>
+</section>
+<section id="twee-weg-tussen-subjecten-anova" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="twee-weg-tussen-subjecten-anova"><span class="header-section-number">10.5</span> Twee-weg tussen-subjecten ANOVA</h2>
+<p>Twee-weg tussen-subjecten ANOVA wordt gebruikt als er twee voorspellende groepsvariabelen in het model zitten. Merk opnieuw op dat tussen proefpersonen betekent dat elke groep verschillende proefpersonen bevat.</p>
+<section id="vrijheidsgraden-vaststellen-1" class="level3" data-number="10.5.1">
+<h3 data-number="10.5.1" class="anchored" data-anchor-id="vrijheidsgraden-vaststellen-1"><span class="header-section-number">10.5.1</span> Vrijheidsgraden vaststellen</h3>
+<p>Raadpleeg de volgende tabel om de vrijheidsgraden te bepalen voor tweezijdige ANOVA-effecten <span class="citation" data-cites="postTwoWay">(<a href="references.html#ref-postTwoWay" role="doc-biblioref">Morse 2018</a>)</span>. Merk op dat <span class="math inline">\(k_1\)</span> het aantal groepen in de eerste variabele is en <span class="math inline">\(k_2\)</span> het aantal groepen in de tweede variabele.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vrijheidsgraden</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tussen subjecten ANOVA</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hoofd Effect (van éé variabele)</td>
+<td style="text-align: center;"><span class="math inline">\(k_1-1\)</span> of <span class="math inline">\(k_2-1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Interactie Effect</td>
+<td style="text-align: center;"><span class="math inline">\((k_1-1)\times (k_2-1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fout</td>
+<td style="text-align: center;"><span class="math inline">\(n-k_1\cdot k_2\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Totaal</td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="eta-kwadraat-van-twee-weg-anova-statistieken" class="level3" data-number="10.5.2">
+<h3 data-number="10.5.2" class="anchored" data-anchor-id="eta-kwadraat-van-twee-weg-anova-statistieken"><span class="header-section-number">10.5.2</span> Eta-kwadraat van twee-weg ANOVA-statistieken</h3>
+<p>Voor tweezijdige ANOVA’s kunnen we <span class="math inline">\(\eta^2_p\)</span> krijgen voor elke voorspeller in het model. Laten we ons ANOVA-model construeren met gegevens uit de <code>palmerpenguins</code> dataset <span class="citation" data-cites="palmerpenguins">(<a href="references.html#ref-palmerpenguins" role="doc-biblioref">Horst, Hill, and Gorman 2020</a>)</span>. In dit voorbeeld willen we zien hoe de soort en het geslacht van de pinguïn de variantie in lichaamsmassa verklaren.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>ANOVA2_mdl <span class="ot">&lt;-</span> <span class="fu">aov</span>(body_mass_g <span class="sc">~</span> species <span class="sc">+</span> sex <span class="sc">+</span> species<span class="sc">:</span>sex,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> penguins)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ANOVA2_mdl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df    Sum Sq  Mean Sq F value   Pr(&gt;F)    
+species       2 145190219 72595110 758.358  &lt; 2e-16 ***
+sex           1  37090262 37090262 387.460  &lt; 2e-16 ***
+species:sex   2   1676557   838278   8.757 0.000197 ***
+Residuals   327  31302628    95727                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+11 observations deleted due to missingness</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Effect-Sizes-for-ANOVAs_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>De resultaten laten zien dat soort, geslacht en de interactie tussen de twee verantwoordelijk zijn voor substantiële variantie in lichaamsmassa. We kunnen de bijdragen van soort, geslacht en hun interactie berekenen door de partiële eta-kwadraatwaarde (<span class="math inline">\(eta_p^2\)</span>) te berekenen. Hiervoor gebruiken we dezelfde formules als <span class="math inline">\(\eta^2\)</span> van de eenzijdige ANOVA’s. Het verschil tussen de formules voor <span class="math inline">\(\eta_p^2\)</span> en <span class="math inline">\(\eta^2\)</span> is dat <span class="math inline">\(\eta_p^2\)</span> niet de totale som van de kwadraten in de noemer gebruikt, maar de som van de restkwadraten (<span class="math inline">\(SS_text{error}\)</span>) en de som van de kwadraten van het gewenste effect (<span class="math inline">\(SS_text{effect}\)</span>; d.w.z. soort of geslacht maar niet beide). Bijvoorbeeld,</p>
+<p><span class="math display">\[
+\small{\text{For species:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}} = \frac{145190219}{145190219+ 31302628} = .82}
+\]</span> <span class="math display">\[
+\small{\text{For sex:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}} = \frac{37090262}{37090262 + 31302628} = .54}
+\]</span> <span class="math display">\[
+\small{\text{For sex}\times\text{species:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}} = \frac{1676557}{1676557+ 31302628} = .05}
+\]</span> We kunnen dit ook eenvoudig in R doen met de functie <code>eta_squared</code> in het pakket <code>effectsize</code> <span class="citation" data-cites="effectsize">(<a href="references.html#ref-effectsize" role="doc-biblioref">Ben-Shachar, Lüdecke, and Makowski 2020</a>)</span> en het argument <code>partial = TRUE</code> instellen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(ANOVA2_mdl,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter   | Eta2 (partial) |       95% CI
+-------------------------------------------
+species     |           0.82 | [0.79, 0.85]
+sex         |           0.54 | [0.48, 0.60]
+species:sex |           0.05 | [0.01, 0.10]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="twee-weg-herhaalde-maatregelen-anova" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="twee-weg-herhaalde-maatregelen-anova"><span class="header-section-number">10.6</span> Twee-weg herhaalde maatregelen ANOVA</h2>
+<p>Een twee-weg herhaalde maatregelen ANOVA (rmANOVA) zou aangeven dat proefpersonen aan elke conditie worden blootgesteld langs twee variabelen.</p>
+<section id="vrijhheidsgraden-vaststellen" class="level3" data-number="10.6.1">
+<h3 data-number="10.6.1" class="anchored" data-anchor-id="vrijhheidsgraden-vaststellen"><span class="header-section-number">10.6.1</span> Vrijhheidsgraden vaststellen</h3>
+<p>Raadpleeg de volgende tabel om de vrijheidsgraden te bepalen voor tweeweg rmANOVA-effecten <span class="citation" data-cites="postTwoWay">(<a href="references.html#ref-postTwoWay" role="doc-biblioref">Morse 2018</a>)</span>. Merk op dat <span class="math inline">\(k_1\)</span> het aantal groepen in de eerste variabele is en <span class="math inline">\(k_2\)</span> het aantal groepen in de tweede variabele.</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vrijheidsgraden</th>
+<th style="text-align: center;"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Tussen subjecten ANOVA</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hoofd Effect (van één variabele)</td>
+<td style="text-align: center;"><span class="math inline">\(k_1-1\)</span> of <span class="math inline">\(k_2-1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Interactie Effect</td>
+<td style="text-align: center;"><span class="math inline">\((k_1-1)\times (k_2-1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fout-tussen</td>
+<td style="text-align: center;"><span class="math inline">\((k_1 \cdot k_2) - 1\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Fout-binnen</td>
+<td style="text-align: center;"><span class="math inline">\((n - 1)\times (k_1\cdot k_2 - 1)\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Totaal</td>
+<td style="text-align: center;"><span class="math inline">\(n-1\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="eta-kwadraat-van-bidirectionele-rmanova" class="level3" data-number="10.6.2">
+<h3 data-number="10.6.2" class="anchored" data-anchor-id="eta-kwadraat-van-bidirectionele-rmanova"><span class="header-section-number">10.6.2</span> Eta-kwadraat van bidirectionele rmANOVA</h3>
+<p>Voor een twee-weg herhaalde maatregelen ANOVA kunnen we de <code>gewichtsverlies</code> dataset uit het <code>datarius</code> pakket <span class="citation" data-cites="datarium">(<a href="references.html#ref-datarium" role="doc-biblioref">Kassambara 2019</a>)</span> gebruiken. Deze dataset bevat een dieetconditie en een controleconditie die proefpersonen in de tijd volgde (3 tijdpunten) voor elke conditie.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="do">### laad in en herschik data</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"weightloss"</span>, <span class="at">package =</span> <span class="st">"datarium"</span>)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>weightloss <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(weightloss,<span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"t1"</span>,<span class="st">"t2"</span>,<span class="st">"t3"</span>))</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(weightloss) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"subject"</span>,<span class="st">"diet"</span>,<span class="st">"exercises"</span>,<span class="st">"time"</span>, <span class="st">"weight_loss"</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>weightloss <span class="ot">&lt;-</span> weightloss[weightloss<span class="sc">$</span>diet<span class="sc">==</span><span class="st">'no'</span>,] <span class="co"># remove the diet intervention trials</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="do">####</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>rmANOVA2_mdl <span class="ot">=</span> <span class="fu">aov</span>(<span class="at">formula =</span> weight_loss <span class="sc">~</span> time <span class="sc">+</span> exercises <span class="sc">+</span> time<span class="sc">:</span>exercises <span class="sc">+</span> <span class="fu">Error</span>(subject),</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">data =</span> weightloss)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rmANOVA2_mdl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Error: subject
+          Df Sum Sq Mean Sq F value Pr(&gt;F)
+Residuals 11  20.64   1.877               
+
+Error: Within
+               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+time            2 129.26   64.63   50.57 3.45e-13 ***
+exercises       1 101.03  101.03   79.05 3.16e-12 ***
+time:exercises  2  92.55   46.28   36.21 9.26e-11 ***
+Residuals      55  70.29    1.28                     
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Effect-Sizes-for-ANOVAs_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Uit de bovenstaande tabel en grafiek kunnen we opmaken dat er een substantiële verandering in gewichtsverlies binnen de persoon is onder de conditie van lichaamsbeweging en geen waarneembare toename in gewichtsverlies zonder lichaamsbeweging. Dit suggereert dat er een substantieel interactie-effect is. Net als bij de tweezijdige ANOVA tussen de proefpersonen kunnen we de partiële gekwadrateerde waarden uit de ANOVA-tabel berekenen</p>
+<p><span class="math display">\[
+\small{\text{For time:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error-within}} = \frac{129.26}{129.26+ 70.29} = .65}
+\]</span> <span class="math display">\[
+\small{\text{For exercise:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error-within}} = \frac{101.03}{101.03 + 70.29} = .59}
+\]</span> <span class="math display">\[
+\small{\text{For sex}\times\text{species:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error-within}} = \frac{92.55}{92.55+ 70.29} = .57}
+\]</span></p>
+<p>Onthoud voor de partiële gemeta-kwadraat dat de noemer niet de totale som van de kwadraten is, maar de som van de effectkwadraten en de fout. In de ANOVA met herhaalde maatregelen moet de fout alleen de fout binnen de proefpersoon zijn, omdat we niet geïnteresseerd zijn in de variantie tussen proefpersonen. We kunnen dit ook in R berekenen met de functie <code>eta_kwadraat()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(rmANOVA2_mdl,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Group  |      Parameter | Eta2 (partial) |       95% CI
+-------------------------------------------------------
+Within |           time |           0.65 | [0.49, 0.75]
+Within |      exercises |           0.59 | [0.42, 0.70]
+Within | time:exercises |           0.57 | [0.39, 0.69]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="effect-sizes-voor-anovas" class="level2" data-number="10.7">
+<h2 data-number="10.7" class="anchored" data-anchor-id="effect-sizes-voor-anovas"><span class="header-section-number">10.7</span> Effect Sizes voor ANOVAs</h2>
+<p>ANOVA (Analysis of Variance) is een statistische methode die wordt gebruikt om gemiddelden over meerdere groepen of omstandigheden te vergelijken. Het wordt meestal gebruikt als de uitkomstvariabele continu is en de voorspellende variabelen categorisch. Veelgebruikte effectgroottematen voor ANOVA’s / F-tests zijn: eta-kwadraat (<span class="math inline">\(\eta^2\)</span>), partieel eta-kwadraat (<span class="math inline">\(\eta_p^2\)</span>), gegeneraliseerd eta-kwadraat (<span class="math inline">\(\eta^2_G\)</span>), omega-kwadraat (<span class="math inline">\(\omega^2\)</span>), partieel omega-kwadraat (<span class="math inline">\(\omega\)</span>), gegeneraliseerd omega-kwadraat (<span class="math inline">\(\omega^2_G\)</span>), Cohen’s <span class="math inline">\(f\)</span>.</p>
+<table class="table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 43%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Beschrijving</th>
+<th style="text-align: center;">Section</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\eta^2\)</span> - eta-kwadraat</td>
+<td style="text-align: left;">Meet de verklaarde variantie van het hele ANOVA-model.</td>
+<td style="text-align: center;"><a href="#sec-eta-squared" class="quarto-xref"><span>Section 10.7.1</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\eta^2_p\)</span> - Partiële eta-kwadraat</td>
+<td style="text-align: left;">Meet de variantie die wordt verklaard door een specifieke factor in het model.</td>
+<td style="text-align: center;"><a href="#sec-etap" class="quarto-xref"><span>Section 10.7.2</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(\eta^2_G\)</span> - Gegeneraliseerd eta-kwadraat</td>
+<td style="text-align: left;">Vergelijkbaar met <span class="math inline">\(\eta^2\)</span>, maar gebruikt de som van de kwadraten van alle niet-gemanipuleerde variabelen in de berekening. Dit stelt meta-analisten in staat om <span class="math inline">\(\eta_G\)</span> over verschillende ontwerpen te vergelijken.</td>
+<td style="text-align: center;"><a href="#sec-etaG" class="quarto-xref"><span>Section 10.7.3</span></a></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(\omega^2,\omega^2_p,\omega^2_G\)</span> - Omega kwadraat correcties</td>
+<td style="text-align: left;">Correcties voor vertekening in metingen van <span class="math inline">\(\eta^2\)</span>. Kan op dezelfde manier geïnterpreteerd worden als <span class="math inline">\(\eta^2\)</span>.</td>
+<td style="text-align: center;"><a href="#sec-omega" class="quarto-xref"><span>Section 10.7.4</span></a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(f\)</span> - Cohen’s <em>f</em></td>
+<td style="text-align: left;">Deze effectgrootte kan worden geïnterpreteerd als de gemiddelde Cohen’s <span class="math inline">\(d\)</span> tussen elke groep.</td>
+<td style="text-align: center;"><a href="#sec-f" class="quarto-xref"><span>Section 10.7.5</span></a></td>
+</tr>
+</tbody>
+</table>
+<section id="sec-eta-squared" class="level3" data-number="10.7.1">
+<h3 data-number="10.7.1" class="anchored" data-anchor-id="sec-eta-squared"><span class="header-section-number">10.7.1</span> Eta-kwadraat (<span class="math inline">\(\eta^2\)</span>)</h3>
+<p>Eta-kwadraat is de verhouding tussen de variantie tussen groepen en de totale variantie. Het beschrijft het deel van de totale variantie in de gegevens dat wordt verklaard door een bepaalde factor. Daarom is het een maat voor <em>verklaarde variantie</em>. Om het kwadraat te berekenen (<span class="math inline">\(\eta^2\)</span>) moeten we eerst de totale som van de kwadraten (<span class="math inline">\(SS_{\text{total}}\)</span>) en de som van de effectkwadraten (<span class="math inline">\(SS_{\text{effect}}\)</span>) berekenen,</p>
+<p><span class="math display">\[
+SS_{\text{total}} = \sum_{i=1}^n (y_i-\bar{y})^2
+\]</span></p>
+<p>Waarbij <span class="math inline">\(bar{y}\)</span> het grote gemiddelde is (d.w.z. het gemiddelde van alle gegevenspunten samengevoegd over de groepen). Om de som van de kwadraten van het effect te berekenen, kunnen we de voorspelde <span class="math inline">\(y\)</span> waarden nemen (<span class="math inline">\(\hat{y}_i\)</span>). In het geval van categorische voorspellers is <span class="math inline">\(\hat{y}_i\)</span> gelijk aan het gemiddelde van de uitkomst <em>binnen</em> de respectievelijke groep van dat individu. Daarom kan de som van de kwadraten van het effect worden berekend met de volgende formule:</p>
+<p><span class="math display">\[
+SS_{\text{effect}} = \sum_{i=1}^n (\hat{y}_i-\bar{y})^2.
+\]</span></p>
+<p>Nu kunnen we de waarde van de kwadraten berekenen,</p>
+<p><span class="math display">\[
+\eta^2 = \frac{SS_{\text{effect}}}{SS_{\text{total}}}
+\]</span></p>
+<p>De standaardfout van eta-kwadraat kan worden benaderd op basis van <span class="citation" data-cites="olkin1995">Olkin and Finn (<a href="references.html#ref-olkin1995" role="doc-biblioref">1995</a>)</span>:</p>
+<p><span class="math display">\[
+SE_{\eta^2}=\sqrt{\frac{4\eta^2\left(1-\eta^2\right)^2\left(n+k-1\right)^2}{\left(n^2-1\right)\left(3+n\right)}}
+\]</span></p>
+<p>De steekproefverdeling voor <span class="math inline">\(\eta^2\)</span> is asymmetrisch omdat alle waarden begrensd zijn in het bereik van 0 tot 1. Het betrouwbaarheidsinterval rond <span class="math inline">\(\eta^2\)</span> zal ook asymmetrisch zijn, dus in plaats van het betrouwbaarheidsinterval te berekenen op basis van de standaardfout, kunnen we in plaats daarvan een niet-centrale F-verdeling gebruiken met de vrijheidsgraden tussen groepen (bijv, voor drie groepen: <span class="math inline">\(df_b=k-1=3-1=2\)</span>) en de vrijheidsgraden binnen groepen (bijvoorbeeld voor 100 proefpersonen en drie groepen: <span class="math inline">\(df_b=n-k=100-3=97\)</span>) om de betrouwbaarheidsintervallen te verkrijgen. Een andere optie is om de bootstrappingprocedure te gebruiken <span class="citation" data-cites="BootES">(d.w.z. het opnieuw bemonsteren van de waargenomen gegevenspunten om een steekproefverdeling rond <span class="math inline">\(\eta^2\)</span> te construeren, zie <a href="references.html#ref-BootES" role="doc-biblioref">Kirby and Gerlanc 2013</a>)</span> en dan de .025- en .975-kwantielen van die verdeling te nemen. De R-code hieronder berekent het juiste betrouwbaarheidsinterval.</p>
+<p>Waarbij <span class="math inline">\(n\)</span> de totale steekproefgrootte is en <span class="math inline">\(k\)</span> het aantal voorspellers. In R kunnen we <span class="math inline">\(\eta^2\)</span> berekenen van een eenzijdige ANOVA met behulp van de pinguïndataset uit het gegevenspakket <code>palmerpenguins</code>. Met de <code>aov</code> functie in basis-R kan de analist een ANOVA modelleren met categorische voorspellers aan de rechterkant (soort) van de <code>~</code> en de uitkomst aan de linkerkant (lichaamsmassa van de pinguïn). We kunnen dan de <code>eta_squared</code> functie in het <code>effectsize</code> pakket gebruiken om de puntschatting en betrouwbaarheidsintervallen te berekenen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co"># groep: soorten</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co"># uitkomst: lichaamsgewicht</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(effectsize)</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Een-Wag ANOVA</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>mdl1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species)</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(mdl1, </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Eta2 |       95% CI
+-------------------------------
+species   | 0.67 | [0.62, 0.71]</code></pre>
+</div>
+</div>
+<p>De soort pinguïn verklaart het grootste deel van de variatie in lichaamsmassa met een kwadraatwaarde van <span class="math inline">\(eta^2\)</span> = .67 [.62, .71]. Laten we nu hetzelfde doen met een tweezijdige ANOVA, met zowel <code>soort</code> als <code>seks</code> als categorische voorspellers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Bijvoorbeeld:</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="co"># groep: soorten en geslacht</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># uitkomst: lichaamsgewicht</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Twee-Weg ANOVA</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>mdl2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species <span class="sc">+</span> sex)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(mdl2, </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Eta2 |       95% CI
+-------------------------------
+species   | 0.67 | [0.62, 0.72]
+sex       | 0.17 | [0.10, 0.24]</code></pre>
+</div>
+</div>
+<p>Merk op dat de <span class="math inline">\(\eta^2\)</span> niet verandert voor soorten omdat de som van de kwadraten wordt gedeeld door de totale som van de kwadraten in plaats van de residuele som van de kwadraten (zie partiële eta kwadraat). In het voorbeeld is de kwadratische eta voor de soorten .67 en voor het geslacht .17.</p>
+</section>
+<section id="sec-etap" class="level3" data-number="10.7.2">
+<h3 data-number="10.7.2" class="anchored" data-anchor-id="sec-etap"><span class="header-section-number">10.7.2</span> Partiële Eta-Kwadraat (<span class="math inline">\(\eta^2_p\)</span>)</h3>
+<p>Partial eta-squared is the most commonly reported effect size measure for F-tests. It describes the proportion of variability associated with an effect when the variability associated with all other effects identified in the analysis has been removed from consideration (hence, it is “partial”). If you have access to an ANOVA table, the partial eta-squared for an effect is calculated as:</p>
+<p><span class="math display">\[
+\eta_p^2 = \frac{ SS_{\text{effect}}}{SS_{\text{effect}}+SS_{\text{error}}}
+\]</span></p>
+<p>There are two things to take note of here:</p>
+<ol type="1">
+<li>In a one-way ANOVA (one categorical predictor), partial eta-squared and eta-squared are equivalent since <span class="math inline">\(SS_{\text{total}} = SS_{\text{effect}}+SS_{\text{error}}\)</span></li>
+<li>If there are multiple predictors, the denominator will only include the sum of squares of the effect of interest rather than the effect of all predictors (which is the case for the non-partial eta squared).</li>
+</ol>
+<p>In R, let us compare the partial eta-squared values for a one-way ANOVA and a two-way ANOVA using the <code>eta_squared</code> function in the <code>effectsize</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># One-Way ANOVA</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>mdl1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(mdl1, </span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For one-way between subjects designs, partial eta squared is equivalent
+  to eta squared. Returning eta squared.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Parameter | Eta2 |       95% CI
+-------------------------------
+species   | 0.67 | [0.62, 0.71]</code></pre>
+</div>
+</div>
+<p>The species of the penguin explains the majority of the variation in body mass showing a partial eta-squared value of <span class="math inline">\(\eta^2\)</span> = <span class="math inline">\(\eta^2_p\)</span> = .67 [.62, .71]. Let us now do the same thing with a two-way ANOVA, using both <code>species</code> and <code>sex</code> as our categorical predictors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species and sex</span></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-Way ANOVA</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>mdl2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species <span class="sc">+</span> sex)</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="fu">eta_squared</span>(mdl2, </span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Eta2 (partial) |       95% CI
+-----------------------------------------
+species   |           0.81 | [0.78, 0.84]
+sex       |           0.53 | [0.46, 0.59]</code></pre>
+</div>
+</div>
+<p>Once we run a two-way ANOVA, the eta-squared value for species begins to differ. The example shows a partial eta-squared value for species of <span class="math inline">\(\eta^2_p\)</span> = .81 [.78, .84] and for sex <span class="math inline">\(\eta^2\)</span> = .53 [.46, .59].</p>
+</section>
+<section id="sec-etaG" class="level3" data-number="10.7.3">
+<h3 data-number="10.7.3" class="anchored" data-anchor-id="sec-etaG"><span class="header-section-number">10.7.3</span> Generalized Eta-Squared (<span class="math inline">\(\eta^2_G\)</span>)</h3>
+<p>Generalized eta-squared was devised to allow effect size comparisons across studies with different designs, which eta-squared and partial eta-squared cannot help with (refer to for details). If you can (either you are confident that you calculated it right, or the statistical software that you use just happens to return this measure), report generalized eta-squared in addition to eta-squared or partial eta-squared. The biggest advantage of generalized eta-squared is that it facilitates meta-analysis, which is important for the accumulation of knowledge. To calculate generalized eta-squared, the denominator should be the sums of squares of all the non-manipulated variables (i.e., variance of purely individual differences in the outcome rather than individual differences in treatment effects). Note the formula will depend on the design of the study. In R, the <code>eta_squared</code> function in the <code>effectsize</code> package supports the calculation of generalized eta-squared by using the <code>generalized=TRUE</code> argument.</p>
+</section>
+<section id="sec-omega" class="level3" data-number="10.7.4">
+<h3 data-number="10.7.4" class="anchored" data-anchor-id="sec-omega"><span class="header-section-number">10.7.4</span> Omega squared corrections (<span class="math inline">\(\omega^2\)</span>, <span class="math inline">\(\omega^2_p\)</span>)</h3>
+<p>Similar to Hedges’ correction for small sample bias in standardized mean differences, <span class="math inline">\(\eta^2\)</span> is also biased. We can apply a correction to <span class="math inline">\(\eta^2\)</span> and obtain a relatively unbiased estimate of the population proportion of variance explained by the predictor. To calculate <span class="math inline">\(\omega\)</span>, we need to calculate the within group mean squared errors:</p>
+<p><span class="math display">\[
+MS_{\text{within}} = \frac{1}{n}\sum_{i=1}^n (y_i-\hat{y}_i)^2.
+\]</span> Where the predicted values of the outcome, <span class="math inline">\(\hat{y}_i\)</span>, are the mean value for the individual’s respective group.</p>
+<p><span class="math display">\[
+\omega^2 = \frac{SS_{\text{effect}}-(k-1)\times MS_{\text{within}}}{SS_{\text{total}} + MS_{\text{within}}}
+\]</span></p>
+<p>Where <span class="math inline">\(k\)</span> is the number of groups in the predictor (effect) variable. For partial omega-squared values, we need the mean squared error of effect and the residuals which can easily be calculated from their sum of squares:</p>
+<p><span class="math display">\[
+MS_{\text{effect}} = \frac{SS_{\text{effect}}}{n}
+\]</span> <span class="math display">\[
+MS_{\text{error}} = \frac{SS_{\text{error}}}{n}
+\]</span> Then to calculate the partial omega squared we can use the following formula:</p>
+<p><span class="math display">\[
+\omega_p^2 = \frac{(k-1)(MS_{\text{effect}} - MS_{\text{error}})}{(k-1)\times MS_{\text{effect}} + (n-k-1)\times MS_{\text{error}}}
+\]</span></p>
+<p>In R, we can use the <code>omega_squared</code> function in the <code>effectsize</code> package to calculate both <span class="math inline">\(\omega^2\)</span> and <span class="math inline">\(\omega^2_p\)</span>. For the first example we will use a one-way ANOVA.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(palmerpenguins)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="co"># One-Way ANOVA</span></span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>mdl1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># omega-squared</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(mdl1, </span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Omega2 |       95% CI
+---------------------------------
+species   |   0.67 | [0.61, 0.71]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># partial omega-squared</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(mdl1, </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For one-way between subjects designs, partial omega squared is
+  equivalent to omega squared. Returning omega squared.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Parameter | Omega2 |       95% CI
+---------------------------------
+species   |   0.67 | [0.61, 0.71]</code></pre>
+</div>
+</div>
+<p>The species of the penguin explains the majority of the variation in body mass showing an omega-squared value of <span class="math inline">\(\omega^2\)</span> = .67 [.61, .71]. Note that the partial and non-partial omega squared values do not show a difference as expected in a one-way ANOVA. Let us now do the same thing with a two-way ANOVA, using both <code>species</code> and <code>sex</code> as our categorical predictors.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species and sex</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Two-Way ANOVA</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>mdl2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species <span class="sc">+</span> sex)</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co"># omega-squared</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(mdl2, </span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">partial =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Omega2 |       95% CI
+---------------------------------
+species   |   0.67 | [0.62, 0.72]
+sex       |   0.17 | [0.10, 0.24]</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># partial omega-squared</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">omega_squared</span>(mdl2, </span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">partial =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA (Type I)
+
+Parameter | Omega2 (partial) |       95% CI
+-------------------------------------------
+species   |             0.81 | [0.78, 0.84]
+sex       |             0.53 | [0.46, 0.58]</code></pre>
+</div>
+</div>
+<p>Once we run a two-way ANOVA, the eta-squared value for species diverge. The example shows a partial eta-squared value for species of <span class="math inline">\(\omega^2_p\)</span> = .81 [.78, .84] and for sex <span class="math inline">\(\omega^2\)</span> = .53 [.46, .58].</p>
+</section>
+<section id="sec-f" class="level3" data-number="10.7.5">
+<h3 data-number="10.7.5" class="anchored" data-anchor-id="sec-f"><span class="header-section-number">10.7.5</span> Cohen’s <span class="math inline">\(f\)</span></h3>
+<p>Cohen’s <span class="math inline">\(f\)</span> is defined as the ratio of the standard deviations of the group means and the common standard deviation within each of the groups (note that ANOVA assumes equal variances among groups). Cohen’s <span class="math inline">\(f\)</span> is the effect size measure asked for by G*Power for power analysis for F-tests. This can be calculated easily from the eta-squared value,</p>
+<p><span class="math display">\[
+f = \sqrt{\frac{\eta^2}{1-\eta^2}}
+\]</span></p>
+<p>or by the <span class="math inline">\(\omega^2\)</span> value,</p>
+<p><span class="math display">\[
+f = \sqrt{\frac{\omega^2}{1-\omega^2}}
+\]</span></p>
+<p>Cohen’s <span class="math inline">\(f\)</span> can be interpreted as “the average Cohen’s <span class="math inline">\(d\)</span> (i.e., standardized mean difference) between groups”. Note that there is no directionality to this effect size (<span class="math inline">\(f\)</span> is always greater than zero), therefore two studies showing the same <span class="math inline">\(f\)</span> with the same groups, can have very different patterns of group mean differences. Note that Cohen’s <span class="math inline">\(f\)</span> is also often reported as <span class="math inline">\(f^2\)</span>. The confidence intervals for Cohen’s <span class="math inline">\(f\)</span> can be computed from the upper bounds and lower bounds of the confidence intervals from eta-square or omega-square using the formulas to calculate <span class="math inline">\(f\)</span> (e.g., for the upper bound <span class="math inline">\(f_{UP} = \sqrt{\frac{\eta^2_{UP}}{1-\eta^2_{UP}}}\)</span>).</p>
+<p>In R, we can use the <code>cohens_f</code> function in the <code>effectsize</code> package to calculate Cohen’s <span class="math inline">\(f\)</span>. We will again use example data from the <code>palmerpenguins</code> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example:</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co"># group: species</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co"># outcome: body mass</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>mdl <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species)   </span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cohens_f</span>(mdl,<span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>For one-way between subjects designs, partial eta squared is equivalent
+  to eta squared. Returning eta squared.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># Effect Size for ANOVA
+
+Parameter | Cohen's f |       95% CI
+------------------------------------
+species   |      1.42 | [1.27, 1.57]</code></pre>
+</div>
+</div>
+<p>In the example above, the difference in body mass between the three penguin species was very large showing a Cohen’s <span class="math inline">\(f\)</span> of 1.42 [1.27, 1.57].</p>
+</section>
+</section>
+<section id="reporting-anova-results" class="level2" data-number="10.8">
+<h2 data-number="10.8" class="anchored" data-anchor-id="reporting-anova-results"><span class="header-section-number">10.8</span> Reporting ANOVA results</h2>
+<p>For ANOVAs/F-tests, you will always need to report two kinds of effects: the omnibus effect of the factor(s) and the effect of planned contrasts or post hoc comparisons.</p>
+<p>For instance, imagine that you are comparing three groups/conditions with a one-way ANOVA. The ANOVA will first return an F-statistic, the degrees of freedom, and the associated p-value. Here, you need to calculate the size of this omnibus factor effect in eta-squared, partial eta-squared, or generalized eta-squared. Suppose the omnibus effect is significant. You now know that there is at least one group that differs from the others. You want to know which group(s) differ from the others, and how much they differ. Therefore, you conduct post hoc comparisons on these groups. Because post hoc comparisons compare each group with the others in pairs, you will get a <em>t</em>-statistic and p-value for each comparison. For this, you need to calculate and report Cohen’s <span class="math inline">\(d\)</span> or Hedges’ <span class="math inline">\(g\)</span>.</p>
+<p>Imagine that you have two independent variables or factors, and you conduct a two-by-two factorial ANOVA. The first thing to do then is look at the interaction. If the interaction is significant, you again report the associated omnibus effect size measures, and proceed to analyze the simple effects. Depending on your research question, you compare the levels of one IV on each level of the other IV. You will report d or g for these simple effects. If the interaction is not significant, you look at the main effects and report the associated omnibus effect. You then proceed to analyze the main effect by comparing the levels of one IV while collapsing/aggregating the levels of the other IV. You will report <span class="math inline">\(d\)</span> or <span class="math inline">\(g\)</span> for these pairwise comparisons.</p>
+<p>Note that lower-order effects are not directly interpretable if higher-order effects are significant. If you have a significant interaction in a two-way ANOVA, you cannot interpret the main effects directly. If you have a significant three-way interaction in a three-way ANOVA, you cannot interpret the main effects or the two-way interactions directly, regardless of whether they are significant or not.</p>
+<p>In R, we can use the <code>summary</code> function to display the anova table. We can also append the table to include, for example, partial omega squared values and their respective confidence intervals</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA mdl</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>mdl <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">data =</span> penguins,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>           body_mass_g <span class="sc">~</span> species <span class="sc">+</span> sex)   </span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate partial omega-squared values</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>omega_values <span class="ot">&lt;-</span> <span class="fu">omega_squared</span>(mdl, <span class="at">alternative =</span> <span class="st">"two.sided"</span>)</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create table of partial omega-squared values</span></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>omega_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">omega_sq =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(<span class="fu">c</span>(omega_values<span class="sc">$</span>Omega2_partial,<span class="cn">NA</span>)),</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">omega_low =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(<span class="fu">c</span>(omega_values<span class="sc">$</span>CI_low,<span class="cn">NA</span>)),</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">omega_high =</span> MOTE<span class="sc">::</span><span class="fu">apa</span>(<span class="fu">c</span>(omega_values<span class="sc">$</span>CI_high,<span class="cn">NA</span>)))</span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="co"># append omega values to summary of anova table</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">summary</span>(mdl)[[<span class="dv">1</span>]],</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>      omega_table)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>             Df    Sum Sq    Mean Sq  F value        Pr(&gt;F) omega_sq omega_low
+species       2 145190219 72595109.6 724.2080 3.079053e-121    0.813     0.781
+sex           1  37090262 37090261.8 370.0121  8.729411e-56    0.526     0.457
+Residuals   329  32979185   100240.7       NA            NA       NA        NA
+            omega_high
+species          0.838
+sex              0.585
+Residuals           NA</code></pre>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-effectsize" class="csl-entry" role="listitem">
+Ben-Shachar, Mattan S., Daniel Lüdecke, and Dominique Makowski. 2020. <span>“<span class="nocase">e</span>ffectsize: Estimation of Effect Size Indices and Standardized Parameters.”</span> <em>Journal of Open Source Software</em> 5 (56): 2815. <a href="https://doi.org/10.21105/joss.02815">https://doi.org/10.21105/joss.02815</a>.
+</div>
+<div id="ref-MOTE" class="csl-entry" role="listitem">
+Buchanan, Erin M., Amber Gillenwaters, John E. Scofield, and K. D. Valentine. 2019. <em><span class="nocase">MOTE: Measure of the Effect</span>: Package to Assist in Effect Size Calculations and Their Confidence Intervals</em>. <a href="http://github.com/doomlab/MOTE">http://github.com/doomlab/MOTE</a>.
+</div>
+<div id="ref-palmerpenguins" class="csl-entry" role="listitem">
+Horst, Allison Marie, Alison Presmanes Hill, and Kristen B Gorman. 2020. <em>Palmerpenguins: Palmer Archipelago (Antarctica) Penguin Data</em>. <a href="https://doi.org/10.5281/zenodo.3960218">https://doi.org/10.5281/zenodo.3960218</a>.
+</div>
+<div id="ref-datarium" class="csl-entry" role="listitem">
+Kassambara, Alboukadel. 2019. <em>Datarium: Data Bank for Statistical Analysis and Visualization</em>. <a href="https://CRAN.R-project.org/package=datarium">https://CRAN.R-project.org/package=datarium</a>.
+</div>
+<div id="ref-BootES" class="csl-entry" role="listitem">
+Kirby, Kris N, and Daniel Gerlanc. 2013. <span>“BootES: An r Package for Bootstrap Confidence Intervals on Effect Sizes.”</span> <em>Behavior Research Methods</em> 45: 905–27.
+</div>
+<div id="ref-postTwoWay" class="csl-entry" role="listitem">
+Morse, David. 2018. <span>“How to Calculate Degrees of Freedom When Using Two Way ANOVA with Unequal Sample Size?”</span>
+</div>
+<div id="ref-olkin1995" class="csl-entry" role="listitem">
+Olkin, Ingram, and Jeremy D. Finn. 1995. <span>“Correlations Redux.”</span> <em>Psychological Bulletin</em> 118 (1): 155–64. <a href="https://doi.org/10.1037/0033-2909.118.1.155">https://doi.org/10.1037/0033-2909.118.1.155</a>.
+</div>
+<div id="ref-metafor" class="csl-entry" role="listitem">
+Viechtbauer, Wolfgang. 2010. <span>“Conducting Meta-Analyses in <span>R</span> with the <span class="nocase">metafor</span> Package.”</span> <em>Journal of Statistical Software</em> 36 (3): 1–48. <a href="https://doi.org/10.18637/jss.v036.i03">https://doi.org/10.18637/jss.v036.i03</a>.
+</div>
+</div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Er zijn varianten van ANOVA’s waarbij elk van deze aannames geschonden kan worden.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Bekijk deze forum <a href="https://stats.stackexchange.com/a/98998">discussie</a> voor uitleg.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/matthewbjane\.quarto\.pub\/guide-to-effect-sizes-and-confidence-intervals\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./Categorical-Proportional-Data.html" class="pagination-link" aria-label="Categoriale/Proportionele Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Categoriale/Proportionele Data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./Differences-in-Variance.html" class="pagination-link" aria-label="Verschillen in Variabiliteit">
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Verschillen in Variabiliteit</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

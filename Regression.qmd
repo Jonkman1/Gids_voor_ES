@@ -1,17 +1,17 @@
-# Regression
+# Regressie
 
-Regression is a method of predicting an outcome variable from one or more predictor variables. 
+Regressie is een methode om een uitkomstvariabele te voorspellen op basis van een of meer voorspellende variabelen. 
 
-## Regression Overview
+## Regressie Overzicht
 
 
-In a simple linear regression there is only one predictor ($x$) and one outcome ($y$) in the regression model,
+In een enkelvoudige lineaire regressie is er slechts één voorspeller ($x$) en één uitkomst ($y$) in het regressiemodel,
 
 $$
 y = b_0 + b_1 x + e
 $$
 
-We can visualize this model by showing data from the palmer penguins data package:
+We kunnen dit model visualiseren door gegevens uit het palmerpinguïn-datapakket te tonen:
 
 ```{r,echo=FALSE}
 library(palmerpenguins)
@@ -24,19 +24,19 @@ ggplot(data=penguins[!is.na(penguins$species) & !is.na(penguins$flipper_length_m
   ggdist::theme_ggdist() + theme(aspect.ratio = 1) + 
   geom_point(color='skyblue3') + 
   geom_line(data=NULL,aes(y = fit.c),linewidth=1.5,color='skyblue4') +
-  xlab('Flipper Length (mm)')+
-  ylab('Bill Length (mm)') +
-  ggtitle('Simple Linear Regression')
+  xlab('Lengte flipper (mm)')+
+  ylab('Lengte snavel (mm)') +
+  ggtitle('Enkelvoudige Regressie')
 
 ```
 
-where $b_0$ is the intercept coefficient, $b_1$ is the slope coefficient, and $e$ is the error term that is normally distributed with a mean of zero and a variance of $\sigma^2$. For a simple linear regression we can obtain an unstandardized regression coefficient by finding the optimal value of $b_0$ and $b_1$ that minimizes the variance in $e$, namely, $\sigma^2$. In a multiple regression we can model $y$ as a function of multiple predictor variables such that,
+waarbij $b_0$ de interceptcoëfficiënt is, $b_1$ de hellingscoëfficiënt en $e$ de foutterm die normaal verdeeld is met een gemiddelde van nul en een variantie van $sigma^2$. Voor een enkelvoudige lineaire regressie kunnen we een niet-gestandaardiseerde regressiecoëfficiënt verkrijgen door de optimale waarde van $b_0$ en $b_1$ te vinden die de variantie in $e$, namelijk $\sigma^2$, minimaliseert. In een meervoudige regressie kunnen we $y$ modelleren als een functie van meerdere voorspellende variabelen zodat,
 
 
 $$
 y = b_0 + b_1 x_{1} + b_2 x_{2} +... + e
 $$
-Where the coefficients are all optimized jointly to minimize the error variance. The line produced by the regression equation is our predicted values of $y_i$, however it can also be interpreted as the mean of $y$ given some value of $x$. In a regression equation we can construct more complex models that include non-linear terms such as interactions or polynomials (or any sort of function of $x$). For example, we can create a model where we include a main effect, $x_1$, a quadratic polynomial term, $x^2_1$ and an interaction term, $x_1 x_2$,
+Waarbij de coëfficiënten allemaal samen worden geoptimaliseerd om de foutvariantie te minimaliseren. De lijn van de regressievergelijking is onze voorspelde waarde van $y_i$, maar kan ook worden geïnterpreteerd als het gemiddelde van $y$ gegeven een bepaalde waarde van $x$. In een regressievergelijking kunnen we complexere modellen maken met niet-lineaire termen zoals interacties of polynomen (of eender welke functie van $x$). We kunnen bijvoorbeeld een model maken met een hoofdeffect, $x_1$, een kwadratische polynomiale term, $x^2_1$ en een interactieterm, $x_1 x_2$,
 
 $$
 y_i = b_0 + b_1 x_{1} + b_2 x^2_{2}  + b_2 x_{1} x_{2} + e_i
@@ -45,15 +45,15 @@ $$
 
 
 
-## Effect Sizes for a Linear Regression
+## Effect Sizes voor een Lineaire Regressie
 
 
-If we want to calculate the variance explained in the outcome by all the predictor variables, we can compute an $R^2$ value. The $R^2$ value can be interpreted one of two ways:
+Als we de variantie in de uitkomst willen berekenen die door alle voorspellende variabelen wordt verklaard, kunnen we een $R^2$-waarde berekenen. De $R^2$-waarde kan op twee manieren worden geïnterpreteerd:
 
-1. the variance in $y$ explained by the predictor variables
-2. the square of the correlation between predicted $y$ values and observed (actual) $y$ values
+1. de variantie in $y$ verklaard door de voorspellende variabelen   
+2. het kwadraat van de correlatie tussen voorspelde $y$ waarden en waargenomen (werkelijke) $y$ waarden.
 
-Likewise we can also take the square root of $R^2$ to get the correlation between predicted and observed $y$ values. We can construct an linear regression model quite easily in base R using the `lm()` function. We will use the `palmerpenguins` dataset for our example.
+Op dezelfde manier kunnen we ook de vierkantswortel van $R^2$ nemen om de correlatie tussen voorspelde en waargenomen $y$ waarden te krijgen. We kunnen vrij eenvoudig een lineair regressiemodel construeren in basis-R met de functie `lm()`. We zullen de `palmerpenguins` dataset gebruiken voor ons voorbeeld.
 
 ```{r}
 library(palmerpenguins)
@@ -66,7 +66,8 @@ summary(mdl)
 
 ```
 
-We will notice that the linear regression summary returns two $R^2$ values. The first one is the traditional $R^2$ and the other is the adjusted $R^2$. The adjusted $R^2_\text{adj}$ applies a correction factor since $R^2$ it is often bias when there are more predictor variables and a smaller sample size. If we want to know the contribution for each term in the regression model, we can also use semi-partial $sr^2$ values that are similar to partial eta-squared in the ANOVA section of this book. In R, we can calculate $sr^2$ with the `r2_semipartial()` function in the `effectsize` package [@effectsize]:
+We zullen zien dat het lineaire regressieoverzicht twee $R^2$ waarden geeft. De eerste is de traditionele $R^2$ en de andere is de aangepaste $R^2$. De aangepaste $R^2_text{adj}$ past een correctiefactor toe omdat $R^2$ vaak een vertekend beeld geeft als er meer voorspellende variabelen en een kleinere steekproefomvang zijn. Als we de bijdrage van elke term in het regressiemodel willen weten, kunnen we ook semi-partiële $sr^2$ waarden gebruiken die vergelijkbaar zijn met partiële eta kwadraten in het ANOVA gedeelte van dit boek. In R kunnen we $sr^2$ berekenen met de functie `r2_semipartial()` in het pakket `effectsize` [@effectsize]:
+
 
 
 ```{r}
@@ -77,7 +78,7 @@ r2_semipartial(mdl,alternative = "two.sided")
 ```
 
 
-A standardized effect size for each term could also be calculated from standardizing the regression coefficients. Standardized regression coefficients are calculated by re-scaling the predictor and outcome variables to be z-scores (i.e., setting the mean and variance to be zero and one, respectively). 
+Een gestandaardiseerde effectgrootte voor elke term kan ook worden berekend door de regressiecoëfficiënten te standaardiseren. Gestandaardiseerde regressiecoëfficiënten worden berekend door de schaal van de voorspellende en de uitkomstvariabelen te veranderen in z-scores (d.w.z. het gemiddelde en de variantie op respectievelijk nul en één te zetten). 
 ```{r}
 stand_mdl <- lm(scale(bill_length_mm) ~ scale(flipper_length_mm) + scale(bill_depth_mm), 
                 data = penguins)
@@ -85,39 +86,39 @@ stand_mdl <- lm(scale(bill_length_mm) ~ scale(flipper_length_mm) + scale(bill_de
 summary(stand_mdl)
 ```
 
-Alternatively, we can use the `standardise` function in the `effectsize` package:
+Als alternatief kunnen we de `standardise` functie gebruiken in het `effectsize` pakket:
 
 ```{r}
 standardise(mdl)
 ```
 
 
-## Pearson correlation vs regression coefficients in simple linear regressions
+## Pearson correlatie vs regressiecoëfficiënten in eenvoudige lineaire regressies
 
-A slope coefficient in a simple linear regression model can be defined as the covariance between predictor $x$ and outcome $y$ divided by the variance in $x$,
+Een hellingscoëfficiënt in een enkelvoudig lineair regressiemodel kan worden gedefinieerd als de covariantie tussen voorspeller $x$ en uitkomst $y$ gedeeld door de variantie in $x$,
 
 $$
 b_1 = \frac{\text{Cov}(x,y)}{S_x^2}
 $$
 
-Where $S_x$ is the standard deviation of $x$ (the square of the standard deviation is the variance). A Pearson correlation is defined as,
+Waarbij $S_x$ de standaardafwijking van $x$ is (het kwadraat van de standaardafwijking is de variantie). Een Pearson correlatie is gedefinieerd als,
 
 $$
 r = \frac{\text{Cov}(x,y)}{S_xS_y}
 $$
 
-We can see that these formulas are quite similar, in fact we can express $r$ as a function of $b_1$ such that,
+We zien dat deze formules erg op elkaar lijken, in feite kunnen we $r$ uitdrukken als een functie van $b_1$ zodat,
 
 $$
 r = b_1 \frac{S_x}{S_y}
 $$
 
-Which means that if $S_x=S_y$ then $r = b_1$. Furthermore, if the regression coefficient is standardized this would make the outcome and predictor variable to both have a variance of 1, thus making $S_x=S_y = 1$. Therefore a standardized regression coefficient is equal to a pearson correlation.
+Dat betekent dat als $S_x=S_y$ dan is $r = b_1$. Bovendien, als de regressiecoëfficiënt gestandaardiseerd is, zouden de uitkomst- en voorspellingsvariabele beide een variantie van 1 hebben, waardoor $S_x=S_y = 1$. Daarom is een gestandaardiseerde regressiecoëfficiënt gelijk aan een Pearson correlatie.
 
 
-## Multi-Level Regression models
+## Multi-Level Regressie modellen
 
-We can allow the regression coefficients such as the intercept and slope to vary randomly with respect to some grouping variable. For example, lets say we think that the intercept will vary between the different species of penguins when we look at the relationship between body mass and bill length. Using the `lme4` package in R, we can construct a model that allows the intercept coefficient to vary between species.
+We kunnen de regressiecoëfficiënten zoals het intercept en de helling willekeurig laten variëren met betrekking tot een of andere groeperingsvariabele. Stel bijvoorbeeld dat we denken dat het intercept zal variëren tussen de verschillende soorten pinguïns als we kijken naar de relatie tussen lichaamsmassa en snavellengte. Met behulp van het `lme4` pakket in R kunnen we een model construeren dat de interceptcoëfficiënt laat variëren tussen soorten.
 
 ```{r,message=FALSE,warning=FALSE}
 library(palmerpenguins)
@@ -130,7 +131,7 @@ summary(ml_mdl)
 
 ```
 
-Note in the table that we have random effects and fixed effects. The random effects shows the grouping (categorical) variable that the parameter is allowed to vary on and then it shows the parameter that is varying, which in our case is the intercept coefficient. It also includes the variance of the intercept, which is the extent to which the intercept varies between species. For the fixed effect terms, we see the intercept displayed as well as the slope, this shows the **mean** of the intercept across species and, since the slope is equal across species, the slope is just a single value. Let's visualize how this model looks:
+Merk op dat we in de tabel willekeurige effecten en vaste effecten hebben. De willekeurige effecten tonen de groeperende (categorische) variabele waarop de parameter mag variëren en vervolgens de parameter die varieert, wat in ons geval de interceptcoëfficiënt is. Het bevat ook de variantie van het intercept, dat is de mate waarin het intercept varieert tussen soorten. Voor de termen met een vast effect zien we het intercept weergegeven evenals de helling, dit toont het **gemiddelde** van het intercept over de soorten heen en omdat de helling gelijk is over de soorten heen, is de helling slechts een enkele waarde. Laten we eens visualiseren hoe dit model eruit ziet:
 
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
@@ -143,14 +144,14 @@ ggplot(data=penguins[!is.na(penguins$species) & !is.na(penguins$flipper_length_m
   ggdist::theme_ggdist() + theme(aspect.ratio = 1) + 
   geom_point() + 
   geom_line(data=NULL,aes(y = fit.c),linewidth=1.5) +
-  xlab('Flipper Length (mm)')+
-  ylab('Bill Length (mm)') +
-  ggtitle('Random Intercepts')
+  xlab('Lengte flipper (mm)')+
+  ylab('Lengte snavel (mm)') +
+  ggtitle('Random Intercepten')
 
 ```
 
 
-Notice that in the plot above the slopes are fixed and equal between each species and only the intercepts (i.e., the vertical height of each line) differs. We can also allow the slope to vary if we may choose by editing the formula:
+Merk op dat in de bovenstaande grafiek de hellingen vastliggen en gelijk zijn voor elke soort en dat alleen de intercepts (d.w.z. de verticale hoogte van elke lijn) verschillen. We kunnen de helling ook laten variëren als we dat willen door de formule aan te passen:
 
 
 ```{r,message=FALSE,warning=FALSE}
@@ -164,7 +165,7 @@ summary(ml_mdl)
 
 ```
 
-Varying the slope will include `flipper_length_mm` in the random effects terms. Also note that the summary returns the correlation between random effect terms, which may be useful to know if there is a strong relationship between the intercept and slope across species. Now we see that the random effects terms now include the slope coefficient corresponding to the `flipper_length_mm` predictor variable. Let's visualize 
+Door de helling te variëren wordt `flipper_length_mm` opgenomen in de random effect termen. Merk ook op dat de samenvatting de correlatie tussen de random effect termen weergeeft, wat nuttig kan zijn om te weten of er een sterke relatie is tussen het intercept en de helling bij verschillende soorten. Nu zien we dat de random effect termen nu de hellingscoëfficiënt bevatten die overeenkomt met de `flipper_length_mm` voorspellingsvariabele. Laten we het volgende visualiseren 
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 
@@ -176,18 +177,20 @@ ggplot(data=penguins[!is.na(penguins$species) & !is.na(penguins$flipper_length_m
   ggdist::theme_ggdist() + theme(aspect.ratio = 1) + 
   geom_point() + 
   geom_line(data=NULL,aes(y = fit.c),linewidth=1.5) +
-  xlab('Flipper Length (mm)')+
-  ylab('Bill Length (mm)') +
-  ggtitle('Random Intercepts and Slopes')
+  xlab('Lengte flipper (mm)')+
+  ylab('Lengte snavel (mm)') +
+  ggtitle('Random Intercepten en Hellingen')
 
 ```
 
-The plot above shows slight variation in the slope between the three species, however the slope does not vary all that much. For multi-level models we can compute a conditional $R^2$ and a marginal $R^2$ which are each described below
+De plot hierboven toont een lichte variatie in de helling tussen de drie soorten, maar de helling varieert niet zo veel. Voor modellen met meerdere niveaus kunnen we een voorwaardelijke $R^2$ en een marginale $R^2$ berekenen die elk hieronder worden beschreven
 
-- **Marginal** $R^2$:  the variance explained solely by the fixed effects
-- **Conditional** $R^2$: the variance explained in the whole model, including both the fixed effects and random effects terms.
+- **Marginale** $R^2$: de variantie die alleen door de vaste effecten wordt verklaard.
+- **Voorwaardelijke** $R^2$: de variantie die wordt verklaard in het hele model, inclusief de termen voor zowel vaste effecten als willekeurige effecten.
 
-In R, we can use the `MuMIn` package [@mumin] to compute both the marginal and conditional $R^2$:
+In R kunnen we het pakket `MuMIn` [@mumin] gebruiken om zowel de marginale als de voorwaardelijke $R^2$ te berekenen:
+
+
 
 
 ```{r,message=FALSE,warning=FALSE}

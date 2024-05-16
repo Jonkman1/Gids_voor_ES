@@ -1,68 +1,68 @@
-# Mean Differences
+# Gemiddelde verschillen
 
-T-tests are the most commonly used statistical tests for examining differences between group means, or examining a group mean against a constant. Calculating effect sizes for t-tests is fairly straightforward. Nonetheless, there are cases where crucial figures for the calculation are missing (which happens quite often in older articles), and therefore we document methods that make use of partial information (e.g., only the M and the SD, or only the t-statistic and df) for the calculation. There are multiple types of effect sizes used to calculate standardized mean differences (i.e., Cohen's $d$), yet researchers very often do not identify which type of $d$ value they are reporting [see @lakens2013]. Here we document the equations and code necessary for calculating each type of $d$ value compiled across multiple sources [@becker1988; @cohen1988; @lakens2013; @caldwell; @glass1981a]. A $d$ value calculated from a sample will also contain sampling error, therefore we will also show the equations to calculate the standard error. The standard allows us to then calculate the confidence interval. For each formulation in the sections below, the confidence interval will be able to be calculated in the same way, that is,
+T-tests zijn de meest gebruikte statistische tests voor het onderzoeken van verschillen tussen groepsgemiddelden of het onderzoeken van een groepsgemiddelde ten opzichte van een constante. Het berekenen van effect sizes voor t-tests is vrij eenvoudig. Er zijn echter gevallen waarin cruciale cijfers voor de berekening ontbreken (wat vaak voorkomt in oudere artikelen). Daarom documenteren we methoden die gebruikmaken van gedeeltelijke informatie (bijvoorbeeld alleen de M en de SD, of alleen de t-statistiek en df) voor de berekening. Er zijn meerdere soorten effectgroottes die worden gebruikt om gestandaardiseerde gemiddelde verschillen (d.w.z. Cohen's $d$) te berekenen, maar onderzoekers identificeren heel vaak niet welk type $d$ waarde ze rapporteren [zie @lakens2013]. Hier documenteren we de vergelijkingen en code die nodig zijn voor het berekenen van elk type $d$ -waarde uit meerdere bronnen [@becker1988; @cohen1988; @lakens2013; @caldwell; @glass1981a]. Een $d$ waarde berekend op basis van een steekproef bevat ook steekproeffouten, daarom tonen we ook de vergelijkingen om de standaardfout te berekenen. Met de standaard kunnen we dan het betrouwbaarheidsinterval berekenen. Voor elke formulering in de onderstaande paragrafen kan het betrouwbaarheidsinterval op dezelfde manier worden berekend, dat wil zeggen,
+
 
 $$
 CI_d = d \pm 1.96\times SE
 $$
 
-Lastly, we will supply example R code so you can apply to your own data. 
+Tot slot leveren we voorbeeld R-code zodat je deze kunt toepassen op je eigen gegevens. 
 
-#### **Here is a table for every effect size discussed in this chapter:** {.unnumbered}
+#### **Hier is een tabel voor elke effectgrootte die in dit hoofdstuk is besproken:** {.unnumbered}
 
 
 
-| Type                | Description | Section|
+| Type                | Beschrijving | Sectie|
 |:------|:---------|:----:|
-| **Single Group Design**   |     | @sec-single-group|
-| $d_s$ - Single Group | Standardized mean difference for comparing a single group to some constant  | @sec-single-group|
-|   **Two Independent Groups Design**    |     | @sec-two-ind-group |
-|  $d_p$ - Pooled Standard Deviation   |  Uses the average within-group standard deviation to standardize the mean difference. Can be calculated directly from a independent sample t-test. Assumes homogeneity of variance between groups.   | @sec-two-ind-group-pooled |
-|  $d_\Delta$ - Control Group Standard Deviation   |  Uses the standard deviation of the control group to standardize the mean difference (often referred to as Glass's Delta). Does not assume homogeneity of variance between treatment/intervention and control group.  | @sec-two-ind-group-glass |
-| **Repeated Measures (Paired Groups) Design** |     | @sec-repeated-measures |
-|  $d_z$ - Difference score standard deviation    |   Uses the standard deviation of difference scores (also known as change scores) to standardize the within person mean difference (i.e., pre/post change).  |  @sec-repeated-measures-dz |
-| $d_{rm}$ - Repeated measures | Uses the within-person standard deviation that utilizes a correction to $d_z$ to reduce the impact of the pre/post correlation on the effect size. Assumes homogeneity of variance between conditions.   | @sec-repeated-measures-drm  |
-|  $d_{av}$ - Average variance   |   Uses the pooled variance between conditions (pre/post test). Does not use the correlation between conditions. Assumes homogeneity of variance between conditions. | @sec-repeated-measures-dav |
-|  $d_{b}$ - Becker's *d*    |  Uses the pre-test standard deviation to standardize the pre/post mean difference. Does not assume homogeneity of variance between pre-test and post-test. | @sec-becker |
-| **Pre-Post-Control Design** |     | @sec-ppc |
-| $d_{PPC1}$ - Separate pre-test standard deviations |  Defined as the difference between the Becker's *d* between the treatment and control group. Particularly, standardizing the mean pre/post change by the pre-test of the respective group.  | @sec-ppc1|
-| $d_{PPC2}$ - Pooled pre-test standard deviation  | Standardizes the difference in mean changes between treatment and control group. Assumes homogeneity of variance between the pre-test of the control and treatment condition.   | @sec-ppc2|
-| $d_{PPC3}$ - Pooled pre-test and post-test standard deviation | Pools the standard deviation between pre-test and post-test in treatment and control condition. Assumes homogeneity of variance between pre/post-test scores *and* treatment and control conditions. Confidence intervals are not easy to compute. | @sec-ppc3|
-| **Mean Ratios** |     | @sec-rr |
-| $lnRR_\text{ind}$ - Response ratio between independent groups | The ratio between the means between two groups. Does not use the standard deviation in the effect size formula.  | @sec-rrind |
-| $lnRR_\text{dep}$ - Response ratio between dependent groups |  The ratio between the means between conditions (i.e., repeated measures). Does not use the standard deviation in the effect size formula.    | @sec-rrdep |
+| **Enkelvoudig Groep Design**   |     | @sec-single-group|
+| $d_s$ - Enkelvoudige groep | Gestandardiseerd gemiddelde verschil voor vergelijken van een enkelvoudige met een bepaalde constante  | @sec-single-group|
+|   **Twee Onafhankelijke Groepen Design**    |     | @sec-two-ind-group |
+|  $d_p$ - Gepoolde Standaard Deviatie   |  Gebruik gemiddelde tussen-groep standaard deviatie om het gemiddelde standaard verschil te standaardiseren. Kan direct worden berekend van een onafhankelijke sample t-test. Gaat uit van homogeniteit van variantie tussen groepen.   | @sec-two-ind-group-pooled |
+|  $d_\Delta$ - Controle Groep Standaard Deviatie   |  Gebruikt de standaard deviatie van de controle groep om het gemiddelde standaard verschil te standaardiseren (vaak aangeduid met Glass's Delta). Veronderstelt geen homogeniteit van variantie tussen behandel/interventie en controle groep.  | @sec-two-ind-group-glass |
+| **Herhaalde Metingen (Gepaard Groepen) Design** |     | @sec-repeated-measures |
+|  $d_z$ - Verschilscore standaard deviatie    |   Gebruikt de standaard deviatie van verschilscores (ook bekend als veranderingsscores) om de tussenpersoon gemiddelde scoreverschil te standaardiseren (b.v., pre/post-verandering).  |  @sec-repeated-measures-dz |
+| $d_{rm}$ - Herhaalde metingen | Gebruikt de standaarddeviatie binnen een persoon die een correctie op $d_z$ toepast om de invloed van de pre/post-correlatie op de effectgrootte te verminderen. Gaat uit van homogeniteit van variantie tussen condities.   | @sec-repeated-measures-drm  |
+|  $d_{av}$ - Gemiddelde variantie   |   Gebruikt de gepoolde variantie tussen condities (pre/post test). Maakt geen gebruik van de correlatie tussen condities. Gaat uit van homogeniteit van variantie tussen condities. | @sec-repeated-measures-dav |
+|  $d_{b}$ - Becker's *d*    |  Gebruikt de standaarddeviatie van de pre-test om het verschil tussen het gemiddelde voor en na de test te standaardiseren. Gaat niet uit van homogeniteit van variantie tussen pre- en posttest. | @sec-becker |
+| **Pre-Post-Controle Design** |     | @sec-ppc |
+| $d_{PPC1}$ - Afzonderlijke standaarddeviaties van de pre-test |  Gedefinieerd als het verschil tussen de Becker's *d* tussen de behandel- en controlegroep. Met name het standaardiseren van de gemiddelde verandering voor/na door de pre-test van de betreffende groep.  | @sec-ppc1|
+| $d_{PPC2}$ - Standaarddeviatie gepoolde pre-test  | Standaardiseert het verschil in gemiddelde veranderingen tussen de behandel- en controlegroep. Gaat uit van homogeniteit van variantie tussen de pre-test van de controle- en behandelingsconditie.   | @sec-ppc2|
+| $d_{PPC3}$ - Standaarddeviatie gepoolde pre-test en post-test | Poolt de standaardafwijking tussen pre-test en post-test in behandeling en controleconditie. Gaat uit van homogeniteit van variantie tussen pre-/posttestscores *en* behandel- en controleconditie. Betrouwbaarheidsintervallen zijn niet eenvoudig te berekenen. | @sec-ppc3|
+| **Gemiddelde verhoudingen** |     | @sec-rr |
+| $lnRR_\text{ind}$ - Responsratio tussen onafhankelijke groepen | De verhouding tussen de gemiddelden van twee groepen. Gebruikt de standaarddeviatie niet in de formule voor de effectgrootte.  | Responsratio tussen afhankelijke groepen | De ratio tussen de gemiddelden tussen condities (d.w.z. herhaalde metingen). Gebruikt de standaarddeviatie niet in de formule voor de effectgrootte.    | @sec-rrdep |
 
 
-## Reporting a t-test with effect size and CI
+## Een t-test met effectgrootte en CI rapporteren
 
-Whatever effect size and CI you choose to report, you can report it alongside the t-test statistics (i.e., t-value and the p value). For example,
+Welke effectgrootte en CI je ook wilt rapporteren, je kunt deze rapporteren naast de t-teststatistieken (d.w.z. de t-waarde en de p-waarde). Bijvoorbeeld,
 
-> The treatment group had a significantly higher mean than the control group (*t* = 2.76, *p* = .009, *n* = 35, *d* = 0.47 \[0.11, 0.81\]).
+> De behandelgroep had een significant hoger gemiddelde dan de controlegroep (*t* = 2,76, *p* = .009, *n* = 35, *d* = 0,47 \[0,11, 0,81]).
 
-## Single Group Designs {#sec-single-group}
+## Enkelvoudig Groep Designs {#sec-single-group}
 
-For a single group design, we have one group and we want to compare the mean of that group to some constant, $C$ (i.e., a target value). The standardized mean difference for a single group can be calculated by [equation 2.3.3, @cohen1988],
+Voor een ontwerp met één groep hebben we één groep en willen we het gemiddelde van die groep vergelijken met een constante, $C$ (d.w.z. een doelwaarde). Het gestandaardiseerde gemiddelde verschil voor een enkele groep kan worden berekend met [vergelijking 2.3.3, @cohen1988],
 
 $$
 d_s = \frac{M-C}{S_1}
 $$
 
-A positive $d_s$ value would indicate that the mean is larger than the target value, $C$. This formulation assumes that the sample is drawn from a normal distribution. The standardizer (i.e., the denominator) is the sample standard deviation. The corresponding standard error for $d_s$ is [see documentation for @caldwell],
+Een positieve $d_s$ waarde geeft aan dat het gemiddelde groter is dan de doelwaarde, $C$. Deze formulering gaat ervan uit dat de steekproef getrokken wordt uit een normale verdeling. De standaardisator (d.w.z. de noemer) is de standaardafwijking van de steekproef. De bijbehorende standaardafwijking voor $d_s$ is [zie documentatie voor @caldwell],
 
 $$
 SE_{d_s} = \sqrt{\frac{1}{n}+\frac{d_s^2}{2n}}.
 $$
 
-In R, we can use the `d.single.t` function from the `MOTE` package to calculate the single group standardized mean difference.
+In R kunnen we de functie `d.single.t` uit het pakket `MOTE` gebruiken om het gestandaardiseerde gemiddelde verschil voor één groep te berekenen.
 
 ```{r,echo=TRUE}
-# Install packages if not already installed:
+# Installeer pakketten als ze al niet geínstalleerd zijn
 # install.packages('MOTE')
-# Cohen's d for one group
+# Cohen's d voor één gropp
 
-# For example:
-# Sample Mean = 30.4, SD = 22.53, N = 96
-# Target Value, C = 15
+# Bijvoorbeeld:
+# Sample Gemiddelde = 30.4, SD = 22.53, N = 96
+# Doelwaarde, C = 15
 
 library(MOTE)
 
@@ -73,52 +73,52 @@ stats <- d.single.t(
   n = 96
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af 
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-As you can see, the output shows that the effect size is $d_s$ = 0.68, 95% CI \[0.46, 0.90\]. Note the `apa` function in `MOTE` takes a value and returns an APA formatted effect size value (i.e., leading zero and three decimal places).
+Zoals je kunt zien, laat de uitvoer zien dat de effectgrootte $d_s$ = 0,68, 95% CI [0,46, 0,90]. Merk op dat de `apa` functie in `MOTE` een waarde aanneemt en een APA geformatteerde effectgrootte waarde teruggeeft (d.w.z., voorloopnul en drie decimalen).
 
-## Two Independent Groups Design {#sec-two-ind-group}
+## Twee Onafhankelijke Groepen Design {#sec-two-ind-group}
 
-### Standardize by Pooled Standard Deviation ($d_p$) {#sec-two-ind-group-pooled}
+### Gestanstaardiseerd met Gepoolde Standaard Deviatie ($d_p$) {#sec-two-ind-group-pooled}
 
-For a two group design (i.e., between-groups design), we want to compare the means of two groups (group 1 and group 2). The standardized mean difference between two groups can be calculated by [equation 5.1, @glass1981a],
+Voor een tweegroepsdesign (d.w.z. between-groups design) willen we de gemiddelden van twee groepen (groep 1 en groep 2) vergelijken. Het gestandaardiseerde gemiddelde verschil tussen twee groepen kan worden berekend met [vergelijking 5.1, @glass1981a],
 
 $$
 d_p = \frac{M_1-M_2}{S_p}.
 $$
 
-A positive $d_p$ value would indicate that the mean of group 1 is larger than the mean of group 2. Dividing the mean difference by the pooled standard deviation, $S_p$, is the classic formulation of Cohen's $d$. The pooled standard deviation, $S_p$, can be calculated as the square root of the average variance (weighted by the degrees of freedom, $df=n-1$) of group 1 and group 2 [pp. 108, @glass1981a]:
+Een positieve $d_p$ waarde zou aangeven dat het gemiddelde van groep 1 groter is dan het gemiddelde van groep 2. Het gemiddelde verschil delen door de gepoolde standaardafwijking, $S_p$, is de klassieke formulering van Cohen's $d$. De gepoolde standaardafwijking, $S_p$, kan worden berekend als de vierkantswortel van de gemiddelde variantie (gewogen door de vrijheidsgraden, $df=n-1$) van groep 1 en groep 2 [pp. 108, @glass1981a]:
 
 $$
 S_p = \sqrt{\frac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}}
 $$
 
-Note that the term *variance* refers to the square of the standard deviation ($S^2$). Cohen's $d_p$ has is related to the t-statistic from an independent samples t-test. In fact, we can calculate the $d_p$ value from the $t$-statistic with the following formula [equation 5.3, @glass1981a]:
+Merk op dat de term *variantie* verwijst naar het kwadraat van de standaardafwijking ($S^2$). Cohen's $d_p$ is gerelateerd aan de t-statistiek van een onafhankelijke t-test. In feite kunnen we de $d_p$ waarde uit de $t$-statistiek berekenen met de volgende formule [vergelijking 5.3, @glass1981a]:
 
 $$
 d = t\sqrt{\frac{1}{n_1} + \frac{1}{n_2}}.
 $$
 
-The corresponding standard error of $d_p$ is,
+De bijbehorende standaardfout van $d_p$ is,
 
 $$
 SE_{d_p} = \sqrt{\frac{n_1+n_2}{n_1 n_2}+\frac{d_p^2}{2(n_1+n_2)}}.
 $$
 
-In R, we can use the `d.ind.t` function from the `MOTE` package to calculate the two group standardized mean difference. Since we have already loaded in the `MOTE` package, we do not need to again.
+In R kunnen we de `d.ind.t` functie uit het `MOTE` pakket gebruiken om het gestandaardiseerde gemiddelde verschil tussen twee groepen te berekenen. Omdat we het `MOTE` pakket al hebben geladen, hoeven we dat niet nog een keer te doen.
 
 ```{r,echo=TRUE}
-# Cohen's d for two independent groups
-# given means and SDs
+# Cohen's d voor twee onafhankelijke groepen
+# gegeven gemiddelden en SDs
 
-# For example:
-# Group 1 Mean = 30.4, SD = 22.53, N = 96
-# Group 2 Mean = 21.4, SD = 19.59, N = 96
+# Bijvoorbeeld:
+# Groep 1 Gemiddelde = 30.4, SD = 22.53, N = 96
+# Groep 2 Gemiddelde = 21.4, SD = 19.59, N = 96
 
 stats <- d.ind.t(
   m1 = 30.4,
@@ -130,39 +130,39 @@ stats <- d.ind.t(
   a = 0.05
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af 
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-The output shows that the effect size is $d_p$ = 0.43, 95% CI \[0.14, 0.71\].
+De output laat de resultaten zien: $d_p$ = 0.43, 95% CI \[0.14, 0.71\].
 
-### Standardize by Control Group Standard Deviation ($d_{\Delta}$) {#sec-two-ind-group-glass}
+### Gestandaardiseerd door Controle Groep Standaard Deviatie ($d_{\Delta}$) {#sec-two-ind-group-glass}
 
-When two groups differ substantially in their standard deviations, we can instead standardize by the control group standard deviation ($S_C$), such that,
+Als twee groepen aanzienlijk verschillen in hun standaarddeviaties, kunnen we in plaats daarvan standaardiseren met de standaarddeviatie van de controlegroep ($S_C$), zodat,
 
 $$
 d_{\Delta} = \frac{M_T-M_C}{S_C}.
 $$
 
-Where the subscripts, $T$ and $C$, denotes the treatment group and control group, respectively. This formulation is commonly referred to as Glass' $\Delta$ [@glass1981]. The standard error for $d_{\Delta}$ can be defined as,
+Waarbij de subscripts, $T$ en $C$, respectievelijk de behandelgroep en controlegroep aanduiden. Deze formulering wordt gewoonlijk Glass' $Delta$ genoemd [@glass1981]. De standaardfout voor $d_{\Delta}$ kan worden gedefinieerd als,
 
 $$
 SE_{d_{\Delta}} = \sqrt{\frac{n_T+n_C}{n_T n_C} + \frac{d_\Delta^2}{n_C+1} }
 $$
 
-Notice that when we only standardize by the standard deviation of the control group (rather than pooling), we he will have less degrees of freedom ($df=n_C-1$) and therefore more sampling error than we do when we divide by the pooled standard deviation ($df= n_T + n_C - 2$).In R, we can use the `delta.ind.t.diff` function from the `MOTE` package to calculate $d_\Delta$.
+Merk op dat als we alleen standaardiseren door de standaardafwijking van de controlegroep (in plaats van poolen), we minder vrijheidsgraden hebben ($df=n_C-1$) en dus meer steekproeffout dan wanneer we delen door de gepoolde standaardafwijking ($df= n_T + n_C - 2$). In R kunnen we de functie `delta.ind.t.diff` uit het pakket `MOTE` gebruiken om $d_Delta$ te berekenen.
 
 ```{r,echo=TRUE}
-# Cohen's dz for difference scores
-# given difference score means and SDs
+# Cohen's dz voor verschilscores
+# gegeven verschilscore gemiddelden en SDs
 
-# For example:
-# Control group Mean = 30.4, SD = 22.53, N = 96
-# Treatment group Mean = 21.4, SD = 19.59, N = 96
-# correlation between conditions: r = .40
+# Bijvoorbeeld
+# Controle groep Gemiddelde = 30.4, SD = 22.53, N = 96
+# Behandel groep Gemiddelde = 21.4, SD = 19.59, N = 96
+# correlatie tussen condities: r = .40
 
 stats <- delta.ind.t(
   m1 = 30.4,
@@ -174,20 +174,20 @@ stats <- delta.ind.t(
   a = 0.05
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-## Repeated Measures Designs {#sec-repeated-measures}
+## Herhaalde Metingen Designs {#sec-repeated-measures}
 
-In a repeated-measures design, the same subjects (or items, etc.) are measured on two or more separate occasions, or in multiple conditions within a single session, and we want to know the mean difference between those occasions or conditions [@baayen2008mixed; @barr2013random]. An example of this would be in a pre/post comparison where subjects are tested before and after undergoing some treatment (see @fig-repeatedmeasures for a visualization). A standardized mean difference in a repeated-measures design can take on a few different forms that we define below.
+In een ontwerp met herhaalde metingen worden dezelfde proefpersonen (of items, enz.) gemeten op twee of meer afzonderlijke gelegenheden of in meerdere omstandigheden binnen één sessie. Tegelijk willen het gemiddelde verschil weten tussen die gelegenheden of omstandigheden [@baayen2008mixed; @barr2013random]. Een voorbeeld hiervan is een pre/post-vergelijking waarbij proefpersonen worden getest voor en na het ondergaan van een bepaalde behandeling (zie @fig-repeatedmeasures voor een visualisatie). Een gestandaardiseerd gemiddeld verschil in een ontwerp met herhaalde metingen kan een paar verschillende vormen aannemen die we hieronder definiëren.
 
 ```{r,message=FALSE,echo=FALSE,warning=FALSE,fig.height=4,dpi=300}
 #| id: fig-repeatedmeasures
-#| fig-cap: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Lines indicate within person pre/post change.
+#| fig-cap: Figuur met gesimuleerde data van een herhaalde metingen ontwerp, de x-as toont de conditie (bijv. pre-test en post-test) en de y-as zijn de scores. Lijnen geven de verandering binnen de persoon voor/na aan.
 
 library(ggplot2)
 library(ggdist)
@@ -203,9 +203,9 @@ data<- mvrnorm(n = n,
 
 df <- data.frame(X = c(data[,1],data[,2]),
                  ID = c(1:n,1:n),
-                 Condition = c(rep(1,n),rep(2,n)))
+                 Conditie = c(rep(1,n),rep(2,n)))
 
-ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
+ggplot(data=df,aes(x=Conditie,y=X,group=ID)) +
   geom_jitter(color='grey30',width=.015,height=0,alpha=.8,size=2) +
   geom_line(color='grey30',alpha=.3) +
   theme_ggdist() +
@@ -213,46 +213,46 @@ ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
         axis.text = element_text(size=13),
         axis.title = element_text(size=14),
         title = element_text(size=14)) +
-  stat_slab(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X), 
+  stat_slab(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='left') +
-  stat_slab(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X), 
+  stat_slab(data=df[df$Condition==2,],aes(group=Conditie,x=Conditie+.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='right') +
-  stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'grey30') +
-  stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'grey30') +
-  ggtitle("Repeated Measures Design") +
+  stat_pointinterval(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X),color = 'grey30') +
+  stat_pointinterval(data=df[df$Conditie==2,],aes(group=Conditie,x=Conditie+.15,y=X),color = 'grey30') +
+  ggtitle("Herhaalde Metingen Design") +
   scale_x_continuous(breaks=c(1,2))
   
 
 ```
 
-### Difference Score $d$ ($d_z$) {#sec-repeated-measures-dz}
+### Verschilscore $d$ ($d_z$) {#sec-repeated-measures-dz}
 
-Instead of comparing the means of two sets of scores, a within subject design allows us to subtract the scores obtained in condition 1 from the scores in condition 2. These difference scores ($X_{\text{diff}}=X_2-X_1$) can be used similarly to the single group design (if the target value was zero, i.e., $C=0$) such that [equation 2.3.5, @cohen1988],
+In plaats van de gemiddelden van twee sets scores met elkaar te vergelijken, kunnen we bij een within subject design de scores verkregen in conditie 1 aftrekken van de scores in conditie 2. Deze verschilscores ($X_{{diff}}=X_2-X_1$) kunnen op dezelfde manier worden gebruikt als bij het single group design (als de doelwaarde nul was, d.w.z. $C=0$), zodat [vergelijking 2.3.5, @cohen1988],
 
 $$
 d_z = \frac{M_{\text{diff}}}{S_{\text{diff}}}
 $$
 
-Where the difference between this formulation and the single group design is the nature of the scores (difference scores rather than raw scores). The convenient thing about $d_z$ is that it has a straight-forward relationship with the $t$-statistic, $d_z=\frac{t}{\sqrt{n}}$. This makes it very useful for power analyses. If the standard deviation of difference scores are not accessible, then it can be calculated using the standard deviation of condition 1 ($S_1$), the standard deviation of condition 2 ($S_2$), and the correlation between conditions ($r$) [equation 2.3.6, @cohen1988]:
+Het verschil tussen deze formulering en het enkelvoudig groep design is de aard van de scores (verschilscores in plaats van ruwe scores). Het handige van $d_z$ is dat het een direct verband heeft met de $t$-statistiek, $d_z=\frac{t}{\sqrt{n}}$. Dit maakt het erg nuttig voor poweranalyses. Als de standaardafwijking van de verschilscores niet toegankelijk is, kan deze berekend worden met de standaardafwijking van conditie 1 ($S_1$), de standaardafwijking van conditie 2 ($S_2$) en de correlatie tussen condities ($r$) [vergelijking 2.3.6, @cohen1988]:
 
 $$
 S_{\text{diff}}=\sqrt{S^2_1 + S^2_2 - 2 r S_1 S_2}
 $$
 
-It is important to note that when the correlation between groups is large, then the $d_z$ value will also be larger, whereas a small correlation will return a smaller $d_z$ value. The standard error of $d_z$ can be calculated similarly to the single group design such that,
+Het is belangrijk op te merken dat wanneer de correlatie tussen groepen groot is, de $d_z$ waarde ook groter zal zijn, terwijl een kleine correlatie een kleinere $d_z$ waarde zal opleveren. De standaardafwijking van $d_z$ kan op dezelfde manier worden berekend als bij het ontwerp met één groep, zodat,
 
 $$
 SE_{d_z} = \sqrt{\frac{1}{n}+\frac{d_z^2}{2n}}
 $$
 
-In R, we can use the `d.ind.t.diff` function from the `MOTE` package to calculate $d_z$.
+In R kunnen we de functie `d.ind.t.diff` uit het pakket `MOTE` gebruiken om $d_z$ te berekenen.
 
 ```{r,echo=TRUE}
-# Cohen's dz for difference scores
-# given difference score means and SDs
+# Cohen's dz voor verschilscores
+# gegeven verschilscore gemiddelden en SDs
 
-# For example:
-# Difference Score Mean = 21.4, SD = 19.59, N = 96
+# Bijvoorbeeld:
+# Verschilscore Gemiddelde = 21.4, SD = 19.59, N = 96
 
 library(MOTE)
 
@@ -263,57 +263,57 @@ stats <- d.dep.t.diff(
   a = 0.05
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-The output shows that the effect size is $d_z$ = 1.09, 95% CI \[0.84, 1.34\].
+De uitvoer laat zien dat de effectgrootte $d_z$ = 1,09, 95% CI [0,84, 1,34].
 
-### Repeated Measures $d$ ($d_{rm}$) {#sec-repeated-measures-drm}
+### Herhaalde Metingen $d$ ($d_{rm}$) {#sec-repeated-measures-drm}
 
-For a within-group design, we want to compare the means of scores obtained from condition 1 and condition 2. The repeated measures standardized mean difference between the two conditions can be calculated by [equation 9, @lakens2013],
+Voor een binnen-groep design willen we de gemiddelden van scores verkregen uit conditie 1 en conditie 2 vergelijken. Het repeated measures gestandaardiseerde gemiddelde verschil tussen de twee condities kan worden berekend met [vergelijking 9, @lakens2013],
 
 $$
 d_{rm} = \frac{M_2-M_1}{S_w}.
 $$
 
-A positive $d_{rm}$ value would indicate that the mean of condition 2 is larger than the mean of condition 1. The standardizer here is the within-subject standard deviation, $S_w$. The within-subject standard deviation can be defined as,
+Een positieve $d_{rm}$ waarde zou aangeven dat het gemiddelde van toestand 2 groter is dan het gemiddelde van toestand 1. Het gaat hier om de standaardafwijking binnen het onderwerp, $S_w$. De standaardafwijking binnen het onderwerp kan als volgt worden gedefinieerd,
 
 $$
 S_{w}=\sqrt{\frac{S^2_1 + S^2_2 - 2 r S_1 S_2}{2(1-r)}}.
 $$
 
-We can also express $S_w$ in terms of the standard deviation of difference scores ($S_{\text{diff}}$),
+We kunnen $S_w$ ook uitdrukken in termen van de standaardafwijking van de verschilscores ($S_{{diff}}$),
 
 $$
 S_w = \frac{S_{\text{diff}}}{ \sqrt{2(1-r)} }.
 $$
 
-Furthermore, we can even express $d_{rm}$ in terms of the difference score standardized mean difference ($d_z$),
+Verder kunnen we $d_{rm}$ zelfs uitdrukken in termen van de verschilscore gestandaardiseerd gemiddeld verschil ($d_z$),
 
 $$
 d_{rm} = d_z \times \sqrt{2(1-r)}.
 $$
 
-Ultimately the $d_{rm}$ is more appropriate as an effect size estimate for use in meta-analysis whereas $d_z$ is more appropriate for power analysis [@lakens2013]. The standard error for $d_{rm}$ can be computed as,
+Uiteindelijk is $d_{rm}$ meer geschikt als effectgrootteschatting voor gebruik in meta-analyses, terwijl $d_z$ meer geschikt is voor poweranalyse [@lakens2013]. De standaardfout voor $d_{rm}$ kan als volgt worden berekend,
 
 $$
 SE_{d_{rm}} = \sqrt{\left(\frac{1}{n} + \frac{d^2_{rm}}{2n}\right) \times 2(1-r)}
 $$
 
-In R, we can use the `d.ind.t.rm` function from the `MOTE` package to calculate the repeated measures standardized mean difference ($d_{rm}$).
+In R kunnen we de `d.ind.t.rm` functie uit het `MOTE` pakket gebruiken om het repeated measures standardized mean difference ($d_{rm}$) te berekenen.
 
 ```{r,echo=TRUE}
-# Cohen's d for repeated measures
-# given means and SDs and correlation
+# Cohen's d voor herhaalde metingen
+# gegeven gemiddelden en SDs en correlatie
 
-# For example:
-# Condition 1 Mean = 30.4, SD = 22.53, N = 96
-# Condition 2 Mean = 21.4, SD = 19.59, N = 96
-# correlation between conditions: r = .40
+# Bijvoorbeeld:
+# Conditie 1 Gemiddelde = 30.4, SD = 22.53, N = 96
+# Conditie 2 Gemiddelde = 21.4, SD = 19.59, N = 96
+# correlatie tussen condities: r = .40
 
 stats <- d.dep.t.rm(
   m1 = 30.4,
@@ -325,38 +325,38 @@ stats <- d.dep.t.rm(
   a = 0.05
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-The output shows that the effect size is $d_{rm}$ = 0.42, 95% CI \[0.21, 0.63\].
+De uitvoer laat zien dat de effectgrootte $d_{rm}$ = 0,42, 95% CI [0,21, 0,63] is.
 
-### Average Variance $d$ ($d_{av}$) {#sec-repeated-measures-dav}
+### Gemiddelde variantie $d$ ($d_{av}$) {#sec-repeated-measures-dav}
 
-The problem with $d_{z}$ and $d_{rm}$, is that they require the correlation between conditions. In practice, correlations between conditions are frequently not reported. An alternative estimator of Cohen's $d$ in repeated measures design is to simply use the classic variation of cohen's $d$ (i.e., pooled standard deviation). In a repeated measures design, the sample size does not change between conditions. Therefore weighting the variance of condition 1 and condition 2 by their respective degrees of freedom (i.e., $df=n-1$) is an unnecessary step. Instead, we can standardize by the square root of the average the variances of condition 1 and 2 [see equation 5, @algina2003]:
+Het probleem met $d_{z}$ en $d_{rm}$ is dat ze de correlatie tussen condities vereisen. In de praktijk worden correlaties tussen condities vaak niet gerapporteerd. Een alternatieve schatter van Cohen's $d$ bij een ontwerp met herhaalde metingen is om gewoon de klassieke variatie van Cohen's $d$ te gebruiken (d.w.z. gepoolde standaardafwijking). In een ontwerp met herhaalde metingen verandert de steekproefgrootte niet tussen condities. Daarom is het wegen van de variantie van toestand 1 en toestand 2 met hun respectieve vrijheidsgraden (d.w.z. $df=n-1$) een onnodige stap. In plaats daarvan kunnen we standaardiseren met de vierkantswortel van het gemiddelde van de varianties van toestand 1 en 2 [zie vergelijking 5, @algina2003]:
 
 $$
 d_{av} = \frac{M_2 - M_1}{\sqrt{\frac{S_1^2 + S_2^2}{2}}}
 $$
 
-This formulation is convenient especially when the correlation is not present, however without the correlation it fails to take into account the consistency of change between conditions. The standard error of the $d_{av}$ can be expressed as [equation 9, @algina2003],
+Deze formulering is vooral handig als de correlatie niet aanwezig is, maar zonder de correlatie wordt er geen rekening gehouden met de consistentie van verandering tussen condities. De standaardfout van de $d_{av}$ kan worden uitgedrukt als [vergelijking 9, @algina2003],
 
 $$
 SE_{d_{av}}= \sqrt{\frac{2(S^2_1 + S^2_2 - 2rS_1S_2)}{n(S_1^2+S^2)}}
 $$
 
-In R, we can use the `d.ind.t.rm` function from the `MOTE` package to calculate the repeated measures standardized mean difference ($d_{rm}$).
+In R kunnen we de `d.ind.t.rm` functie uit het `MOTE` pakket gebruiken om het herhaalde metingen gestandardiseerde gemiddelde verschil ($d_{rm}$) te berekenen.
 
 ```{r,echo=TRUE}
-# Cohen's d for repeated measures (average variance)
-# given means and SDs 
+# Cohen's d voor herhaalde metingen (gemiddelde variantie)
+# gegeven gemiddelde en SDs 
 
-# For example:
-# Condition 1 Mean = 30.4, SD = 22.53, N = 96
-# Condition 2 Mean = 21.4, SD = 19.59, N = 96
+# Bijvoorbeeld:
+# Conditie 1 Gemiddelde = 30.4, SD = 22.53, N = 96
+# Conditie 2 Gemiddelde = 21.4, SD = 19.59, N = 96
 
 stats <- d.dep.t.avg(
   m1 = 30.4,
@@ -367,43 +367,43 @@ stats <- d.dep.t.avg(
   a = 0.05
 )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervalel af
 data.frame(d = apa(stats$d), 
            dlow = apa(stats$dlow), 
            dhigh = apa(stats$dhigh))
 
 ```
 
-The output shows that the effect size is $d_{av}$ = 0.43, 95% CI \[0.22, 0.64\].
+De uitvoer laat zien dat de effectgrootte $d_{av}$ = 0,43, 95% CI [0,22, 0,64].
 
 ### Becker's $d$ ($d_b$) {#sec-becker}
 
-An even simpler variant of repeated measures $d$ value comes from @becker1988. Becker's $d$ standardizes simply by the pre-test standard deviation when the comparison is a pre/post design,
+Een nog eenvoudiger variant van herhaalde metingen $d$waarde komt van @becker1988. Becker's $d$ standaardiseert eenvoudigweg met de standaardafwijking vóór de test als de vergelijking een pre-post design is,
 
 $$
 d_b = \frac{M_{\text{post}}-M_{\text{pre}}}{S_{\text{pre}}}.
 $$
 
-The convenient interpretation of "change in baseline standard deviations" can be quite useful. We can also obtain the standard error with [equation 13, @becker1988],
+De handige interpretatie van "verandering in basislijnstandaarddeviaties" kan heel nuttig zijn. We kunnen de standaardfout ook verkrijgen met [vergelijking 13, @becker1988],
 
 $$
 SE_{d_b} = \sqrt{\frac{2(1-r)}{n}+\frac{d_b^2}{2n}}
 $$
 
-Notice that even though the formula for calculating $d_b$ did not include the correlation coefficient, the standard error does.
+Merk op dat hoewel de formule voor het berekenen van $d_b$ niet de correlatiecoëfficiënt bevatte, de standaardfout dat wel doet.
 
-In base R, we can calculate Becker's formulation of standardized mean difference using the equations above.
+In basis-R kunnen we Becker's formulering van gestandaardiseerd gemiddelde verschil berekenen met bovenstaande vergelijkingen.
 
 ```{r,echo=TRUE}
-# Install the package below if not done so already
+# Installeer het pakket hieronder als je dat al niet gedaan hebt
 # install.packages(escalc)
-# Cohen's d for repeated measures (becker's d)
-# given means, the pre-test SDs, and the correlation
+# Cohen's d voor herhaalde metingen (becker's d)
+# gegeven gemiddelde, de pre-test SDs en de correlatie
 
-# For example:
-# Pre-test Mean = 21.4, SD = 19.59, N = 96
-# Post-test Mean = 30.4, N = 96
-# Correlation between conditions: r = .40
+# Bijvoorbeeld:
+# Pre-test Gemiddelde = 21.4, SD = 19.59, N = 96
+# Post-test Gemiddelde = 30.4, N = 96
+# Correlatie tussen condities: r = .40
 
 Mpre <- 21.4
 Mpost <- 30.4
@@ -416,35 +416,35 @@ d <- (Mpost - Mpre) / Spre
 
 SE <- sqrt( 2*(1-r)/n + d^2/(2*n) )
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintervallen af 
 data.frame(d = apa(d), 
            dlow = apa(d - 1.96*SE), 
            dhigh = apa(d + 1.96*SE))
 
 ```
 
-The output shows that the effect size is $d_{rm}$ = 0.46, 95% CI \[0.23, 0.69\].
+De uitvoer laat zien dat de effectgrootte $d_{rm}$ = 0,46, 95% CI [0,23, 0,69].
 
-### Comparing Repeated Measures $d$ values
+### Vergelijken Herhaalde Metingen $d$ waarden
 
-@fig-correlation-comp shows repeated measures designs with a high ($r=$ .95) and low ($r=$ .05) correlation between conditions. Let us fix the standard deviations and means for both conditions (i.e., high and low correlation) and only vary the correlation. Now we can compare the repeated measures estimators based on these two conditions shown in @fig-correlation-comp:
+@fig-correlation-comp toont herhaalde metingen ontwerpen met een hoge ($r=$ .95) en lage ($r=$ .05) correlatie tussen condities. Laten we de standaarddeviaties en gemiddelden voor beide condities (hoge en lage correlatie) vastzetten en alleen de correlatie variëren. Nu kunnen we de herhaalde-maatregelen-schatters op basis van deze twee condities in @fig-correlation-comp vergelijken:
 
--   High correlation:
+-   Hoge correlatie:
     -   $d_z=1.24$
     -   $d_{rm}=0.39$
     -   $d_{av}=0.43$
     -   $d_{b}=0.40$
--   Low correlation:
+-   Lage correlatie:
     -   $d_z=0.31$
     -   $d_{rm}=0.43$
     -   $d_{av}=0.43$
     -   $d_{b}=0.40$
 
-We notice that the correlation greatly influences $d_z$ more than any other estimator. The $d_{rm}$ value has very little change, whereas $d_{av}$ and $d_{b}$ do not take into account the correlation at all.
+We merken op dat de correlatie $d_z$ sterker beïnvloedt dan elke andere schatter. De waarde van $d_{rm}$ verandert heel weinig, terwijl $d_{av}$ en $d_{b}$ helemaal geen rekening houden met de correlatie.
 
 ```{r,message=FALSE,echo=FALSE,warning=FALSE,fig.height=4,dpi=300}
 #| label: fig-correlation-comp
-#| fig-cap: Figure displaying simulated data of a repeated measures design, the x-axis shows the condition (e.g., pre-test and post-test) and y-axis is the scores. Left panel shows a high pre/post correlation ($r$ = .95) and right panel shows a low correlation condition ($r$ = .05). Lines indicate within person pre/post change.
+#| fig-cap: Figuur met gesimuleerde gegevens van een herhaald metingenontwerp, waarbij de x-as de conditie weergeeft (bijv. pre-test en post-test) en de y-as de scores. Het linkerpaneel toont een hoge pre-post correlatie ($r$ = .95) en het rechterpaneel toont een conditie met een lage correlatie ($r$ = .05). Lijnen geven de verandering binnen de persoon voor/na aan.
 
 library(patchwork)
 library(ggdist)
@@ -461,9 +461,9 @@ data<- mvrnorm(n = n,
 
 df <- data.frame(X = c(data[,1],data[,2]),
                  ID = c(1:n,1:n),
-                 Condition = c(rep(1,n),rep(2,n)))
+                 Conditie = c(rep(1,n),rep(2,n)))
 
-h1 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
+h1 <- ggplot(data=df,aes(x=Conditie,y=X,group=ID)) +
   geom_jitter(color='grey30',width=.015,height=0,alpha=.8,size=2) +
   geom_line(color='grey30',alpha=.3) +
   theme_ggdist() +
@@ -471,13 +471,13 @@ h1 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
         axis.text = element_text(size=13),
         axis.title = element_text(size=14),
         title = element_text(size=14)) +
-  stat_slab(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X), 
+  stat_slab(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='left') +
-  stat_slab(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X), 
+  stat_slab(data=df[df$Conditie==2,],aes(group=Conditie,x=Conditie+.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='right') +
-  stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'grey30') +
-  stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'grey30') +
-  ggtitle("High Correlation") +
+  stat_pointinterval(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X),color = 'grey30') +
+  stat_pointinterval(data=df[df$Conditie==2,],aes(group=Conditie,x=Conditie+.15,y=X),color = 'grey30') +
+  ggtitle("Hoge Correlatie") +
   ylab('Score') +
   ylim(-35,85) +
   annotate(geom='label', x = , y = , label = TeX('$d_{rm}=$')) + 
@@ -495,9 +495,9 @@ data<- mvrnorm(n = n,
 
 df <- data.frame(X = c(data[,1],data[,2]),
                  ID = c(1:n,1:n),
-                 Condition = c(rep(1,n),rep(2,n)))
+                 Conditie = c(rep(1,n),rep(2,n)))
 
-h2 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
+h2 <- ggplot(data=df,aes(x=Conditie,y=X,group=ID)) +
   geom_jitter(color='grey30',width=.015,height=0,alpha=.8,size=2) +
   geom_line(color='grey30',alpha=.3) +
   theme_ggdist() +
@@ -505,13 +505,13 @@ h2 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
         axis.text = element_text(size=13),
         axis.title = element_text(size=14),
         title = element_text(size=14)) +
-  stat_slab(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X), 
+  stat_slab(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='left') +
-  stat_slab(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X), 
+  stat_slab(data=df[df$Conditie==2,],aes(group=Conditie,x=Conditie+.15,y=X), 
             position = position_dodge(),scale=.5,alpha=.3,side='right') +
-  stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'grey30') +
-  stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'grey30') +
-  ggtitle("Low Correlation") +
+  stat_pointinterval(data=df[df$Conditie==1,],aes(group=Conditie,x=Conditie-.15,y=X),color = 'grey30') +
+  stat_pointinterval(data=df[df$Conditie==2,],aes(group=Conditie,x=Conditie+.15,y=X),color = 'grey30') +
+  ggtitle("Lage Correlatie") +
   ylab('') +
   ylim(-35,85) +
   scale_x_continuous(breaks=c(1,2))+ 
@@ -521,11 +521,11 @@ h1 + h2
 
 ```
 
-## Pretest-Posttest-Control Group Designs {#sec-ppc}
+## Pretest-Posttest-Controle Groep Designs {#sec-ppc}
 
-In many areas of research both between and within group factors are incorporated. For example, in research involving the examination of the effects of an intervention often a sample is randomised into two seperate groups (intervention and control) and then they are measured on the outcome of interest both before (pretest) and after (posttest) the intervention/control period. In these types of 2x2 (group x time) study designs it is usually the difference between the standardised mean change for the intervention/treatment ($T$) and control ($C$) groups that is of interest. For a visualization of a pretest-posttest-control group design see @fig-ppc.
+In veel onderzoeksgebieden worden zowel tussen als binnen de groep factoren opgenomen. Bij onderzoek waarbij de effecten van een interventie worden onderzocht, wordt een steekproef bijvoorbeeld vaak gerandomiseerd in twee afzonderlijke groepen (interventie en controle) en wordt de uitkomst van belang zowel voor (pretest) als na (posttest) de interventie/controleperiode gemeten. In dit soort 2x2 (groep x tijd) studieontwerpen is het meestal het verschil tussen de gestandaardiseerde gemiddelde verandering voor de interventie/behandeling ($T$) en de controlegroep ($C$) dat van belang is. Voor een visualisatie van een pretest-posttest-controlegroepdesign zie @fig-ppc.
 
-@morris2008 details three effect sizes for this pretest-posttest-control (PPC).
+@morris2008 geeft drie effectgroottes voor deze pretest-posttest-controle (PPC).
 
 ```{r,echo=FALSE, dpi = 300, fig.height=4}
 #| id: fig-ppc
@@ -563,7 +563,7 @@ h1 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
             position = position_dodge(),scale=.5,alpha=.3,side='right',fill='red') +
   stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'red') +
   stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'red') +
-  ggtitle("Control Group") +
+  ggtitle("Controle Groep") +
   ylab('Score') +
   xlab('') +
   scale_x_continuous(breaks=c(1,2),labels = c('Pre','Post')) + 
@@ -594,7 +594,7 @@ h2 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
             position = position_dodge(),scale=.5,alpha=.3,side='right',fill='blue') +
   stat_pointinterval(data=df[df$Condition==1,],aes(group=Condition,x=Condition-.15,y=X),color = 'blue') +
   stat_pointinterval(data=df[df$Condition==2,],aes(group=Condition,x=Condition+.15,y=X),color = 'blue') +
-  ggtitle("Intervention Group") +
+  ggtitle("Interventie Groep") +
   ylab('Score') +
   xlab('') +
   scale_x_continuous(breaks=c(1,2),labels = c('Pre','Post')) + 
@@ -604,9 +604,10 @@ h2 <- ggplot(data=df,aes(x=Condition,y=X,group=ID)) +
 h1 + h2
 ```
 
-### PPC1 - separate pre-test standard deviations {#sec-ppc1}
+### PPC1 - afzonderlijke pre-test standaard deviaties {#sec-ppc1}
 
-The separate pre-test (i.e., baseline) standard deviations are used to standardize the pre/post mean difference in the intervention group and the control group respectively [see equation 4, @morris2008],
+De afzonderlijke standaarddeviaties van de pre-test (d.w.z. baseline) worden gebruikt om het gemiddelde verschil van de interventiegroep en de controlegroep van voor en na te standaardiseren [zie vergelijking 4, @morris2008],
+
 
 $$
 d_T = \frac{M_{T,\text{post}} - M_{T,\text{pre}}}{S_{T,\text{pre}}}
@@ -616,27 +617,27 @@ $$
 d_C = \frac{M_{C,\text{post}} - M_{C,\text{pre}}}{S_{C,\text{pre}}}
 $$
 
-Note that these effect sizes are identical to the Becker's $d$ formulation of the SMD (see @sec-becker). Therefore the pretest-posttest-control group effect size is simply the difference between the intervention and control pre/post SMD [equation 15, @becker1988],
+Merk op dat deze effectgroottes identiek zijn aan de $d$ formulering van de SMD van Becker (zie @sec-becker). Daarom is de pretest-posttest-controlegroep effectgrootte simpelweg het verschil tussen de interventie en controle pre/post SMD [vergelijking 15, @becker1988],
 
 $$
 d_{PPC1} = d_T - d_C
 $$
 
-The asymptotic standard error of $d_{PPC2}$ was first derived by @becker1988 and can be expressed as the square root of the sum of the sampling variances [equation 16, @becker1988]
+De asymptotische standaardafwijking van $d_{PPC2}$ werd voor het eerst afgeleid door @becker1988 en kan worden uitgedrukt als de vierkantswortel van de som van de steekproefvarianties [vergelijking 16, @becker1988].
 
 $$
 SE_{d_{PPC1}} = \sqrt{\left[\frac{2(1-r_T)}{n_T} + \frac{d_T}{2n_T}\right] + \left[\frac{2(1-r_C)}{n_C} + \frac{d_C}{2n_C}\right]}
 $$
 
-We can calculate $d_{PPC1}$ and it's confidence intervals using base R:
+We kunnen $d_{PPC1}$ en zijn betrouwbaarheidsintervallen berekenen met R:
 
 ```{r,echo=TRUE}
-# Example:
+# Voorbeeld:
 
-# Control Group (N = 90)
-## Pre-test Mean = 20, SD = 6
-## Post-test Mean = 25, SD = 7
-## Pre/post correlation = .50
+# Controle Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 6
+## Post-test Gemiddelde = 25, SD = 7
+## Pre/post correlatie = .50
 M_Cpre <- 20
 M_Cpost <- 25
 SD_Cpre <- 6
@@ -644,10 +645,10 @@ SD_Cpost <- 7
 rC <- .50
 nC <- 90
 
-# Intervention Group (N = 90)
-## Pre-test Mean = 20, SD = 5
-## Post-test Mean = 27, SD = 8
-## Pre/post correlation = .50
+# Interventie Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 5
+## Post-test Gemiddelde = 27, SD = 8
+## Pre/post correlatie = .50
 M_Tpre <- 20
 M_Tpost <- 27
 SD_Tpre <- 5
@@ -655,54 +656,55 @@ SD_Tpost <- 8
 rT <- .50
 nT <- 90
 
-# calculate the observed standardized mean difference
+# bereken het geobserveerde gestandaardiseerde gemiddelde verschil
 dT <- (M_Tpost- M_Tpre) / SD_Tpre
 dC <- (M_Cpost - M_Cpre) / SD_Cpre
 dPPC1 <- dT - dC
 
-# calculate the standard error
+# bereken de standaard four (SE)
 SE <- sqrt( 2*(1-rT)/nT + dPPC1^2/(2*nT) + 2*(1-rC)/nC + dPPC1^2/(2*nC) )
 
-# print the d value and confidence intervals
+# druk de d waarde en betrouwbaarheids intervallen af
 data.frame(d = MOTE::apa(dPPC1),
            dlow = MOTE::apa(dPPC1 - 1.96*SE),
            dhigh = MOTE::apa(dPPC1 + 1.96*SE))
 
 ```
 
-The output shows a pre-post intervention effect of $d_{PPC1}$ = 0.57 \[0.25, 0.88\].
+De output toont een pre-post interventie-effect van $d_{PPC1}$ = 0,57 \[0,25, 0,88].
 
-### PPC2 - pooled pre-test standard deviations {#sec-ppc2}
+### PPC2 - gepoolde pre-test standaard deviaties {#sec-ppc2}
 
-The pooled pre-test (i.e., baseline) standard deviations can be used to standardized the difference in pre/post change between intervention and control groups such that [equation 8, @morris2008],
+De gepoolde standaarddeviaties vóór de test (d.w.z. bij de uitgangswaarde) kunnen worden gebruikt om het verschil in verandering vóór/na de interventie- en controlegroep te standaardiseren, zodat [vergelijking 8, @morris2008],
 
 $$
 d_{PPC2} = \frac{(M_{T,\text{post}} - M_{T,\text{pre}}) - (M_{C,\text{post}} - M_{C,\text{pre}})}{S_{p,\text{pre}}}
 $$
 
-where
+waarbij
 
 $$
 S_{p,\text{pre}} = \sqrt{\frac{(n_T-1)S^2_{T,\text{pre}} + (n_C - 1)S^2_{C,\text{pre}}}{n_T + n_C - 2}}.
 $$
 
-The distribution of $d_{PPC2}$ was described by @morris2008 and can be expressed as [adapted from equation 16, @morris2008],
+De verdeling van $d_{PPC2}$ werd beschreven door @morris2008 en kan worden uitgedrukt als [aangepast van vergelijking 16, @morris2008],
+
 
 $$
 \small{SE_{d_{PPC2}} = \sqrt{2\left(1-\frac{n_T r_T + n_C r_C}{n_T + n_C}\right)\left(\frac{n_T + n_C}{n_T n_C}\right)\left[1 + \frac{d^2_{PPC2}}{2\left(1-\frac{n_T r_T + n_C r_C}{n_T + n_C}\right)\left(\frac{n_T + n_C}{n_T n_C}\right)}\right] - d^2_{PPC2}}}
 $$
 
-Note the original equation shown in the paper by @morris2008 uses the population pre/post correlation $\rho$, however in the equation above we replace $\rho$ with the sample size weighted average of the Pearson correlation computed in the treatment group and the control group (i.e., $\rho \approx \frac{n_T r_T + n_C r_C}{n_T + n_C}$).
+Merk op dat de oorspronkelijke vergelijking in het artikel van @morris2008 de populatie pre-post correlatie $rho$ gebruikt, maar in bovenstaande vergelijking vervangen we $rho$ door het steekproefgrootte gewogen gemiddelde van de Pearson correlatie berekend in de behandelgroep en de controlegroep (d.w.z. $rho approx frac{n_ r_T + n_C r_C}{n_T + n_C}$).
 
-We can use base R to obtain $d_{PPC2}$ and confidence intervals:
+We kunnen R gebruiken om $d_{PPC2}$ en betrouwbaarheidsintervallen te verkrijgen:
 
 ```{r,echo=TRUE}
-# Example:
+# Voorbeeld:
 
-# Control Group (N = 90)
-## Pre-test Mean = 20, SD = 6
-## Post-test Mean = 25, SD = 7
-## Pre/post correlation = .50
+# Controle Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 6
+## Post-test Gemiddelde = 25, SD = 7
+## Pre/post correlatie = .50
 M_Cpre <- 20
 M_Cpost <- 25
 SD_Cpre <- 6
@@ -710,10 +712,10 @@ SD_Cpost <- 7
 rC <- .50
 nC <- 90
 
-# Intervention Group (N = 90)
-## Pre-test Mean = 20, SD = 5
-## Post-test Mean = 27, SD = 8
-## Pre/post correlation = .50
+# Interventie Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 5
+## Post-test Gemiddelde = 27, SD = 8
+## Pre/post correlatie = .50
 M_Tpre <- 20
 M_Tpost <- 27
 SD_Tpre <- 5
@@ -721,49 +723,49 @@ SD_Tpost <- 8
 rT <- .50
 nT <- 90
 
-# calculate the observed standardized mean difference
+# bereken het geobserveerde gestandaardiseerde gemiddelde verschil
 dPPC2 <- ((M_Tpost- M_Tpre) - (M_Cpost - M_Cpre)) / sqrt( ( (nT - 1)*(SD_Tpre^2) + (nC - 1)*(SD_Cpre^2) ) / (nT + nC - 2) )
 
-# calculate the standard error
+# bereken de standaard fout (SE)
 SE <-  sqrt(2*(1-( (nT*rT+nC*rC)/(nT + nC))) * ((nT+nC)/(nT*nC)) * (1 + (dPPC2^2 / (2*(1 - ((nT*rT+nC*rC)/(nT+nC))) * ((nT+nC)/(nT*nC)))))) - dPPC2
 
-# print the d value and confidence intervals
+# druk de d waarde en betrouwbaarheidsintervallen af 
 data.frame(d = MOTE::apa(dPPC2),
            dlow = MOTE::apa(dPPC2 - 1.96*SE),
            dhigh = MOTE::apa(dPPC2 + 1.96*SE))
 
 ```
 
-The output shows a pre-post intervention effect of $d_{PPC2}$ = 0.36 \[0.30, 0.42\].
+De output toont een pre-post interventie-effect van $d_{PPC2}$ = 0,36 \[0,30, 0,42].
 
-### PPC3 - pooled pre- and post-test {#sec-ppc3}
+### PPC3 - gepoolde pre- en post-test {#sec-ppc3}
 
-The two previous effect sizes only use the pretest standard deviation. But if we are happy to assume that pretest and posttest variances are homogenous[^standardized-mean-differences-1] the pooled pre-test and post-test standard deviations can be used to standardized the difference in pre/post change between intervention and control groups such that [equation 8, @morris2008],
+De twee vorige effect sizes gebruiken alleen de pretest standaarddeviatie. Maar als we graag aannemen dat pretest- en posttestvarianties homogeen zijn[^gestandaardiseerde-gemiddelde-verschillen-1], kunnen de gepoolde pre-test- en postteststandaarddeviaties worden gebruikt om het verschil in verandering voor en na de interventie- en controlegroep te standaardiseren, zodat [vergelijking 8, @morris2008],
 
-[^standardized-mean-differences-1]: Note, this may not be the case especially where there is a mean-variance relationship and one (usually the intervention) group has a higher posttest mean score.
+[^gestandaardiseerde-gemiddelde-verschillen-1]: Let op, dit is mogelijk niet het geval, vooral als er een gemiddelde-variantie relatie is en één (meestal de interventie) groep een hogere posttest gemiddelde score heeft.
 
 $$
 d_{PPC3} = \frac{(M_{T,\text{post}} - M_{T,\text{pre}}) - (M_{C,\text{post}} - M_{C,\text{pre}})}{S_{p,\text{pre-post}}},
 $$
 
-where,
+waarbij,
 
 $$
 S_{p,\text{pre-post}} = \sqrt{\frac{(n_T-1)\left(S^2_{T,\text{pre}} + S^2_{T,\text{post}}\right) + (n_C - 1)\left(S^2_{C,\text{pre}} + S^2_{C,\text{post}}\right)}{2(n_T + n_C - 2)}}.
 $$
 
-The standard error for $d_{PPC2}$ is currently unknown. An option to estimate this standard error is to use a non-parametric or parametric bootstrap by repeatedly sampling the raw data, or if the raw data is not available resample simulated data. We can do this in base R by simulating pre/post data using the `mvrnorm()` function from the `MASS` package [@MASS]:
+De standaardfout voor $d_{PPC2}$ is momenteel onbekend. Een optie om deze standaardfout te schatten is het gebruik van een niet-parametrische of parametrische bootstrap door de ruwe gegevens herhaaldelijk te sampelen, of als de ruwe gegevens niet beschikbaar zijn door gesimuleerde gegevens te sampelen. We kunnen dit doen in basis-R door voor/na data te simuleren met de `mvrnorm()` functie uit het `MASS` pakket [@MASS]:
 
 ```{r,echo=TRUE}
-# Install the package below if not done so already
+# Installeer het pakket als het nog niet is geïnstalleerd
 # install.packages(MASS)
 
-# Example:
+# Bijvoorbeeld:
 
-# Control Group (N = 90)
-## Pre-test Mean = 20, SD = 6
-## Post-test Mean = 25, SD = 7
-## Pre/post correlation = .50
+# Controle Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 6
+## Post-test Gemiddelde = 25, SD = 7
+## Pre/post correlatie = .50
 M_Cpre <- 20
 M_Cpost <- 25
 SD_Cpre <- 6
@@ -771,10 +773,10 @@ SD_Cpost <- 7
 rC <- .50
 nC <- 90
 
-# Intervention Group (N = 90)
-## Pre-test Mean = 20, SD = 5
-## Post-test Mean = 27, SD = 8
-## Pre/post correlation = .50
+# Interventie Groep (N = 90)
+## Pre-test Gemiddelde = 20, SD = 5
+## Post-test Gemiddelde = 27, SD = 8
+## Pre/post correlatie = .50
 M_Tpre <- 20
 M_Tpost <- 27
 SD_Tpre <- 5
@@ -782,74 +784,74 @@ SD_Tpost <- 8
 rT <- .50
 nT <- 90
 
-# simulate data
-set.seed(1) # set seed for reproducibility
+# simuleerdata
+set.seed(1) # set seed voor reproduceerbaarheid
 boot_dPPC3 <- c()
 for(i in 1:1000){
-  # simulate control group pre-post data
+  # simuleer controle groep pre-post data
   data_C <- MASS::mvrnorm(n = nC,
-                          # input observed means
+                          # input geobserveerde gemiddelden
                           mu = c(M_Cpre,M_Cpost),
-                          # input observed covariance matrix
+                          # input geobserveerde covariantie matrix
                           Sigma = data.frame(pre = c(SD_Cpre^2, rC*SD_Cpre*SD_Cpost), 
                                              post = c(rC*SD_Cpre*SD_Cpost,SD_Cpost^2)))
-  # simulate intervention group pre-post data
+  # simuleer interventie groep pre-post data
   data_T <- MASS::mvrnorm(n = nT,
-                          # input observed means
+                          # input geobserveerde gemiddelden
                           mu = c(M_Tpre,M_Tpost),
-                          # input observed covariance matrix
+                          # input geobserveerde covariantie matrix
                           Sigma = data.frame(pre = c(SD_Tpre^2, rT*SD_Tpre*SD_Tpost), 
                                              post = c(rT*SD_Tpre*SD_Tpost,SD_Tpost^2)))
   
-  # calculate the mean difference in pre/post change (the numerator)
+  # bereken het gemiddelde verschil in pre/post verandering (de teller)
   MeanDiff <- (mean(data_T[,2]) - mean(data_T[,1])) - (mean(data_C[,2]) - mean(data_C[,1]))
   
-  # calculate the pooled pre-post standard deviation (the denominator)
+  # bereken de gepoolde pre-post standaard deviatie (de deler)
   S_Pprepost <-  sqrt( ( (nT - 1)*(sd(data_T[,1])^2+sd(data_T[,2])^2) + (nC - 1)*(sd(data_C[,1])^2+sd(data_C[,2])^2) ) / (nT + nC - 2) )
   
-  # calculate the standardized mean difference for each bootstrap iteration
+  # bereken het gestandaardiseerde gemiddelde verschil voor elke bootstrap iteratie
   boot_dPPC3[i] <- MeanDiff / S_Pprepost
 }
 
-# calculate bootstrapped standard error
+# bereken gebootstrapte standaard fout
 SE <- sd(boot_dPPC3)
 
-# calculate the observed standardized mean difference
+# bereken de geobserveerde gestandaardiseerde gemiddelde verschil
 dPPC3 <- ((M_Tpost- M_Tpre) - (M_Cpost - M_Cpre)) / sqrt( ( (nT - 1)*(SD_Tpre^2+SD_Tpost^2) + (nC - 1)*(SD_Cpre^2+SD_Cpost^2) ) / (nT + nC - 2) )
 
-#print the d value and confidence intervals
+#druk de d waarde en betrouwbaarheidsintervallen af
 data.frame(d = MOTE::apa(dPPC3),
            dlow = MOTE::apa(dPPC3 - 1.96*SE),
            dhigh = MOTE::apa(dPPC3 + 1.96*SE))
 
 ```
 
-The output shows a pre-post intervention effect of $d_{PPC3}$ = 0.21 \[0.002, 0.43\].
+De output toont een pre-post interventie-effect van $d_{PPC3}$ = 0,21 \[0,002, 0,43].
 
-## Small Sample Bias in $d$ values
+## Vertekening van $d$ waarden in kleine steekproeven 
 
-All the estimators of $d$ listed above are biased estimates of the population $d$ value, specifically they all over-estimate the population value in small sample sizes. To adjust for this bias, we can apply a correction factor based on the degrees of freedom. The degrees of freedom will largely depend on the estimator used. The degrees of freedom for each estimator is listed below:
+Alle bovenstaande schatters van $d$ zijn vertekende schattingen van de populatiewaarde $d$, vooral overschatten ze allemaal de populatiewaarde bij kleine steekproeven. Om voor deze vertekening te corrigeren, kunnen we een correctiefactor toepassen op basis van de vrijheidsgraden. De vrijheidsgraden hangen grotendeels af van de gebruikte schatter. De vrijheidsgraden voor elke schatter staan hieronder vermeld:
 
--   Single Group design ($d_s$): $df = n-1$
--   Between Groups - Pooled Standard Deviation ($d_p$): $df = n_1+n_2-2$
--   Between Groups - Control Group Standard Deviation ($d_\Delta$): $df = n_C-1$
--   Repeated Measures - all types ($d_z$, $d_{rm}$, $d_{av}$, $d_{b}$): $df = n-1$
--   Pretest-Posttest-Control Separate Standard Deviation ($d_{PPC1}$): $df=n_C−1$
--   Pretest-Posttest-Control Pooled Pretest Standard Deviation ($d_{PPC2}$): $df=n_T+n_C−2$
--   Pretest-Posttest-Control Pooled Pretest and Posttest Standard Deviation ($d_{PPC3}$): $df=2(n_T+n_C−2)$
+-   Enkelvoudig Groep design ($d_s$): $df = n-1$
+-   Tussen Groepen - Gepoolde Standaard Deviatie ($d_p$): $df = n_1+n_2-2$
+-   Tussen Groepen - Controle Groep Standaard Deviatie ($d_\Delta$): $df = n_C-1$
+-   Herhaalde metingen - alle types ($d_z$, $d_{rm}$, $d_{av}$, $d_{b}$): $df = n-1$
+-   Pretest-Posttest-Controle Afzonderlijke Standaard Deviatie ($d_{PPC1}$): $df=n_C−1$
+-   Pretest-Posttest-Controle Gepoolde Pretest Standaard Deviatie ($d_{PPC2}$): $df=n_T+n_C−2$
+-   Pretest-Posttest-Controle Gepooled Pretest en Posttest Standaard Deviatie ($d_{PPC3}$): $df=2(n_T+n_C−2)$
 
-With the appropriate degrees of freedom, we can use the following correction factor, $CF$, to obtain an unbiased estimate of the population standardized mean difference:
+Met de juiste vrijheidsgraden kunnen we de volgende correctiefactor, $CF$, gebruiken om een onvertekende schatting van het gestandaardiseerde gemiddelde verschil van de populatie te krijgen:
 
 $$
 CF = \frac{\Gamma\left(\frac{df}{2}\right)}{\Gamma\left(\frac{df-1}{2}\right)\sqrt{\frac{df}{2}}}
 $$
 
-Where $\Gamma(\cdot)$ is the gamma function. An approximation of this complex formula given by @hedges1981 can be written as $CF\approx 1-\frac{3}{4\cdot df -1}$. In R, this can be calculated using,
+Waarbij $Gamma(\cdot)$ de gammafunctie is. Een benadering van deze complexe formule gegeven door @hedges1981 kan worden geschreven als $CF\approx 1-\frac{3}{4\cdot df -1}$. In R kan dit worden berekend met,
 
 ```{r,echo=TRUE}
-# Example:
-# Group 1 sample size = 20
-# Group 2 sample size = 18
+# Voorbeeld:
+# Groep 1 sample omvang = 20
+# Groep 2 sample omvang = 18
 
 n1 <- 20
 n2 <- 18
@@ -861,87 +863,88 @@ CF <- gamma(df/2) / ( sqrt(df/2) * gamma((df-1)/2) )
 CF
 ```
 
-This correction factor can then be applied to any of the estimators mentioned above,
+Deze correctiefactor kan dan worden toegepast op elk van de bovengenoemde schatters,
 
 $$
 d^* = d\times CF
 $$
 
-The corrected $d$ value, $d^*$, is commonly referred to as Hedges' $g$ or just $g$. To avoid notation confusion we will just add an asterisk to $d$ to denote the correction. We also need to correct the standard error for $d^*$
+De gecorrigeerde $d$ waarde, $d^*$, wordt gewoonlijk Hedges' $g$ of gewoon $g$ genoemd. Om verwarring in de notatie te voorkomen voegen we een sterretje toe aan $d$ om de correctie aan te geven. We moeten ook de standaardfout voor $d^*$ corrigeren
 
 $$
 SE_{d^*} = SE_{d} \times CF
 $$
 
-These standard errors can then be used to calculate the confidence interval of the corrected $d$ value,
+Deze standaardfouten kunnen dan worden gebruikt om het betrouwbaarheidsinterval van de gecorrigeerde $d$ -waarde te berekenen,
 
 $$
 CI_{d*} = d^* \pm 1.96\times SE_{d^*}
 $$
 
 ```{r,echo=TRUE}
-# Example:
+# Voorbeeld:
 # Cohen's d = .50, SE = .10
 
 d = .50
 SE = .10
 
-# correct d value and CIs small sample bias
+# bereken d waarde en CI's van kleine sample bias
 d_corrected <- d * CF
 SE_corrected <- SE * CF
 dlow_corrected <- d_corrected - 1.96*SE_corrected
 dhigh_corrected <- d_corrected + 1.96*SE_corrected
 
-# print just the d value and confidence intervals
+# druk alleen de d waarde en betrouwbaarheidsintrvallen af
 data.frame(d = apa(d), 
            dlow = apa(dlow_corrected), 
            dhigh = apa(dhigh_corrected))
 ```
 
-The output shows that the corrected effect size is $d^*$ = 0.50, 95% CI \[0.30, 0.68\].
+De output laat zien dat de gecorrigeerde effectgrootte $d^*$ = 0,50, 95% CI [0,30, 0,68].
 
-## Ratios of Means {#sec-rr}
+## Verhoudingen van gemiddelden {#sec-rr}
 
-Another common approach, particularly within the fields of ecology and evolution, is to take the natural logarithm of the ratio between two means; the so-called Response Ratio ($lnRR$). This is sometimes more favorable as, due to its construction using the standard deviation in some form as a denominator, the various versions of standardized mean differences are impacted by the estimate of this parameter for which studies are often less powered compared to mean magnitudes [@yang2022]. For the $lnRR$ however the standard deviation only impacts its variance estimation and not the point estimate. A limitation of the lnRR however is that it is limited to data that are observed on a ratio scale (i.e., have an absolute zero and instances of it are related ordinally and additively meaning both means will be positive).
+Een andere veelgebruikte benadering, met name op het gebied van ecologie en evolutie, is het nemen van de natuurlijke logaritme van de verhouding tussen twee gemiddelden; de zogenaamde responsratio ($lnRR$). Dit is soms gunstiger omdat, doordat bij de constructie ervan de standaarddeviatie in een of andere vorm als noemer wordt gebruikt, de verschillende versies van gestandaardiseerde gemiddelde verschillen worden beïnvloed door de schatting van deze parameter waarvoor studies vaak minder sterk zijn in vergelijking met gemiddelde grootheden [@yang2022]. Voor de $lnRR$ heeft de standaarddeviatie echter alleen invloed op de variantieschatting en niet op de puntschatting. Een beperking van de lnRR is echter dat deze beperkt is tot gegevens die worden waargenomen op een verhoudingsschaal (d.w.z. een absoluut nulpunt hebben en gevallen daarvan ordinaal en additief gerelateerd zijn, wat betekent dat beide gemiddelden positief zijn).
 
-Although strictly speaking the $lnRR$ is not a difference in means in an additive sense as the above standardized mean difference effect sizes are, it can in one sense be considered to reflect the difference in means on the multiplicative scale. In fact, after calculation it is often transformed to reflect the percentage difference or change between means: $100\times \exp(lnRR)-1$. However, this can introduce transformation induced bias because a non-linear transformation of a mean value is not generally equal to the mean of the transformed value. In the context of meta-analysis combining $lnRR$ estimated across studies a correct factor can be applied: $100\times \exp(lnRR+0.5 S^2_\text{total})-1$, where $S^2_\text{total}$ is the variance of all $lnRR$ values.
+Hoewel de $lnRR$ strikt genomen geen verschil in gemiddelden in additieve zin is, zoals de bovenstaande gestandaardiseerde effectgroottes voor gemiddelde verschillen, kan het in zekere zin worden beschouwd als een weergave van het verschil in gemiddelden op de multiplicatieve schaal. In feite wordt het na berekening vaak getransformeerd om het procentuele verschil of de verandering tussen de gemiddelden weer te geven: $100 maal \exp(lnRR)-1$. Dit kan echter een door transformatie geïnduceerde vertekening veroorzaken, omdat een niet-lineaire transformatie van een gemiddelde waarde over het algemeen niet gelijk is aan het gemiddelde van de getransformeerde waarde. In de context van een meta-analyse waarin $lnRR$ geschat over verschillende studies worden gecombineerd, kan een correcte factor worden toegepast: $100 maal \exp(lnRR+0,5 S^2_\text{total})-1$, waarbij $S^2_\text{total}$ de variantie van alle $lnRR$ -waarden is.
 
-Similarly to the various standardized mean differences, there are varied calculations for the lnRR dependent upon the study design being used [see @senior2020].
+Net als voor de verschillende gestandaardiseerde gemiddelde verschillen, bestaan er verschillende berekeningen voor de lnRR, afhankelijk van de gebruikte studieopzet [zie @senior2020].
 
-### lnRR for Independent Groups ($lnRR_\text{ind}$) {#sec-rrind}
+### lnRR voor onafhankelijke groepen ($lnRR_{ind}$) {#sec-rrind}
 
-The lnRR can be calculated when groups are independent as follows, 
+De lnRR kan als volgt worden berekend als groepen onafhankelijk zijn, 
+
 
 $$
 lnRR_\text{ind}=\ln\left(\frac{M_T}{M_C}\right)+CF
 $$
 
-Where $M_T$ and $M_C$ are the means for the treatment and control group respectively and $CF$ is the small sample correction factor calculated as,
+Waarbij $M_T$ en $M_C$ de gemiddelden zijn voor respectievelijk de behandel- en controlegroep en $CF$ de kleine steekproefcorrectiefactor is, berekend als,
 
 $$
 CF = \frac{S^2_T}{2n_TM_T^2} - \frac{S^2_C}{2n_CM_C^2}
 $$
 
-The standard error can be calculated as,
+De standaardfout kan als volgt worden berekend,
 
 $$
 SE_{lnRR_\text{ind}} = \sqrt{ \frac{S^2_T}{n_T M_T^2} + \frac{S^2_C}{n_C M_C^2} +\frac{S^4_T}{2n^2_T M_T^4} + \frac{S^4_C}{2n^2_C M_C^4}}
 $$
 
-Using R we can easily calculate this effect size using the `escalc()` function in the `metafor` package [@metafor]:
+In R kunnen we deze effectgrootte eenvoudig berekenen met de functie `escalc()` in het pakket `metafor` [@metafor]:
 
 ```{r,message=FALSE}
-# lnRR for two independent groups
-# given means and SDs
+# lnRR voor twee onafhankelijke gropen 
+# ggegeven gemiddelden en SDs
 
-# For example:
-# Group 1 Mean = 30.4, Standard deviation = 22.53, Sample size = 96
-# Group 2 Mean = 21.4, Standard deviation = 19.59, Sample size = 96
+# Bijvoorbeeld:
+# Groep 1 Gemiddelde = 30.4, Standaard deviatie = 22.53, Sample omvang = 96
+# Groep 2 Gemiddelde = 21.4, Standaard deviatie = 19.59, Sample omvang = 96
 
 library(metafor)
 
 
-# prepare the data
+# data voorbereiden
 M1 <- 30.4
 M2 <- 21.4
 SD1 <- 22.53
@@ -949,7 +952,7 @@ SD2 <- 19.59
 N1 = 96
 N2 = 96
 
-# calculate lnRRind and standard error
+# bereken lnRRind en standaard fout
 lnRRind <- escalc(measure = "ROM", 
                m1i = M1,
                m2i = M2,
@@ -960,57 +963,58 @@ lnRRind <- escalc(measure = "ROM",
 
 lnRRind$SE <- sqrt(lnRRind$vi)
 
-# calculate confidence interval
+# bereken betrouwbaarheisinterval
 lnRRind$CIlow <- lnRRind$yi - 1.96*lnRRind$SE
 lnRRind$CIhigh <-  lnRRind$yi + 1.96*lnRRind$SE
 
-# print the VR value and confidence intervals
+# druk de VR-waarde en betrouwbaarheidsintervallen af
 data.frame(lnRRind = MOTE::apa(lnRRind$yi),
            lnRRind_low = MOTE::apa(lnRRind$CIlow),
            lnRRind_high = MOTE::apa(lnRRind$CIhigh))
 
 ```
 
-The example shwos a natural log response ratio of $lnRR_\text{ind}$ = 0.35 \[0.12, 0.59\].
+Het voorbeeld geeft een natuurlijke log-responsratio van $lnRR_text{ind}$ = 0,35 \[0,12, 0,59].
 
 
-### lnRR for dependent groups ($lnRR_\text{dep}$) {#sec-rrdep}
+### lnRR voor afhankelijke groepen ($lnRR_\text{dep}$) {#sec-rrdep}
 
-The lnRR can be calculated when groups are dependent (i.e., same subjects in both conditions), for example a pre-post comparison, as follows,
+De lnRR kan als volgt worden berekend als de groepen afhankelijk zijn (d.w.z. dezelfde proefpersonen in beide condities), bijvoorbeeld een pre-post vergelijking,
+
 
 $$
 lnRR_\text{dep} = \ln\left(\frac{M_2}{M_1}\right) + CF
 $$
 
-Where $CF$ is the small sample correct factor calculated as,
+Waarbij $CF$ de kleine steekproefcorrectiefactor is, berekend als,
 
 $$
 CF = \frac{S^2_2}{2nM^2_2} - \frac{S^2_1}{2nM^2_1}
 $$
 
-The standard error can then be calculated as,
+De standaardfout kan dan worden berekend als,
 
 $$
 \small{SE_{lnRR_\text{dep}} = \sqrt{ \frac{S^2_1}{n M_1^2} + \frac{S^2_2}{n M_2^2} + \frac{S^4_1}{2n^2M^4_1} +  \frac{S^4_2}{2n^2M^4_2} + \frac{2rS_1 S_2}{n M_1 M_2} + \frac{r^2S^2_1 S^2_2 (M_1^4 + M_2^4)}{2n^2 M_1^4 M_2^4}}}
 $$
 
-Using R we can easily calculate this effect size using the `escalc()` function from the `metafor` package as follows:
+In `R` kunnen we deze effectgrootte eenvoudig berekenen met de functie `escalc()` uit het pakket `metafor`, en wel als volgt:
 
 ```{r,message=FALSE}
-# lnRR for two dependent groups
-# given means and SDs
+# lnRR voor twee afhankelijke groepen
+# gegeven gemiddelden en SDs
 
 
-# For example:
-# Mean 1 = 30.4, Standard deviation 1 = 22.53
-# Mean 2 = 21.4, Standard deviation 2 = 19.59
-# Sample size = 96
-# Correlation = 0.4
+# Bijvoorbeeld:
+# Gemiddelde 1 = 30.4, Standaard deviatie 1 = 22.53
+# Gemiddelde 2 = 21.4, Standaard deviatie 2 = 19.59
+# Sample omvang = 96
+# Correlatie = 0.4
 
 library(metafor)
 
 
-# prepare the data
+# data voorbereiden
 M1 <- 30.4
 M2 <- 21.4
 SD1 <- 22.53
@@ -1019,7 +1023,7 @@ N = 96
 R = 0.4
 
 
-# calculate lnRR and standard error
+# bereken lnRR en standaard fout
 lnRRdep <- escalc(measure = "ROMC", 
                m1i = M1,
                m2i = M2,
@@ -1028,18 +1032,18 @@ lnRRdep <- escalc(measure = "ROMC",
                ni = N,
                ri = R)
 
-# obtain standard error from sqrt of sampling variance
+# standaardfout berekenen uit wortel van steekproefvariantie
 lnRRdep$SE <- sqrt(lnRRdep$vi)
 
 
-# calculate confidence interval
+# bereken betrouwbaarheidsinterval
 lnRRdep$CIlow <- lnRRdep$yi - 1.96*lnRRdep$SE
 lnRRdep$CIhigh <-  lnRRdep$yi + 1.96*lnRRdep$SE
 
 
 
 
-# print the VR value and confidence intervals
+# druk de VR waarde en betrouwbaarheidsintervallen af
 data.frame(lnRRdep = MOTE::apa(lnRRdep$yi),
            lnRRdep_low = MOTE::apa(lnRRdep$CIlow),
            lnRRdep_high = MOTE::apa(lnRRdep$CIhigh))
@@ -1047,4 +1051,4 @@ data.frame(lnRRdep = MOTE::apa(lnRRdep$yi),
 
 ```
 
-The example shwos a natural log response ratio of $lnRR_\text{dep}$ = 0.35 \[0.17, 0.54\].
+Het voorbeeld geeft een natuurlijke logreactieverhouding van $lnRR_text{dep}$ = 0,35 \[0,17, 0,54].

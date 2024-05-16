@@ -1,84 +1,85 @@
-# Effect Sizes for Categorical Variables
+# Effect Sizes voor Categoriale Variabelen
 
-For dichotomous relationships that involve proportions, there are many variations of effect sizes that one can use. Commonly used effect size measures for statistical procedures on categorical data include: phi coefficient ($\phi$), Cramer's $V$, Cohen's $h$, Cohen's $\omega$, odds ratio ($OR$), risk difference ($RD$), and relative risk ($RR$).
-
-
-#### **Here is a table for every effect size discussed in this chapter:** {.unnumbered}
+Voor dichotome relaties waarbij verhoudingen een rol spelen, zijn er veel variaties van effectgroottes die men kan gebruiken. Veelgebruikte effectgroottematen voor statistische procedures op categorische gegevens zijn: phi-coëfficiënt ($phi$), Cramer's $V$, Cohen's $h$, Cohen's $omega$, odds ratio ($OR$), risicoverschil ($RD$) en relatief risico ($RR$).
 
 
-| Type                | Description | Section|
+#### **Hier is een tabel voor elke effect size besproken in dit hoofdstuk:** {.unnumbered}
+
+
+| Type                | Beschrijving | Section|
 |:------|:---------|:----:|
-| $\phi$ - phi coefficient | Pearson correlation between two binary variables (i.e., 2x2 contingency tables).  | @sec-phi|
-| $V$ - Cramer's *V* |  Measures the association between categorical variables. Similar to a $\phi$ coefficient, but meant for contingency tables larger than 2x2. | @sec-v|
-| $h$ - Cohen's *h* | Pearson correlation between two binary variables. Difficult to interpret.  | @sec-h|
-| $w$ - Cohen's *w* | Association between two categorical variables and it is computed identically to the $\phi$ coefficient. If computed on a 2x2 contingency table, it will have an identical value to $\phi$.  | @sec-w|
-| $\boldsymbol{פ}$ - Ben-Shachar's Fei | A correction to Cohen's $w$ for one dimensional count tables.   | @sec-fei|
-| $OR$ - Odds Ratio | Ratio of odds of an event occurring between treatment and control groups  | @sec-or|
-| $RD$ - Risk Difference | Difference between proportions in treatment and control groups.  | @sec-rd|
-| $RR$ - Relative Risk | Ratio of proportions in the treatment and control groups.  | @sec-rr|
+| $\phi$ - phi coëfficient | Pearson correlatie tussen twee binaire variabele (b.v., 2x2 contingentietabellen).  | @sec-phi|
+| $V$ - Cramer's *V* |  Meet de associatie tussen categorische variabelen. Vergelijkbaar met een coëfficiënt van $\phi$, maar bedoeld voor contingentietabellen groter dan 2x2. | @sec-v|
+| $h$ - Cohen's *h* | Pearson correlatie tussen twee binaire variabelen. Moeilijk te interpreteren.  | @sec-h|
+| $w$ - Cohen's *w* | Associatie tussen twee categorische variabelen en wordt op dezelfde manier berekend als de $\phi$ coëfficiënt. Als de coëfficiënt wordt berekend op een 2x2 contingentietabel, heeft hij dezelfde waarde als de $\phi$.  | @sec-w|
+| $\boldsymbol{פ}$ - Ben-Shachar's Fei | Een correctie op Cohen's $w$ voor eendimensionale teltabellen.   | @sec-fei|
+| $OR$ - Odds Ratio | Ratio van kansen dat een gebeurtenis zich voordoet tussen behandelings- en controlegroepen  | @sec-or|
+| $RD$ - Risk Difference(Risico Verschil) | Verschil tussen verhoudingen in behandelings- en controlegroepen.  | @sec-rd|
+| $RR$ - Relatieve Risico | Verhouding tussen de verhoudingen in de behandelings- en controlegroepen.  | @sec-rr|
 
 
-## One Sample Proportion Test
+## Verhoudingstest met één steekproef
 
-If we have a single sample and we want to assess the difference between a proportion and some proportion of interest. We can first calculate the test statistic by comparing the observed proportion ($p$) vs the proportion of interest ($p_0$):
+Als we een enkele steekproef hebben en we willen het verschil bepalen tussen een proportie en een interessante proportie. We kunnen eerst de teststatistiek berekenen door de geobserveerde proportie ($p$) te vergelijken met de proportie van belang ($p_0$):
 
 $$
 z = \frac{p-p_0}{\sqrt{\frac{p(1-p)}{n}}},
 $$
-where $n$ is the sample size. Note that this is only valid if the proportion of interest is chance ($p_0=.50$) because the sampling distribution with a proportion of .50 is normal. However if the proportion of interest is not .50, then we should instead compute Cohen's $h$ (see @sec-h for details), which transforms the scale so that the distributions are normal regardless of the proportion. The test-statistic with Cohen's $h$,
+waarbij $n$ de steekproefgrootte is. Merk op dat dit alleen geldig is als de proportie van belang toeval is ($p_0=.50$) omdat de steekproefverdeling met een proportie van .50 normaal is. Maar als de proportie die van belang is niet .50 is, dan moeten we in plaats daarvan Cohen's $h$ berekenen (zie @sec-h voor details), die de schaal transformeert zodat de verdelingen normaal zijn ongeacht de proportie. De test-statistiek met Cohen's $h$,
 
 $$
 z = h\sqrt{n}
 $$
 
 
-Let's try testing the proportion against chance ($p_0=.50$) in R. We can then calculate the *p*-value in base R by using the `pnorm()` function:
+Laten we proberen de verhouding te testen tegen toeval ($p_0=.50$) in R. We kunnen dan de *p*-waarde in basis-R berekenen met de functie `pnorm()`:
 
 ```{r}
-# Example:
-p <- .7 # observed proportion
-p0 <- .5 # proportion of interest
-n <- 50 # sample size
+# Bv:
+p <- .7 # geobserveerde proportie
+p0 <- .5 # proportie waarin geïnteresseerd 
+n <- 50 # steekproef omvang
 
 z <- (p-p0) / sqrt(p*(1-p)/n)
 
-pval <- 2*(1-pnorm(z)) # two tailed test
+pval <- 2*(1-pnorm(z)) # twee koppige test
 
 data.frame(z,pval)
 
 ```
-Results show a significant difference from chance with $z$ = 3.09 and *p*-val = .002
+Resultaten tonen een significant verschil met toeval met $z$ = 3.09 en *p*-val = .002
 
 
 ## Effect Sizes
 
-### Phi Coefficient ($\phi$) {#sec-phi}
+### Phi Coëfficient ($\phi$) {#sec-phi}
 
-Phi coefficient ($\phi$) is a measure of association between two binary variables (therefore, it ONLY applies to 2 by 2 contingency tables, i.e., each variable has only two levels). It is a special case of the Pearson correlation coefficient and an $r$ for two binary variables is equal to phi. Note that unlike $r$ that ranges from -1 to 1, phi ranges from 0 to 1. Also, the sign of $r$ indicates the direction of association, whereas to get the direction of an association given a 2 by 2 contingency table, we need to look at the table itself; phi only provides a measure of strength. The 2 by 2 contingency table is illustrated by @tbl-contingency.
+De Phi-coëfficiënt ($\phi$) is een maat voor de associatie tussen twee binaire variabelen (daarom is hij ALLEEN van toepassing op 2 bij 2 contingentietabellen, d.w.z. dat elke variabele slechts twee niveaus heeft). Het is een speciaal geval van de Pearson correlatiecoëfficiënt en een $r$ voor twee binaire variabelen is gelijk aan phi. Merk op dat in tegenstelling tot $r$ die van -1 tot 1 gaat, phi van 0 tot 1 gaat. Ook geeft het teken van $r$ de richting van de associatie aan, terwijl we naar de tabel zelf moeten kijken om de richting van een associatie te bepalen op basis van een 2 bij 2 contingentietabel; phi geeft alleen een maat voor de sterkte. De 2 bij 2 contingentietabel wordt geïllustreerd door @tbl-contingency.
+
 
 |       |  $X=0$   |  $X=1$   |
 |:-----:|:--------:|:--------:|
 | $Y=0$ | $n_{00}$ | $n_{10}$ |
 | $Y=1$ | $n_{01}$ | $n_{11}$ |
 
-: Contingency table between two binary variables {#tbl-contingency}
+: Contingentietabel tussen twee binaire variabelen {#tbl-contingency}
 
-The sample sizes within each cell provide us with the necessary information to estimate the relationship between the two variables. A large phi coefficient would be expected to have relatively large sample sizes in the diagonal cells ($n_{00}$ and $n_{11}$) and relatively low sample sizes in the off-diagonal cells ($n_{01}$ and $n_{10}$). To calculate phi, it can be calculated from the cells of the contingency table directly [adapted from equation 1, @guilford1965],
+De steekproefgrootten binnen elke cel geven ons de nodige informatie om het verband tussen de twee variabelen te schatten. Een grote phi-coëfficiënt zou naar verwachting relatief grote steekproefgrootten hebben in de diagonale cellen ($n_{00}$ en $n_{11}$) en relatief kleine steekproefgrootten in de off-diagonale cellen ($n_{01}$ en $n_{10}$). Om phi te berekenen, kan het rechtstreeks worden berekend uit de cellen van de contingentietabel [aangepast van vergelijking 1, @guilford1965],
 
 $$
 \phi = \frac{n_{11}n_{00} -n_{10}n_{01}}{\sqrt{(n_{00} + n_{01})(n_{10} + n_{11})(n_{00} + n_{10})(n_{01} + n_{11})}}
 $$
 
-or more conveniently, from the $\chi^2$-statistic [equation 7.2.5, @cohen1988],
+of handiger, van de $\chi^2$-statistiek [vergelijking 7.2.5, @cohen1988],
 
 $$
 \phi = \sqrt{\frac{\chi^2}{n}}
 $$
 
-Where $n$ is the total sample size (i.e., the sum of all the cells). Using the `effectsize` package in R, we can calculate the the phi coefficient using the `phi` function directly from the contingency table:
+Waar $n$ de totale steekproefgrootte is (d.w.z. de som van alle cellen). Met behulp van het pakket `effectsize` in R kunnen we de phi-coëfficiënt berekenen met de functie `phi`, rechtstreeks uit de contingentietabel:
 
 ```{r, echo = TRUE}
-# Example contingency table:
+# Voorbeeld contingentietabel:
 #  40  17
 #  11  45
 
@@ -92,11 +93,11 @@ phi_coefficient <- phi(contingency_table, alternative = "two.sided")
 phi_coefficient
 ```
 
-In our example we obtained a phi coefficient of $\phi$ = .50 \[0.31, 0.69\].
+In ons voorbeeld hebben we een phi-coëfficiënt van $\phi$ = .50 \[0.31, 0.69\].
 
 ### Cramer's $V$ {#sec-v}
 
-Cramer's V, sometimes also referred to as Cramer's phi ($\phi$), is a generalized effect size measure of the association between two nominal variables. It applies to contingency tables of any size ($2\times 2$, $3\times 3$, $3\times 4$, $5\times 3$, etc.). Cramer's $V$ on a $2\times 2$ contingency table is equivalent to the phi coefficient. For an illustration of a higher order contingency table, @tbl-contingency-2 represents a $3\times 4$ contingency table of two variables.
+Cramer's V, soms ook Cramer's phi ($\phi$) genoemd, is een algemene maat voor de effectgrootte van de associatie tussen twee nominale variabelen. Het is van toepassing op contingentietabellen van elke grootte ($2\times 2$, $3\times 3$, $3\times 4$, $5\times 3$, etc.). Cramer's $V$ op een controletabel van $2\times 2$ is gelijk aan de phi-coëfficiënt. Ter illustratie van een hogere orde contingentietabel staat @tbl-contingency-2 voor een $3\times 4$ contingentietabel van twee variabelen. @tbl-contingency-2 representeert een $3\times 4$ contingentie tabel van twee variabelen.
 
 |       |  $X=0$   |  $X=1$   |  $X=2$   |  $X=3$   |
 |-------|:--------:|:--------:|:--------:|:--------:|
@@ -104,21 +105,21 @@ Cramer's V, sometimes also referred to as Cramer's phi ($\phi$), is a generalize
 | $Y=1$ | $n_{01}$ | $n_{11}$ | $n_{21}$ | $n_{31}$ |
 | $Y=2$ | $n_{02}$ | $n_{12}$ | $n_{22}$ | $n_{32}$ |
 
-: Contingency table between two categorical variables {#tbl-contingency-2}
+: Contingentietabel tussen twee categoriale variabelen {#tbl-contingency-2}
 
-Similarly to the phi coefficient, the value of Cramer's $V$ ranges from 0 to 1 and can interpreted in a similar way to a phi coefficient. Again we can use the $\chi^2$ statistic to compute the value, however, since there can be more than 2 levels to each variable, we also need to take into account the number of levels, $k$, of the variable with the least number of levels (e.g., a $3 \times 4$ contingency table, $k$ would be equal to 3). Cramer's $V$ is defined as [equation 7.2.6, @cohen1988],
+Net als de phi-coëfficiënt varieert de waarde van Cramer's $V$ van 0 tot 1 en kan op dezelfde manier geïnterpreteerd worden als een phi-coëfficiënt. Ook hier kunnen we de statistiek van $\chi^2$ gebruiken om de waarde te berekenen, maar omdat er meer dan 2 niveaus voor elke variabele kunnen zijn, moeten we ook rekening houden met het aantal niveaus, $k$, van de variabele met het minste aantal niveaus (bijvoorbeeld bij een contingentietabel van $3 maal 4$ zou $k$ gelijk zijn aan 3). Cramer's $V$ wordt gedefinieerd als [vergelijking 7.2.6, @cohen1988],
 
 $$
 V = \sqrt{\frac{\chi^2}{n(k-1)}}
 $$
 
-The standard error of a Cramer's $V$ is similar to that of a Pearson correlation and a $\phi$ coefficient.
+De standaardfout van een Cramer's $V$ is vergelijkbaar met die van een Pearson correlatie en een $\phi$ coëfficiënt.
 
 $$
 SE_V = \sqrt{\frac{\left(1-V^2\right)^2}{n-1}}
 $$
 
-Where $n$ is the total sample size (i.e., the sum of all cells). Like the pearson correlation, we can not calculate the confidence interval directly from the standard error, instead, we must convert $V$ to a Fisher's Z statistic, $Z_V = \text{arctanh}(V)$. We can then calculate the 95% confidence interval for $V$ by back-transforming the confidence interval for $Z_V$:
+Waar $n$ de totale steekproefgrootte is (d.w.z. de som van alle cellen). Net als bij de Pearson correlatie kunnen we het betrouwbaarheidsinterval niet rechtstreeks uit de standaardfout berekenen, maar moeten we $V$ omrekenen naar een Z-statistiek van Fisher, $Z_V = \text{arctanh}(V)$. We kunnen dan het 95%-betrouwbaarheidsinterval voor $V$ berekenen door het betrouwbaarheidsinterval voor $Z_V$ terug te rekenen:
 
 $$
 SE_{Z_V} = \frac{1}{\sqrt{n-3}}
@@ -128,10 +129,10 @@ $$
 CI_{V} = \tanh(Z_V \pm 1.96\times SE_{Z_V})
 $$
 
-Using the `ufs` package [@ufs], we can calculate Cramer's $V$ and it's 95% confidence interval using the Fisher's Z method described above. For the example, we can example data from a 3 $\times$ 3 contingency table.
+Met behulp van het `ufs` pakket [@ufs] kunnen we Cramer's $V$ en zijn 95% betrouwbaarheidsinterval berekenen met behulp van de Fisher's Z-methode zoals hierboven beschreven. Voor het voorbeeld kunnen we gegevens uit een 3 $times$ 3 contingentietabel gebruiken.
 
 ```{r, echo = TRUE,message=FALSE}
-# Example contingency table:
+# Voorbeeld contingentie tabel:
 #  40  14  12
 #  11  27   9
 #   5  10  34
@@ -153,40 +154,40 @@ data.frame(V = MOTE::apa(V$output$cramersV),
 
 ```
 
-In our example we obtained a Cramer's $V$ of $V$ = .44 \[.31, .56\].
+In ons voorbeeld hebben we een Cramer's $V$ of $V$ = .44 \[.31, .56\].
 
 ### Cohen's $h$ {#sec-h}
 
-Cohen's $h$ is a measure of distance between two proportions or probabilities. It is sometimes also referred to as the "difference between arcsines". For a given proportion $p$, its arcsine transformation is given by [equation 6.2.1, @cohen1988]:
+Cohen's $h$ is een maat voor de afstand tussen twee verhoudingen of waarschijnlijkheden. Het wordt soms ook het "verschil tussen arcsijnen" genoemd. Voor een gegeven proportie $p$ wordt de transformatie van de arcsinus gegeven door [vergelijking 6.2.1, @cohen1988]:
 
 $$
 \psi = 2\cdot \text{arcsin}(\sqrt{p}).
 $$
 
-Cohen's $h$ is the difference between the arcsine transformations of two proportions [equation 6.2.2, @cohen1988]:
+Cohen's $h$ is het verschil tussen de arcsinus transformaties van twee verhoudingen [vergelijking 6.2.2, @cohen1988]:
 
 $$
 h = \psi_1 - \psi_2
 $$
 
-Cohen's $h$ is commonly used for the power analysis of proportion tests. In fact, it is the required effect size measure in the program *G Power* [@faul2009]. We can calculate the standard error of Cohen's $h$,
+Cohen's $h$ wordt vaak gebruikt voor de poweranalyse van proportietests. Het is zelfs de vereiste effectgrootte in het programma *G Power* [@faul2009]. We kunnen de standaardfout van Cohen's $h$ berekenen,
 
 $$
 SE_h = \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}
 $$
 
-Since the sampling distribution of $h$ is symmetric, we can calculate the confidence intervals from the standard error,
+Omdat de steekproefverdeling van $h$ symmetrisch is, kunnen we de betrouwbaarheidsintervallen berekenen uit de standaardfout,
 
 $$
 CI_h = h \pm1.96\times SE_h
 $$
 
-To calculate Cohen's $h$, we can use the `cohens_h` function in the `effectsize` package in R.
+Om Cohen's $h$ te berekenen, kunnen we de `cohens_h` functie in het `effectsize` pakket in R gebruiken.
 
 ```{r, echo = TRUE}
-# install package if not done so already
+# installeer pakket als je dat al niet hebt gedaan
 # install.packages('effectsize')
-# Example proportions: p1 = .45, p2 = .30
+# Voorbeeld proporties: p1 = .45, p2 = .30
 
 library(effectsize)
 
@@ -197,30 +198,29 @@ cohens_h(contingency_table)
 
 ```
 
-From the example, the R code outputted a Cohen's $h$ value of $h$ = .93 \[0.52, 1.34\].
+Uit het voorbeeld leidde de R-code tot een Cohen's $h$ waarde van $h$ = .93 \[0.52, 1.34].
 
 ### Cohen's $w$ {#sec-w}
 
-Cohen's $w$ is a measurem of association analogous to the phi coefficient but on tables that are larger than 2x2. Although Cohen's $w$ is useful for power analyses, it is not so useful as a stand-alone effect size. As @cohen1988 states (pp. 221):
+Cohen's $w$ is een maat voor associatie analoog aan de phi-coëfficiënt, maar dan op tabellen groter dan 2x2. Hoewel Cohen's $w$ nuttig is voor poweranalyses, is het niet zo nuttig als een op zichzelf staande effectgrootte. Zoals @cohen1988 stelt (pp. 221):
 
-> As a measure of association, \[Cohen's $w$\] lacks familiarity and convenience
+> Als maatstaf voor associatie is Cohen's $w niet bekend en gemakkelijk.
 
-Cohen's $w$ has the exact same formula as the phi coefficient with the only difference being that the $\chi^2$ statistic comes from a contingency table of any size [equation 7.2.5, @cohen1988],
-
+Cohen's $w$ heeft precies dezelfde formule als de phi coëfficiënt met als enige verschil dat de $chi^2$ statistiek uit een contingentietabel van elke grootte komt [vergelijking 7.2.5, @cohen1988],
 $$
 w = \sqrt{\frac{\chi^2}{n}}
 $$
 
-And can also be calculated directly from Cramer's $V$ [equation 7.2.7, @cohen1988],
+En kan ook direct berekend worden uit Cramer's $V$ [vergelijking 7.2.7, @cohen1988],
 
 $$
 w = V \times \sqrt{k-1}
 $$
 
-Where $k$ is the number of categories in the variable with the least number of categories. We can use the `cohens_w()` function in the `effectsize` package [@effectsize].
+Waar $k$ het aantal categorieën is in de variabele met het minste aantal categorieën. We kunnen de functie `cohens_w()` gebruiken in het pakket `effectsize` [@effectsize].
 
 ```{r, echo =TRUE}
-# Example contingency table
+# Voorbeeld contingentietabel
 # 40 14
 # 11 27
 
@@ -231,28 +231,28 @@ cohens_w(contingency_table,
          alternative = "two.sided")
 ```
 
-From the example code, the `cohens_w` function returned Cohen's $w$ value of $w$ = .45 \[0.24, 0.65\].
+In de voorbeeldcode gaf de functie `cohens_w` de Cohen $w$ waarde van $w$ = .45 [0.24, 0.65].
 
 ### Ben-Shachar's Fei (פ) {#sec-fei}
 
-@benshachar2023 introduced a new effect size for one-dimensional tables of counts/proportions that they label with the Hebrew letter, פ. Ben-Shachar's פ is a correction to Cohen's $w$ that adjusts for the expected value and consequently bounds the value between 0 and 1. The equation for פ is defined as,
+@benshachar2023 introduceerden een nieuwe effectgrootte voor eendimensionale tabellen van tellingen/verhoudingen die ze aanduiden met de Hebreeuwse letter פ. Ben-Shachar's פ is een correctie op Cohen's $w$ die aanpast voor de verwachte waarde en daardoor de waarde begrenst tussen 0 en 1. De vergelijking voor פ is als volgt gedefinieerd,
 
 $$
 \mathbf{פ }= \sqrt{\frac{\chi^2}{n \left(\frac{1}{\min\left(P_E\right)} -1\right)}}
 $$
 
-Where $\min(P_E)$ is the smallest expected probability. The formula for Ben-Schachar's פ can be also be expressed in terms of Cohen's $\omega$,
+Waarbij $\min(P_E)$ de kleinste verwachte kans is. De formule voor Ben-Schachar's פ kan ook worden uitgedrukt in termen van Cohen's $omega$,
 
 $$
 \mathbf{פ }= \frac{\omega}{\sqrt{\left(\frac{1}{\max(P_E)} -1\right)}}
 $$
 
-In R, we can calculate Ben-Shachar's פ using the `fei()` function in the `effectsize` package [@effectsize].
+In R kunnen we Ben-Shachar's פ berekenen met de `fei()` functie in het `effectsize` pakket [@effectsize].
 
 ```{r, echo =TRUE}
-# Example:
-# Observed counts: 20, 50, 100 (observed proportions: .12, .29, .59)
-# Expected proportions: .5, .2, .3
+# Bijvoorbeeld:
+# Geobserveerde aantallen: 20, 50, 100 (geobserveerde proporties: .12, .29, .59)
+# Verwachte proporties: .5, .2, .3
 
 observed_counts <- c(20,50,100)
 expected_probabilities <- c(.5,.2,.3)
@@ -263,51 +263,51 @@ fei(observed_counts,
     alternative = "two.sided")
 ```
 
-From the example code, the `fei` function returned Ben-Shachar's פ value of .39 \[0.31, 0.47\].
+In de voorbeeldcode gaf de functie `fei` Ben-Shachars פ waarde van .39 \[0.31, 0.47].
 
 ### Odds Ratio ($OR$) {#sec-or}
 
-Odds ratio measures the effect size between two binary variables. It is commonly used in medical and behavioral intervention research, and notably, in meta-analysis.
+Odds ratio meet de effectgrootte tussen twee binaire variabelen. Het wordt vaak gebruikt in medisch en gedragsinterventieonderzoek en met name in meta-analyses.
 
-Let's imagine a study conducted to investigate the association between smoking and the development of major depressive disorder (MDD). The study includes a sample of 251 individuals, categorizing them into two groups: 125 smokers and 126 non-smokers. The researchers are interested in understanding the odds of having major depressive disorder (MDD) among smokers compared to non-smokers. Say we find that 25 smokers were diagnosed with MDD while 100 were not, but in the non-smoker group, 12 individuals were diagnosed with MDD while 120 were not. The odds ratio would then be:
+Laten we ons een onderzoek voorstellen dat wordt uitgevoerd om de associatie tussen roken en de ontwikkeling van depressieve stoornis (MDD) te onderzoeken. De studie omvat een steekproef van 251 personen, die in twee groepen zijn ingedeeld: 125 rokers en 126 niet-rokers. De onderzoekers zijn geïnteresseerd in de kansen op het hebben van een depressieve stoornis (MDD) onder rokers in vergelijking met niet-rokers. Stel dat bij 25 rokers MDD werd vastgesteld en bij 100 niet, maar in de groep niet-rokers werd bij 12 personen MDD vastgesteld en bij 120 niet. De odds ratio zou dan zijn:
 
 $$
 OR = \frac{25/100}{12/120}= \frac{.25}{.10} = 2.50
 $$
 
-In general, we can can compute the odds-ratio from a contingency table between binary variables $X$ (i.e., the treatment) and $Y$ (i.e., the outcome; see @tbl-contingency-OR).
+In het algemeen kunnen we de odds-ratio berekenen op basis van een contingentietabel tussen binaire variabelen $X$ (d.w.z. de behandeling) en $Y$ (d.w.z. de uitkomst); zie @tbl-contingency-OR).
 
 |       |  $X=T$   |  $X=C$   |
 |:-----:|:--------:|:--------:|
 | $Y=0$ | $n_{T0}$ | $n_{C0}$ |
 | $Y=1$ | $n_{T1}$ | $n_{C1}$ |
 
-: Contingency table between two binary variables {#tbl-contingency-OR}
+: Contingenctietabel tussen twee binaire variabelen {#tbl-contingency-OR}
 
-Ultimately, we want to compare the outcome between the treatment group ($X=T$) and the control group ($X=C$). Therefore we can compute the odds ratio as,
+Uiteindelijk willen we de uitkomst tussen de behandelgroep ($X=T$) en de controlegroep ($X=C$) vergelijken. Daarom kunnen we de odds ratio als volgt berekenen,
 
 $$
 OR = \frac{n_{T1}/n_{T0}}{n_{C1}/n_{C0}}
 $$
 
-The standard distribution of the odds-ratio is asymmetric. To calculate confidence intervals, we can first convert the odds ratio to a log odds ratio ($LOR= \log(OR)$). Then we can calculate the standard error of the log odds ratio,
+De standaardverdeling van de kansverhouding is asymmetrisch. Om betrouwbaarheidsintervallen te berekenen, kunnen we eerst de odds ratio omrekenen naar een log odds ratio ($LOR= \log(OR)$). Daarna kunnen we de standaardfout van de logratio berekenen,
 
 $$
 SE_{LOR} = \sqrt{\frac{1}{n_{T0}} + \frac{1}{n_{T1}} + \frac{1}{n_{C0}} + \frac{1}{n_{C1}}}
 $$
 
-With the standard error of the log odds ratio we can then calculate the confidence interval of the odds ratio by back-transforming using the exponential function,
+Met de standaardfout van de log odds ratio kunnen we vervolgens het betrouwbaarheidsinterval van de odds ratio berekenen door terug te rekenen met behulp van de exponentiële functie,
 
 $$
 CI_{OR} = \exp(LOR \pm 1.96\times SE_{LOR})
 $$
 
-In R, we can use the `effectsize` package to calculate the odds ratio and it's confidence interval:
+In R kunnen we het pakket `effectsize` gebruiken om de odds ratio en het betrouwbaarheidsinterval te berekenen:
 
 ```{R, echo=TRUE}
-# Example:
-# Treatment Group: 10 diseased, 43 healthy
-# Control Group:  24 diseased, 41 healthy
+# Bijvoorbeeld:
+# Experimentele Groep: 10 ziek, 43 gezond
+# Controle Groep:  24 ziek, 41 gezond
 
 
 contingency_table <- matrix(c(10, 24,
@@ -317,11 +317,11 @@ oddsratio(contingency_table,
           alternative = "two.sided")
 ```
 
-The code output for this example shows an odds ratio of $OR$ = 0.40 \[0.17, 0.93\]
+De uitvoer van de code voor dit voorbeeld toont een kansverhouding van $OR$ = 0,40 [0,17, 0,93].
 
-### Risk Difference ($RD$) {#sec-rd}
+### Risk Difference/Risico Verschil ($RD$) {#sec-rd}
 
-Risk difference can be used to interpret the difference between two proportions. If we use the contingency table from @tbl-contingency-OR, and calculate a risk difference between the treatment group and the control group. We can first calculate the proportion of cases where the outcome is $Y=1$ *within* the control group and the treatment group:
+Risicoverschil kan worden gebruikt om het verschil tussen twee verhoudingen te interpreteren. Als we de contingentietabel uit @tbl-contingency-OR gebruiken en een risicoverschil berekenen tussen de behandelgroep en de controlegroep. We kunnen eerst het aandeel berekenen van de gevallen waarin de uitkomst $Y=1$ is *binnen* de controlegroep en de behandelgroep:
 
 $$
 p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
@@ -331,30 +331,30 @@ $$
 p_T=\frac{n_{T1}}{n_{T0}+n_{T1}}
 $$
 
-Then using these proportions we can calculate the risk difference ($RD$),
+Met behulp van deze verhoudingen kunnen we vervolgens het risicoverschil ($RD$) berekenen,
 
 $$
 RD = p_T - p_C.
 $$
 
-The corresponding standard error is,
+De bijbehorende standaardfout is,
 
 $$
 SE_{RD} = \sqrt{\frac{p_C(1-p_C)}{n_C} + \frac{p_T(1-p_T)}{n_T} }
 $$
 
-Where $n_C$ and $n_T$ are the total sample sizes *within* the control and treatment group, respectively. The standard error can then be used to compute the 95% confidence intervals,
+Waarbij $n_C$ en $n_T$ de totale steekproefgrootten *binnen* de controle- respectievelijk de behandelgroep zijn. De standaardfout kan dan worden gebruikt om de 95%-betrouwbaarheidsintervallen te berekenen,
 
 $$
 CI_{RD} = RD \pm 1.96 \times SE_{RD}
 $$
 
-The risk difference formula is fairly simple, so we can compute it using base R.
+De formule voor het verschil in risico is vrij eenvoudig, dus we kunnen deze berekenen met basis-R.
 
 ```{r, echo=TRUE}
-# Example: 
-# Treatment group: proportion of cases = .5, sample size = 40
-# Control group: proportion of cases = .3, sample size = 45
+# Bijvoorbeeld: 
+# Experimentele groep: proportie gevallen = .5, sample size = 40
+# Controle groep: proportie gevallen = .3, sample size = 45
 
 pT <- .50
 pC <- .30
@@ -365,7 +365,7 @@ RD <- pT - pC
 
 SE <- sqrt( pC*(1-pC)/nC + pT*(1-pT)/nT )
 
-# compute 95% CIs
+# Bereken 95% CIs
 RDlow <- RD - 1.96*SE
 RDhigh <- RD + 1.96*SE
 
@@ -377,9 +377,9 @@ data.frame(
 
 ```
 
-### Relative Risk ($RR$) {#sec-rr}
+### Relatieve Risico ($RR$) {#sec-rr}
 
-The relative risk, often referred to as the "risk ratio," calculates the ratio between the proportion of cases in the treatment group and the proportion of cases in the control group. It provides a straightforward interpretation: "individuals receiving the treatment have a $RR$ times higher odds of experiencing the outcome compared to controls." To calculate relative riskm, first we need to calculate the proportion of outcome cases in the treatment and control group
+Het relatieve risico, vaak de "risico ratio" genoemd, berekent de verhouding tussen het aantal gevallen in de behandelgroep en het aantal gevallen in de controlegroep. De interpretatie is eenvoudig: "individuen die de behandeling krijgen hebben een $RR$ hogere kans op het ervaren van de uitkomst in vergelijking met controles." Om het relatieve risico te berekenen, moeten we eerst de proportie uitkomstgevallen in de behandelings- en controlegroep berekenen
 
 $$
 p_C=\frac{n_{C1}}{n_{C0}+n_{C1}}
@@ -389,30 +389,30 @@ $$
 p_T=\frac{n_{T1}}{n_{T0}+n_{T1}}
 $$
 
-Then we can calculate the relative risk,
+Dan kunnen we het relatieve risico berekenen,
 
 $$
 RR=\frac{p_T}{p_C}
 $$
 
-The corresponding standard error can be computed as,
+De bijbehorende standaardfout kan als volgt worden berekend,
 
 $$
 SE_{RR} = \sqrt{\frac{p_T}{n_T} + \frac{p_C}{n_C}}
 $$
 
-The confidence intervals can be computed from the standard error,
+De betrouwbaarheidsintervallen kunnen worden berekend uit de standaardfout,
 
 $$
 CI_{RR} = RR\pm 1.96\times SE_{RR}
 $$
 
-To compute relative risk, we can simply use the equations above in base R.
+Om het relatieve risico te berekenen, kunnen we eenvoudigweg de bovenstaande vergelijkingen gebruiken in basis R.
 
 ```{r, echo=TRUE}
-# Example:
-# Treatment Group: 10 diseased, 43 healthy, 53 total
-# Control Group:  24 diseased, 41 healthy, 65 total
+# Bijvoorbeeld:
+# Experimentele Groep: 10 ziek, 43 gezond, 53 totaal
+# Controle Groep:  24 ziek, 41 gezond, 65 totaal
 
 pT <- 10/(43+10)
 pC <- 24/(41+24)

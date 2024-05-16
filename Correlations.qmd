@@ -1,17 +1,17 @@
 
-# Correlation between Two Continuous Variables
+# Correlatie tussen Twee Continuë Variabelen
 
-To quantify the relationship between two continuous variables, the most common method is to use a Pearson correlation coefficient (denoted with the letter $r$). The pearson correlation takes the covariance between a continuous independent ($X$) and dependent ($Y$) variable and standardizes it by the standard deviations of $X$ and $Y$,
+Om de relatie tussen twee continue variabelen te kwantificeren, is de meest gebruikelijke methode het gebruik van een Pearson correlatiecoëfficiënt (aangeduid met de letter $r$). De Pearson correlatie neemt de covariantie tussen een continue onafhankelijke ($X$) en afhankelijke ($Y$) variabele en standaardiseert deze door de standaarddeviaties van $X$ en $Y$,
 
 $$
 r = \frac{\text{Cov}(X,Y)}{S_{X} S_{Y}}.
 $$
 
-We can visualize what a correlation between two variables looks like with scatter plots. @fig-cor-example shows scatter plots with differing levels of correlation.
+We kunnen visualiseren hoe een correlatie tussen twee variabelen eruitziet met scatterplots. @fig-cor-voorbeeld toont diagrammen met verschillende niveaus van correlatie.
 
 ```{r, echo =FALSE, message=FALSE,warning=FALSE, fig.height=5}
 #| label: fig-cor-example
-#| fig-cap: Simulated data from a bivariate normal distribution displaying 6 different correlations, r = 0, .20, .40, .60, .80, and 1.00.
+#| fig-cap: Gesimuleerde data van een bivariate normale verdeling met 6 verschillende correlaties, r = 0, .20, .40, .60, .80, and 1.00.
 
 
 
@@ -162,27 +162,27 @@ h6 <- ggplot(data=NULL,aes(x=data6[,1],y=data6[,2])) +
   (h1 + h2 + h3) / (h4 + h5 + h6)
 ```
 
-The standard error of the Pearson correlation coefficient is,
+De standaardfout van de Pearson correlatiecoëfficiënt is,
 
 $$
 SE_r = \sqrt{\frac{\left(1-r^2\right)^2}{n-1}}
 $$
 
-Unlike Cohen's $d$ and other effect size measures, The correlation coefficient is bounded by -1 and positive 1, with positive 1 being a perfectly positive correlation, -1 being a perfectly negative correlation, and zero indicating no correlation between the two variables. The bounding has the consequence of making the confidence interval asymmetric around $r$ (e.g., if the correlation is positive, the lower bound is farther away from $r$ than the upper bound is). It is important to note that with a correlation of zero, the confidence interval is symmetric and approximately normal. Instead, to obtain the confidence intervals of $r$, we first need to apply a Fisher's Z transformation. A Fisher's Z transformation is a hyperbolic arctangent transformation of a Pearson correlation coefficient and can be computed as,
+In tegenstelling tot Cohen's $d$ en andere maatstaven voor de effectgrootte, wordt de correlatiecoëfficiënt begrensd door -1 en positief 1, waarbij positief 1 een perfect positieve correlatie is, -1 een perfect negatieve correlatie is en nul aangeeft dat er geen correlatie is tussen de twee variabelen. De begrenzing heeft tot gevolg dat het betrouwbaarheidsinterval asymmetrisch is rond $r$ (als de correlatie bijvoorbeeld positief is, ligt de ondergrens verder weg van $r$ dan de bovengrens). Het is belangrijk op te merken dat bij een correlatie van nul het betrouwbaarheidsinterval symmetrisch en ongeveer normaal is. Om de betrouwbaarheidsintervallen van $r$ te verkrijgen, moeten we eerst een Fisher's Z-transformatie toepassen. Een Fisher's Z transformatie is een hyperbolische arctangens transformatie van een Pearson correlatiecoëfficiënt en kan als volgt berekend worden,
 
 $$
 Z_r = \text{arctanh}(r)
 $$
 
-The Fisher Z transformation ensures $Z_r$ has a symmetric and approximately normal sampling distribution. This then allows us to calculate the confidence interval from the standard error of $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$). We can also back-transform the confidence into a Pearson correlation scale,
+De Fisher Z-transformatie zorgt ervoor dat $Z_r$ een symmetrische en ongeveer normale steekproefverdeling heeft. Hierdoor kunnen we het betrouwbaarheidsinterval berekenen uit de standaardfout van $Z_r$ ($SE_{Z_r} = \frac{1}{\sqrt{n-3}}$). We kunnen het betrouwbaarheidsinterval ook terugtransformeren naar een Pearson correlatieschaal,
 
 $$
 CI_{r} = \text{tanh}(Z_r \pm 1.96\times SE_{Z_r})
 $$
 
-We can then back-transform the upper bound and lower bound into the upper and lower bound of $r$ by taking the hyperbolic tangent (the inverse of the arctangent).
+We kunnen dan de boven- en ondergrens terugtransformeren naar de boven- en ondergrens van $r$ door de hyperbolische tangens te nemen (het omgekeerde van de arctangens).
 
-In R, the full process of obtaining confidence intervals can be done quite easily. Note if you have raw data for $X$ and $Y$, then you can compute the correlation with base R, `cor(X,Y)`.
+In R kan het volledige proces voor het verkrijgen van betrouwbaarheidsintervallen vrij eenvoudig worden uitgevoerd. Als je ruwe gegevens hebt voor $X$ en $Y$, dan kun je de correlatie berekenen met basis-R, `cor(X,Y)`.
 
 ```{r, echo = TRUE}
 # example: r = .50, n = 50
@@ -210,6 +210,6 @@ data.frame(r = MOTE::apa(r),
 
 ```
 
-The output shows that the correlation and its confidence intervals are $r$ = 0.50, 95% CI \[0.26, 0.68\].
+De uitvoer laat zien dat de correlatie en de betrouwbaarheidsintervallen $r$ = 0,50, 95% CI [0,26, 0,68].
 
 

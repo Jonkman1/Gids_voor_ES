@@ -1,25 +1,24 @@
 
 
-# Effect Sizes for ANOVAs
+# Effect Sizes voor ANOVAs
 
 
 
 ## ANOVAs
 
-For ANOVAs/F-tests, you will always need to report two kinds of effects: the omnibus effect of the factor(s) and the effect of planned contrasts or post hoc comparisons.
+Voor ANOVA's/F-tests moet je altijd twee soorten effecten rapporteren: het omnibuseffect van de factor(en) en het effect van geplande contrasten of post-hocvergelijkingen.
 
-For instance, imagine that you are comparing three groups/conditions with a one-way ANOVA. The ANOVA will first return an F-statistic, the degrees of freedom, and the associated p-value. Here, you need to calculate the size of this omnibus factor effect in eta-squared, partial eta-squared, or generalized eta-squared.
+Stel je bijvoorbeeld voor dat je drie groepen/condities vergelijkt met een eenzijdige ANOVA. De ANOVA zal eerst een F-statistiek, de vrijheidsgraden en de bijbehorende p-waarde opleveren. Hier moet u de grootte van dit omnibusfactoreffect berekenen in eta-kwadraat, partiële eta-kwadraat of gegeneraliseerde eta-kwadraat.
 
-Suppose the omnibus effect is significant. You now know that there is at least one group that differs from the others. You want to know which group(s) differ from the others, and how much they differ. Therefore, you conduct post hoc comparisons on these groups. Because post hoc comparisons compare each group with the others in pairs, you will get a t-statistic and p-value for each comparison. For this, you can calculate and report a standardized mean difference.
+Stel dat het omnibuseffect significant is. U weet nu dat er ten minste één groep verschilt van de anderen. Je wilt weten welke groep(en) verschilt (verschillen) van de anderen en hoeveel ze verschilt (verschillen). Daarom voer je post hoc vergelijkingen uit op deze groepen. Omdat post hoc vergelijkingen elke groep paarsgewijs vergelijken met de anderen, krijg je een t-statistiek en p-waarde voor elke vergelijking. Hiervoor kun je een gestandaardiseerd gemiddeld verschil berekenen en rapporteren.
 
-Imagine that you have two independent variables or factors, and you conduct a two-by-two factorial ANOVA. The first thing to do then is look at the interaction. If the interaction is significant, you again report the associated omnibus effect size measures, and proceed to analyze the simple effects. Depending on your research question, you compare the levels of one IV on each level of the other IV. You will report d or g for these simple effects.
-If the interaction is not significant, you look at the main effects and report the associated omnibus effect. You then proceed to analyze the main effect by comparing the levels of one IV while collapsing/aggregating the levels of the other IV. You will report d or g for these pairwise comparisons.
-Note that lower-order effects are not directly interpretable if higher-order effects are significant. If you have a significant interaction in a two-way ANOVA, you cannot interpret the main effects directly. If you have a significant three-way interaction in a three-way ANOVA, you cannot interpret the main effects or the two-way interactions directly, regardless of whether they are significant or not.
+Stel je voor dat je twee onafhankelijke variabelen of factoren hebt en je voert een twee-bij-twee factorial ANOVA uit. Het eerste wat je dan doet, is kijken naar de interactie. Als de interactie significant is, rapporteer je opnieuw de bijbehorende omnibus effectgrootte maten, en ga je verder met het analyseren van de enkelvoudige effecten. Afhankelijk van je onderzoeksvraag vergelijk je de niveaus van de ene IV op elk niveau van de andere IV. U rapporteert d of g voor deze enkelvoudige effecten.
+Als de interactie niet significant is, kijkt u naar de hoofdeffecten en rapporteert u het bijbehorende omnibuseffect. Vervolgens analyseert u het hoofdeffect door de niveaus van één IV te vergelijken terwijl u de niveaus van de andere IV samenvoegt/aggregeert. U rapporteert d of g voor deze paarsgewijze vergelijkingen.
+Merk op dat effecten van lagere orde niet direct interpreteerbaar zijn als effecten van hogere orde significant zijn. Als je een significante interactie hebt in een tweezijdige ANOVA, kun je de hoofdeffecten niet direct interpreteren. Als u een significante drieweginteractie hebt in een drieweg ANOVA, kunt u de hoofdeffecten of de tweerichtingsinteracties niet rechtstreeks interpreteren, ongeacht of ze significant zijn of niet.
 
+## ANOVA tabellen {#sec-aov-table}
 
-## ANOVA tables {#sec-aov-table}
-
-An ANOVA table generally consists of the grouping factors (+ residuals), the sum of squares, the degrees of freedom, the mean square, the  F-statistic, and the p-value. Using base R, we can construct an ANOVA table using the `aov()` function to generate the ANOVA model and then using `summary.aov()` to extract the table. For an example case, we will use the `palmerpenguins` data set package and we will investigate the differences in the body mass (the outcome) of three penguin species (the predictor/grouping variable):
+Een ANOVA-tabel bestaat over het algemeen uit de groeperingsfactoren (+ residuen), de som van de kwadraten, de vrijheidsgraden, het gemiddelde kwadraat, de F-statistiek en de p-waarde. In basis-R kunnen we een ANOVA-tabel maken met de functie `aov()` om het ANOVA-model te genereren en vervolgens met `summary.aov()` om de tabel te extraheren. Voor een voorbeeldcase gebruiken we het `palmerpenguins` datasetpakket en onderzoeken we de verschillen in de lichaamsmassa (de uitkomst) van drie pinguïnsoorten (de voorspellende/groeperende variabele):
 
 ```{r aov_table}
 library(palmerpenguins)
@@ -34,7 +33,7 @@ ANOVA_table
 
 ```
 
-By default, `summary.aov()` does not report the $\eta^2$ value, however we will discuss this more in @sec-eta-squared. The results show that the mean body mass between the three penguin species (Adelie, Gentoo, Chinstrap) differ significantly from one another.
+Standaard rapporteert `summary.aov()` de $\eta^2$ waarde niet, maar we zullen dit verder bespreken in @sec-eta-squared. De resultaten tonen aan dat de gemiddelde lichaamsmassa van de drie pinguïnsoorten (Adelie, Gentoo, Chinstrap) significant van elkaar verschillen.
 
 ```{r,echo=FALSE,warning=FALSE}
 library(ggplot2)
@@ -43,54 +42,55 @@ ggplot(penguins, aes(x = species, y = body_mass_g) ) +
   geom_boxplot(outlier.alpha = 0,alpha=.5,fill="grey50") +
   geom_jitter(alpha=.1) + 
   ggdist::theme_ggdist() + theme(aspect.ratio = 1,axis.text.x = element_text(angle = 45,vjust = 1,hjust=1)) +
-  xlab("Species") +
-  ylab("Body Mass (g)")
+  xlab("Soorten") +
+  ylab("Lichaamsgewicht (g)")
 
 ```
 
 
-## One-way between-subjects ANOVA
+## Eenzijdige ANOVA tussen proefpersonen
 
-One-way between-subject ANOVA is an extension of independent-samples t-tests. The null hypothesis is that all k means of k independent groups are identical, whereas the alternative hypothesis is that there are at least two means from these k groups differ. The assumptions include: (1) independence of observations, (2) normality of residuals, and (3) equality (or homogeneity) of variances (homoscedasticity).[^1]
+ANOVA is een uitbreiding van onafhankelijke t-tests. De nulhypothese is dat alle k gemiddelden van k onafhankelijke groepen identiek zijn, terwijl de alternatieve hypothese is dat er minstens twee gemiddelden van deze k groepen verschillen. De aannames zijn onder andere: (1) onafhankelijkheid van waarnemingen, (2) normaliteit van residuen, en (3) gelijkheid (of homogeniteit) van varianties (homoscedasticiteit).[^1]
 
-Note. Sometimes you may encounter a between-subject one-way ANOVA which compares only two conditions, particularly when the paper is old. This is essentially a t-test, and the F-statistic is just t-squared. It is preferable to report Cohen’s d for these tests. If you are calculating the effect size for such tests, it’s best to calculate Cohen’s d, or convert the provided eta-squared to Cohen’s d, as Cohen’s d can show the direction of the effect. Subsequent analyses (e.g., power analysis) can also be based on Cohen’s d.
+Opmerking. Soms kun je een between-subject one-way ANOVA tegenkomen die slechts twee condities vergelijkt, vooral als het papier oud is. Dit is in wezen een t-toets en de F-statistiek is gewoon t-kwadraat. Het verdient de voorkeur om Cohen's d voor deze tests te rapporteren. Als je de effectgrootte voor dergelijke tests berekent, kun je het beste Cohen's d berekenen, of de verstrekte eta-kwadraat omrekenen naar Cohen's d, omdat Cohen's d de richting van het effect kan laten zien. Latere analyses (bijv. poweranalyse) kunnen ook worden gebaseerd op Cohen's d.
 
-It’s very easy to determine eta-squared with an F-statistic and the two degrees of freedom from a one-way ANOVA [^2]. **Note that in the case of a one-way between-subject ANOVA, eta-squared is equal to partial eta-squared.**
-
-
-[^1]: There are variants of ANOVAs that can have each of these assumptions violated.
-
-[^2]: See this forum [discussion](https://stats.stackexchange.com/a/98998) for explanation.
+Het is heel eenvoudig om eta-kwadraat te bepalen met een F-statistiek en de twee vrijheidsgraden van een eenzijdige ANOVA [^2]. **Merk op dat in het geval van een eenzijdige ANOVA, eta-kwadraat gelijk is aan partiële eta-kwadraat.**
 
 
-### Determining degrees of freedom
+[^1]: Er zijn varianten van ANOVA's waarbij elk van deze aannames geschonden kan worden.
 
-Please refer to the following table to determine the degrees of freedom for ANOVA effects, if they are not reported or if you are doubtful that they have been misreported.
+[^2]: Bekijk deze forum [discussie](https://stats.stackexchange.com/a/98998) voor uitleg.
 
-|Degrees of freedom||
+
+### Vrijheidsgraden vaststellen
+
+Raadpleeg de volgende tabel om de vrijheidsgraden voor ANOVA-effecten te bepalen, als ze niet zijn gerapporteerd of als je twijfelt of ze verkeerd zijn gerapporteerd.
+
+
+|Vrijheidsgraden||
 |:----|:--:|
-|Between subjects ANOVA||
+|Tussen subjecten ANOVA||
 |Effect |$k-1$|
-|Error | $n-k$ |
-|Total | $n-1$ |
+|Fout | $n-k$ |
+|Totaal | $n-1$ |
 
 
-### Calculating eta-squared from F-statistic and degrees of freedom
+### Berekening van eta-kwadraat uit F-statistiek en vrijheidsgraden
 
-Using the formula below, we can calculate $\eta^2$ of an ANOVA model using the F-statistic and the degrees of freedom,
+Met de onderstaande formule kunnen we $eta^2$ van een ANOVA-model berekenen met behulp van de F-statistiek en de vrijheidsgraden,
 
 $$
-\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{error}}.
+\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{fout}}.
 $$
 
-In R, we can use the `F_to_eta2()` function from the `effectsize` package [@effectsize]:
+In R kunnen we de `F_to_eta2()` functie uit het `effectsize` pakket gebruiken [@effectsize]:
 
 ```{r}
 library(effectsize)
 
-n = 154 # number of subjects
-k = 3 # number of groups
-f = 84.3 # F-statistic
+n = 154 # aantal subjecten
+k = 3 # aantal groepen
+f = 84.3 # F-statistiek
 
 df_effect = k - 1
 df_error = n - k
@@ -98,42 +98,39 @@ df_error = n - k
 F_to_eta2(f = f,
           df = df_effect,
           df_error = df_error,
-          alternative = 'two.sided') # obtain two sided CIs
+          alternative = 'two.sided') # verkrijgen van tweezijdig CIs
 
 ```
 
 
 
-### Calculating eta-squared from an ANOVA table {#sec-eta-table}
+### Het berekenen van het kwadraat van een ANOVA-tabel{#sec-eta-table}
 
-Let's use the table from the ANOVA model in @sec-aov-table:
+Laten we de tabel van het ANOVA-model in @sec-aov-table gebruiken::
 
 
 
 ```{r, output='asis',echo=FALSE}
 
-knitr::kable(ANOVA_table[[1]], "pipe", caption = 'One-way ANOVA table')
+knitr::kable(ANOVA_table[[1]], "pipe", caption = 'Eenzijdige ANOVA-tabel')
 
 ```
 
-
-
-
-From this table we can use the sum of squares from the grouping variable (species) and the total sum of squares ($SS_\text{total} = SS_\text{effect} + SS_\text{error}$) to calculate the $\eta^2$ value using the following equation:
+Uit deze tabel kunnen we de som van de kwadraten van de groepsvariabele (soorten) en de totale som van de kwadraten ($SS_\text{totaal} = SS_\text{effect} + SS_\text{fout}$) gebruiken om de waarde van $eta^2$ te berekenen met de volgende vergelijking:
 
 $$
-\eta^2 = \frac{SS_\text{effect}}{SS_\text{total}} = \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}}
+\eta^2 = \frac{SS_\text{effect}}{SS_\text{totaal}} = \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{fout}}
 $$
 
-In R, we can use the `eta.full.SS()` function in the `MOTE` package [@MOTE] to obtain $\eta^2$ from an ANOVA table.
+In R kunnen we de `eta.full.SS()` functie uit het `MOTE` pakket [@MOTE] gebruiken om $\eta^2$ uit een ANOVA tabel te verkrijgen.
 
 ```{r}
 library(MOTE)
 
-eta <- eta.full.SS(dfm = 2,  # effect degrees of freedom
-                   dfe = 339, # error degrees of freedom
-                   ssm = 146864214, # sum of squares for the effect
-                   sst = 146864214 + 72443483, # total sum of squares
+eta <- eta.full.SS(dfm = 2,  # effect vrijheidsgraden
+                   dfe = 339, # fout vrijheidsgraden
+                   ssm = 146864214, # `sum of squares` voor het effect
+                   sst = 146864214 + 72443483, # totaal `sum of squares`
                    Fvalue = 343.6263,
                    a = .05)
 
@@ -143,12 +140,12 @@ data.frame(eta_squared = apa(eta$eta),
 
 ```
 
-The example code outputs $\eta^2$ = .67 [.61, .72]. This suggests that species accounts for 67% of the total variation in body mass between penguins.
+De voorbeeldcode geeft $\eta^2$ = .67 [.61, .72]. Dit suggereert dat de soort verantwoordelijk is voor 67% van de totale variatie in lichaamsmassa tussen pinguïns.
 
 
-### Calculating Cohen's d for post-hoc comparisons
+### Cohen's d berekenen voor post-hocvergelijkingen
 
-In an omnibus ANOVA, the p-value is telling us whether the means from all groups come from the same population mean, however this does not inform us about *which* groups differ and by how much. Using the same example as before, let's say we want to answer a specific question such as: what is the difference in body mass between Adelie penguins and Gentoo penguins? To answer this question, we can calculate the raw mean difference between the two groups. In R, we can do that with the following code:
+In een omnibus ANOVA vertelt de p-waarde ons of de gemiddelden van alle groepen uit hetzelfde populatiegemiddelde komen, maar dit informeert ons niet over *welke* groepen verschillen en met hoeveel. Met hetzelfde voorbeeld als hiervoor, stellen we dat we een specifieke vraag willen beantwoorden zoals: wat is het verschil in lichaamsmassa tussen adéliepinguïns en ezelspinguïns? Om deze vraag te beantwoorden, kunnen we het ruwe gemiddelde verschil tussen de twee groepen berekenen. In R kunnen we dat doen met de volgende code:
 
 ```{r}
 Madelie <- mean(penguins$body_mass_g[penguins$species=='Adelie'], na.rm=T)
@@ -157,12 +154,12 @@ Mgentoo <- mean(penguins$body_mass_g[penguins$species=='Gentoo'], na.rm=T)
 Mgentoo - Madelie
 ```
 
-Based on the mean difference, Gentoo penguins are on average 1375 grams heavier than Adelia penguins in total body mass. We can also calculate a standardized mean difference using the `escalc()` function in the `metafor` package [@metafor].
+Gebaseerd op het gemiddelde verschil, zijn ezelspinguïns gemiddeld 1375 gram zwaarder dan Adelia pinguïns in totale lichaamsmassa. We kunnen ook een gestandaardiseerd gemiddeld verschil berekenen met de `escalc()` functie in het `metafor` pakket [@metafor].
 
 ```{r,message=FALSE}
 library(metafor)
 
-# Means, SDs, and sample sizes for each group
+# Gemiddelden, SDs en steekproefomvang voor elke groep
 Madelie <- mean(penguins$body_mass_g[penguins$species=='Adelie'], na.rm=T)
 Mgentoo <- mean(penguins$body_mass_g[penguins$species=='Gentoo'], na.rm=T)
 SDadelie <- sd(penguins$body_mass_g[penguins$species=='Adelie'], na.rm=T)
@@ -183,16 +180,15 @@ summary(
 
 ```
 
-The standardized mean difference between Adelie and Gentoo penguins is $d$ = 2.86 [2.52, 3.19], demonstrating that Gentoo penguins have body mass 2.86 standard deviations larger than Adelie penguins.
+Het gestandaardiseerde gemiddelde verschil tussen Adélie- en Ezelspinguïns is $d$ = 2,86 [2,52, 3,19], wat aantoont dat Ezelspinguïns een lichaamsmassa hebben die 2,86 standaarddeviaties groter is dan die van Ezelspinguïns.
 
-We can also quantify contrasts from summary statistics reported from the ANOVA table and the within group means. We can calculate the standardized mean difference using the means from both groups and the mean squared error ($MSE$) the following equation:
+We kunnen ook contrasten kwantificeren op basis van samenvattende statistieken uit de ANOVA-tabel en de gemiddelden binnen de groep. We kunnen het gestandaardiseerde gemiddelde verschil berekenen met de gemiddelden van beide groepen en de gemiddelde gekwadrateerde fout ($MSE$) met de volgende vergelijking:
 
 $$
 d = \frac{M_1 - M_2}{\sqrt{MSE}}
 $$
 
-This method gives a standardized mean difference equivalent to the Cohen's $d$ with the pooled standard deviation in the denominator (see chapter on mean differences). Therefore if we obtain the mean squared errors (i.e., MS of residuals) from @sec-eta-table and we obtain the means (means: Gentoo = 5076, Adelie = 3701), we can calculate the standardized mean difference as: $\frac{5076 - 3701}{\sqrt{213697.6}} = \frac{1375}{462.27	} = 2.974$. The discrepency between the standardized mean difference provided by the `escalc()` function is due to the fact that the function automatically applies a small sample correction factor thus reducing the overall effect.
-
+Deze methode geeft een gestandaardiseerd gemiddeld verschil dat gelijk is aan de Cohen's $d$ met de gepoolde standaardafwijking in de noemer (zie hoofdstuk over gemiddelde verschillen). Als we dus de gemiddelde gekwadrateerde fouten (d.w.z. MS van residuen) uit @sec-eta-tabel halen en de gemiddelden verkrijgen (gemiddelden: Gentoo = 5076, Adelie = 3701), kunnen we het gestandaardiseerde gemiddelde verschil als volgt berekenen: $frac{5076 - 3701}{sqrt{213697.6}} = \frac{1375}{462.27 }}. = 2.974$. De discrepantie tussen het gestandaardiseerde gemiddelde verschil dat de functie `escalc()` geeft, komt doordat de functie automatisch een kleine steekproefcorrectiefactor toepast, waardoor het totale effect kleiner wordt.
 
 ```{r, output='asis',echo=FALSE}
 
@@ -202,38 +198,36 @@ knitr::kable(ANOVA_table[[1]], "pipe")
 
 
 ::: callout-note
-## Beware the assumptions.
+## Pas op voor de aannames.
 
-Note that this method is ONLY valid when you are willing to assume equal variances among groups (homoscedasticity), and when you conduct a Fisher’s one-way ANOVA (rather than Welch’s). This method is also impractical if you are calculating from reported statistics, and MSE is not reported (which is typically the case).
+Merk op dat deze methode ALLEEN geldig is als je bereid bent om uit te gaan van gelijke varianties tussen groepen (homoscedasticiteit) en als je een Fisher's one-way ANOVA uitvoert (in plaats van Welch's). Deze methode is ook onpraktisch als je rekent met gerapporteerde statistieken en de MSE niet gerapporteerd wordt (wat meestal het geval is).
 
-If you are unwilling to assume homogeneity of variances, then calculate Cohen’s d between groups as if there are only two groups for comparison. However, you should know that it also makes little sense to conduct a Fisher’s ANOVA in such situations. You may want to switch to Welch’s ANOVA, which does not assume homoscedasticity. If variances differ greatly, you may want to use alternative standardized effect size measures, such as Glass’ delta, and calculate confidence intervals using bootstrap.
-
+Als je niet wilt uitgaan van homogeniteit van varianties, bereken dan Cohen's d tussen groepen alsof er maar twee groepen zijn om te vergelijken. Je moet echter weten dat het ook weinig zin heeft om een Fisher's ANOVA uit te voeren in zulke situaties. Je kunt beter overstappen op Welch's ANOVA, die niet uitgaat van homoscedasticiteit. Als varianties sterk verschillen, kun je alternatieve gestandaardiseerde effectgroottematen gebruiken, zoals Glass' delta, en betrouwbaarheidsintervallen berekenen met bootstrap.
 :::
 
 
-## One-way repeated measures ANOVA
+## Een-weg herhaalde metingen ANOVA
 
-One-way repeated measures ANOVA (rmANOVA) is an extension of paired-samples t-tests, with the difference being it can be used in two or more groups.  
+Een-weg herhaalde metingen (One-way repeated measures ANOVA, rmANOVA) is een uitbreiding van t-tests met gepaarde steekproeven, met het verschil dat het kan worden gebruikt in twee of meer groepen.
 
-### Determining degrees of freedom
+### Vrijheidsgraden bepalen
 
-Please refer to the following table to determine the degrees of freedom for repeated measure ANOVA effects.
+Raadpleeg de volgende tabel om de vrijheidsgraden voor ANOVA-effecten met herhaalde meting te bepalen.
 
-|Degrees of freedom||
+|Vrijheidsgraden||
 |:----|:--:|
-|Within-subject ANOVA (repeated measures)||
+|Tussen-subject ANOVA (herhaalde metingen)||
 |Effect |$k-1$|
-|Error-between | $(n-1)\times(k-1)$ |
-|Error-within | $(n-1)\cdot (k-1)$ |
-|Total (within) | $n\cdot (k-1)$ |
+|Fout-tussen | $(n-1)\times(k-1)$ |
+|Fout-binnen | $(n-1)\cdot (k-1)$ |
+|Totaal (binnen) | $n\cdot (k-1)$ |
 
-### Eta-squared from rmANOVA statistics
+### Eta-kwadraat van rmANOVA-statistieken
 
-Commonly, we use eta-squared ($\eta^2$) or partial eta-squared ($\eta_p^2$) as the effect size measure for one-way rmANOVAs, for which these two are in fact equal. Let's construct an rmANOVA model use example data from the `datarium` package [@datarium]. The `selfesteem` data set simply shows self-esteem scores over three repeated measurements within the same subjects.
-
+Gewoonlijk gebruiken we eta kwadraat ($\eta^2$) of partiële eta kwadraat ($\eta_p^2$) als maat voor de effectgrootte voor eenrichtings rmANOVA's, waarvoor deze twee in feite gelijk zijn. Laten we een rmANOVA-model construeren met voorbeeldgegevens uit het pakket `datarium` [@datarium]. De `zelfwaardering/selfesteem` dataset toont eenvoudig zelfwaarderingsscores over drie herhaalde metingen bij dezelfde proefpersonen.
 
 ```{r,message=FALSE}
-### load in and re-format data
+### laad in en herschik data
 library(tidyr)
 data("selfesteem", package = "datarium")
 selfesteem <- tidyr::pivot_longer(selfesteem,cols = c("t1","t2","t3"))
@@ -258,41 +252,36 @@ ggplot(selfesteem, aes(x = time, y = self_esteem) ) +
   scale_x_discrete(labels = c("t1" = "1",
                               "t2" = "2",
                               "t3" = "3")) + 
-  xlab("Time") +
-  ylab("Self Esteem")
+  xlab("Tijd") +
+  ylab("Zelfwaardering")
 
 ```
 
-
-
-
-There are two tables displayed here, the table on top displays the between subject effects and the table below shows the within subject effects.The equations and functions to calculate $\eta^2$ mentioned in the one-way between-subjects ANOVAs section also apply here:
+Er worden hier twee tabellen weergegeven: de bovenste tabel geeft de effecten tussen de proefpersonen weer en de tabel eronder de effecten binnen de proefpersonen. De vergelijkingen en functies om $eta^2$ te berekenen die in het hoofdstuk over ANOVA's tussen de proefpersonen zijn genoemd, zijn hier ook van toepassing:
 
 
 $$
-\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{error-within}},
+\eta^2 = \frac{df_\text{effect}\times F}{df_\text{effect} \times F + df_\text{fout-within}},
 $$
 
 $$
-\eta^2 = \frac{SS_\text{effect}}{SS_\text{total}}
+\eta^2 = \frac{SS_\text{effect}}{SS_\text{totaal}}
 $$
 
+Merk op dat $SS_text{totaal}$ hier geen $SS_text{fout-tussen}$ bevat omdat we er niet in geïnteresseerd zijn door een rmANOVA uit te voeren. Deze analyse richt zich op een effect dat volgens ons bij elke proefpersoon zou moeten optreden, ongeacht hoe deze proefpersonen van elkaar verschillen. Met andere woorden, de variantie tussen de proefpersonen kan groot of klein zijn, maar we geven er niet om als we onderzoeken of er een effect is of niet over herhaalde metingen heen. Daarom kan de totale som van de kwadraten worden gedefinieerd als
 
-
-
-Note that here $SS_\text{total}$ does not include $SS_\text{error-between}$ because we are not interested in it by conducting a rmANOVA. This analysis targets an effect that we think should happen on each subject, regardless of how these subjects will vary from each other. In other words, between-subjects variance can be large or small, but we do not care about it when we examine whether there is an effect or not across repeated measures. Therefore the total sum of squares can be defined as
 
 $$
-SS_\text{total} = SS_\text{effect} + SS_\text{error-within}
+SS_\text{totaal} = SS_\text{effect} + SS_\text{fout-within}
 $$
 
-Therefore we can calculate $\eta^2$ from the rmANOVA table as,
+Daarom kunnen we $\eta^2$ berekenen van de rmANOVA tabel als,
 
 $$
 \eta^2 = \frac{102.46}{21.12 + 102.46} = .83
 $$
 
-We can plug the rmANOVA model into the `eta_squared()` function from the `effectsize` package in R [@effectsize] to calculate $\eta^2$. 
+We kunnen het rmANOVA model in de `eta_squared()` functie van het `effectsize` pakket in R [@effectsize] stoppen om $eta^2$ te berekenen. 
 
 ```{r,message=FALSE}
 
@@ -303,19 +292,17 @@ eta_squared(rmANOVA_mdl,
 
 ```
 
-
-
-As expected, we find the same point-estimate from our hand calculation. To calculate $\eta^2$ from the F-statistic and degrees of freedom we can use the `MOTE` package [@MOTE] as we did in @sec-eta-table
+Zoals verwacht vinden we dezelfde puntschatting van onze handberekening. Om $\eta^2$ te berekenen uit de F-statistiek en vrijheidsgraden kunnen we het `MOTE` pakket [@MOTE] gebruiken zoals we deden in @sec-eta-table
 
 
 ```{r}
 
 library(MOTE)
 
-eta <- eta.full.SS(dfm = 2,  # effect degrees of freedom
-                   dfe = 26, # error degrees of freedom
-                   ssm = 102.46, # sum of squares for the effect
-                   sst = 102.46 + 21.12, # total sum of squares
+eta <- eta.full.SS(dfm = 2,  # effect vrijheidsgraden
+                   dfe = 26, # fout vrijheidsgraaden
+                   ssm = 102.46, # sum of squares voor het effect
+                   sst = 102.46 + 21.12, # totale sum of squares
                    Fvalue = 63.07,
                    a = .05)
 
@@ -325,30 +312,29 @@ data.frame(eta_squared = apa(eta$eta),
 
 ```
 
-
-Note the discrepency between confidence intervals returned by `MOTE` and `effectsize` this is due to differences in the calculation.
-
-
-## Two-Way between-subjects ANOVA
-
-Two-way between-subjects ANOVA is used when there are two predictor grouping variables in the model. Note again that between subjects means that each group contain different subjects.
-
-### Determining degrees of freedom
-
-Please refer to the following table to determine the degrees of freedom for two-way ANOVA effects [@postTwoWay]. Note that $k_1$ is the number of groups in the first variable, and $k_2$ is the number of groups in the second variable.
+Let op de discrepantie tussen betrouwbaarheidsintervallen die worden geretourneerd door `MOTE` en `effectsize`. Dit komt door verschillen in de berekening.
 
 
-|Degrees of freedom||
+## Twee-weg tussen-subjecten ANOVA
+
+Twee-weg tussen-subjecten ANOVA wordt gebruikt als er twee voorspellende groepsvariabelen in het model zitten. Merk opnieuw op dat tussen proefpersonen betekent dat elke groep verschillende proefpersonen bevat.
+
+### Vrijheidsgraden vaststellen
+
+Raadpleeg de volgende tabel om de vrijheidsgraden te bepalen voor tweezijdige ANOVA-effecten [@postTwoWay]. Merk op dat $k_1$ het aantal groepen in de eerste variabele is en $k_2$ het aantal groepen in de tweede variabele.
+
+
+|Vrijheidsgraden||
 |:----|:--:|
-|Within subjects ANOVA||
-|Main Effect (of one variable) |$k_1-1$ or $k_2-1$|
-|Interaction Effect |$(k_1-1)\times (k_2-1)$|
-|Error | $n-k_1\cdot k_2$ |
-|Total | $n-1$ |
+|Tussen subjecten ANOVA||
+|Hoofd Effect (van éé variabele) |$k_1-1$ of $k_2-1$|
+|Interactie Effect |$(k_1-1)\times (k_2-1)$|
+|Fout | $n-k_1\cdot k_2$ |
+|Totaal | $n-1$ |
 
-### Eta-squared from Two-Way ANOVA statistics
+### Eta-kwadraat van twee-weg ANOVA-statistieken
 
-For Two-way ANOVAs we can obtain $\eta^2_p$ for each predictor in the model. Let's construct our ANOVA model using data from the `palmerpenguins` dataset [@palmerpenguins]. In this example we want to see how the species and the sex of the penguin explains variance in body mass.
+Voor tweezijdige ANOVA's kunnen we $\eta^2_p$ krijgen voor elke voorspeller in het model. Laten we ons ANOVA-model construeren met gegevens uit de `palmerpenguins` dataset [@palmerpenguins]. In dit voorbeeld willen we zien hoe de soort en het geslacht van de pinguïn de variantie in lichaamsmassa verklaren.
 
 ```{r}
 library(palmerpenguins)
@@ -368,15 +354,15 @@ ggplot(penguins[!is.na(penguins$sex),], aes(x = paste(species,sex), y = body_mas
   scale_color_manual(values = c('pink3','skyblue2')) +
   geom_jitter(alpha=.1) + 
   ggdist::theme_ggdist() + theme(aspect.ratio = 1,axis.text.x = element_text(angle = 45,vjust = 1,hjust=1)) +
-  scale_x_discrete(labels = c("Adelie female" = "Adelie","Adelie male" = "Adelie",
-                              "Chinstrap female" = "Chinstrap","Chinstrap male" = "Chinstrap",
-                              "Gentoo female" = "Gentoo","Gentoo male" = "Gentoo")) + 
-  xlab("Species") +
-  ylab("Body Mass (g)")
+  scale_x_discrete(labels = c("Adelie vrouw" = "Adelie","Adelie man" = "Adelie",
+                              "Chinstrap vrouw" = "Chinstrap","Chinstrap man" = "Chinstrap",
+                              "Gentoo vrouw" = "Gentoo","Gentoo man" = "Gentoo")) + 
+  xlab("Soorten") +
+  ylab("Lichaamsgewicht (g)")
 
 ```
 
-The results show that species, sex, and the interaction between the two account for substantial variance in body mass. We can obtain the contributions of species, sex, and their interaction by computing the partial eta-squared value ($\eta_p^2$). To do this using similar formulas to $\eta^2$ from the one-way ANOVAs. The difference between the formulas for $\eta_p^2$ anf $\eta^2$ is that $\eta_p^2$ does not use the total sum of squares in the denominator, instead it uses the residual sum of squares ($SS_\text{error}$) and the sum of squares from the effect of interest ($SS_\text{effect}$; i.e., species or sex but not both). For example,
+De resultaten laten zien dat soort, geslacht en de interactie tussen de twee verantwoordelijk zijn voor substantiële variantie in lichaamsmassa. We kunnen de bijdragen van soort, geslacht en hun interactie berekenen door de partiële eta-kwadraatwaarde ($eta_p^2$) te berekenen. Hiervoor gebruiken we dezelfde formules als $\eta^2$ van de eenzijdige ANOVA's. Het verschil tussen de formules voor $\eta_p^2$ en $\eta^2$ is dat $\eta_p^2$ niet de totale som van de kwadraten in de noemer gebruikt, maar de som van de restkwadraten ($SS_text{error}$) en de som van de kwadraten van het gewenste effect ($SS_text{effect}$; d.w.z. soort of geslacht maar niet beide). Bijvoorbeeld,
 
 $$
 \small{\text{For species:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}} = \frac{145190219}{145190219+ 31302628} = .82}
@@ -387,7 +373,7 @@ $$
 $$
 \small{\text{For sex}\times\text{species:}\;\;\;\; \eta_p^2= \frac{SS_\text{effect}}{SS_\text{effect} + SS_\text{error}} = \frac{1676557}{1676557+ 31302628} = .05}
 $$
-We can also easily do this in R using the `eta_squared` function in the `effectsize` package [@effectsize] and setting the argument `partial = TRUE`.
+We kunnen dit ook eenvoudig in R doen met de functie `eta_squared` in het pakket `effectsize` [@effectsize] en het argument `partial = TRUE` instellen.
 
 ```{r}
 library(effectsize)
@@ -398,30 +384,30 @@ eta_squared(ANOVA2_mdl,
 
 ```
 
-## Two-way repeated measures ANOVA
+## Twee-weg herhaalde maatregelen ANOVA
 
-A two-way repeated measures ANOVA (rmANOVA) would indicate that subjects are exposed to each condition along two variables.
+Een twee-weg herhaalde maatregelen ANOVA (rmANOVA) zou aangeven dat proefpersonen aan elke conditie worden blootgesteld langs twee variabelen.
 
-### Determing degrees of freedom
+### Vrijhheidsgraden vaststellen
 
-Please refer to the following table to determine the degrees of freedom for two-way rmANOVA effects [@postTwoWay]. Note that $k_1$ is the number of groups in the first variable, and $k_2$ is the number of groups in the second variable.
+Raadpleeg de volgende tabel om de vrijheidsgraden te bepalen voor tweeweg rmANOVA-effecten [@postTwoWay]. Merk op dat $k_1$ het aantal groepen in de eerste variabele is en $k_2$ het aantal groepen in de tweede variabele.
 
 
-|Degrees of freedom||
+|Vrijheidsgraden||
 |:----|:--:|
-|Between subjects ANOVA||
-|Main Effect (of one variable) |$k_1-1$ or $k_2-1$|
-|Interaction Effect |$(k_1-1)\times (k_2-1)$|
-|Error-between | $(k_1 \cdot k_2) - 1$ |
-|Error-within | $(n - 1)\times (k_1\cdot k_2 - 1)$ |
-|Total | $n-1$ |
+|Tussen subjecten ANOVA||
+|Hoofd Effect (van één variabele) |$k_1-1$ of $k_2-1$|
+|Interactie Effect |$(k_1-1)\times (k_2-1)$|
+|Fout-tussen | $(k_1 \cdot k_2) - 1$ |
+|Fout-binnen | $(n - 1)\times (k_1\cdot k_2 - 1)$ |
+|Totaal | $n-1$ |
 
-### Eta-squared from Two-way rmANOVA
+### Eta-kwadraat van bidirectionele rmANOVA
 
-For a two-way repeated measures ANOVA, we can use the `weightloss` data set from the `datarius` package [@datarium]. This data set contains a diet condition and a control condition that tracked subjects across time (3 time points) for each of condition. 
+Voor een twee-weg herhaalde maatregelen ANOVA kunnen we de `gewichtsverlies` dataset uit het `datarius` pakket [@datarium] gebruiken. Deze dataset bevat een dieetconditie en een controleconditie die proefpersonen in de tijd volgde (3 tijdpunten) voor elke conditie.  
 
 ```{r}
-### load in and re-format data
+### laad in en herschik data
 library(tidyr)
 data("weightloss", package = "datarium")
 weightloss <- tidyr::pivot_longer(weightloss,cols = c("t1","t2","t3"))
@@ -449,12 +435,12 @@ ggplot(weightloss, aes(x = paste(exercises,time), y = weight_loss, group = paste
   scale_x_discrete(labels = c("no t1" = "1","yes t1" = "1",
                               "no t2" = "2","yes t2" = "2",
                               "no t3" = "3","yes t3" = "3")) + 
-  xlab("Time") +
-  ylab("Weight Loss")
+  xlab("Tijd") +
+  ylab("Verlies Gewicht")
 
 ```
 
-From the table and graph above, we can see that there is substantial within-person change in weight loss under the exercise condition and no discernible increase in weight loss without exercising. This suggests that there is a substantial interaction effect. Like we did in the between-subjects two-way ANOVA, we can calculate the partial eta squared values from the ANOVA table
+Uit de bovenstaande tabel en grafiek kunnen we opmaken dat er een substantiële verandering in gewichtsverlies binnen de persoon is onder de conditie van lichaamsbeweging en geen waarneembare toename in gewichtsverlies zonder lichaamsbeweging. Dit suggereert dat er een substantieel interactie-effect is. Net als bij de tweezijdige ANOVA tussen de proefpersonen kunnen we de partiële gekwadrateerde waarden uit de ANOVA-tabel berekenen
 
 
 $$
@@ -468,7 +454,7 @@ $$
 $$
 
 
-Remember for the partial eta-squared, the denominator is not the total sum of squares rather it is the effect sum of squares and the error. In the repeated measures ANOVA, the error should only be for the within subject error because the variance between subjects is not something we are interested about. We can also calculate this in R using the `eta_squared()` function again.
+Onthoud voor de partiële gemeta-kwadraat dat de noemer niet de totale som van de kwadraten is, maar de som van de effectkwadraten en de fout. In de ANOVA met herhaalde maatregelen moet de fout alleen de fout binnen de proefpersoon zijn, omdat we niet geïnteresseerd zijn in de variantie tussen proefpersonen. We kunnen dit ook in R berekenen met de functie `eta_kwadraat()`.
 
 ```{r}
 library(effectsize)
@@ -480,59 +466,59 @@ eta_squared(rmANOVA2_mdl,
 ```
 
 
-## Effect Sizes for ANOVAs
+## Effect Sizes voor ANOVAs
 
-ANOVA (Analysis of Variance) is a statistical method used to compare means across multiple groups or conditions. It is mostly used when the outcome variable is continuous and the predictor variables are categorical. Commonly used effect size measures for ANOVAs / F-tests include: eta-squared ($\eta^2$), partial eta-squared ($\eta_p^2$), generalized eta-squared ($\eta^2_G$), omega-squared ($\omega^2$), partial omega-squared ($\omega$), generalized omega-squared ($\omega^2_G$), Cohen's $f$.
+ANOVA (Analysis of Variance) is een statistische methode die wordt gebruikt om gemiddelden over meerdere groepen of omstandigheden te vergelijken. Het wordt meestal gebruikt als de uitkomstvariabele continu is en de voorspellende variabelen categorisch. Veelgebruikte effectgroottematen voor ANOVA's / F-tests zijn: eta-kwadraat ($\eta^2$), partieel eta-kwadraat ($\eta_p^2$), gegeneraliseerd eta-kwadraat ($\eta^2_G$), omega-kwadraat ($\omega^2$), partieel omega-kwadraat ($\omega$), gegeneraliseerd omega-kwadraat ($\omega^2_G$), Cohen's $f$.
 
 
 
-| Type                | Description | Section|
+| Type                | Beschrijving | Section|
 |:------|:---------|:----:|
-| $\eta^2$ - eta-squared | Measures the variance explained of the whole ANOVA model.  | @sec-eta-squared|
-| $\eta^2_p$ - Partial eta-squared | Measures the variance explained by a specific factor in the model. | @sec-etap|
-| $\eta^2_G$ - Generalized eta-squared | Similar to $\eta^2$, but uses the sum of squares of all non-manipulated variables in the calculation. This allows meta-analysts to compare $\eta_G$ across different designs.  | @sec-etaG|
-| $\omega^2,\omega^2_p,\omega^2_G$ - Omega squared corrections | Corrections to bias observed in $\eta^2$ measures. Can be interpreted in the same way as $\eta^2$.  | @sec-omega|
-| $f$ - Cohen's *f* | This effect size can be interpreted as the average Cohen's $d$ between each group.   | @sec-f|
+| $\eta^2$ - eta-kwadraat | Meet de verklaarde variantie van het hele ANOVA-model.  | @sec-eta-squared|
+| $\eta^2_p$ - Partiële eta-kwadraat | Meet de variantie die wordt verklaard door een specifieke factor in het model. | @sec-etap|
+| $\eta^2_G$ - Gegeneraliseerd eta-kwadraat | Vergelijkbaar met $\eta^2$, maar gebruikt de som van de kwadraten van alle niet-gemanipuleerde variabelen in de berekening. Dit stelt meta-analisten in staat om $\eta_G$ over verschillende ontwerpen te vergelijken.  | @sec-etaG|
+| $\omega^2,\omega^2_p,\omega^2_G$ - Omega kwadraat correcties | Correcties voor vertekening in metingen van $\eta^2$. Kan op dezelfde manier geïnterpreteerd worden als $\eta^2$.  | @sec-omega|
+| $f$ - Cohen's *f* | Deze effectgrootte kan worden geïnterpreteerd als de gemiddelde Cohen's $d$ tussen elke groep.   | @sec-f|
 
-### Eta-Squared ($\eta^2$) {#sec-eta-squared}
+### Eta-kwadraat ($\eta^2$) {#sec-eta-squared}
 
-Eta-squared is the ratio between the between-group variance and the total variance. It describes the proportion of the total variability in the data that are accounted for by a particular factor. Therefore, it is a measure of *variance explained*. To calculate eta-squared ($\eta^2$) we need to first calculate the total sum of squares ($SS_{\text{total}}$) and the effect sum of squares ($SS_{\text{effect}}$),
+Eta-kwadraat is de verhouding tussen de variantie tussen groepen en de totale variantie. Het beschrijft het deel van de totale variantie in de gegevens dat wordt verklaard door een bepaalde factor. Daarom is het een maat voor *verklaarde variantie*. Om het kwadraat te berekenen ($\eta^2$) moeten we eerst de totale som van de kwadraten ($SS_{\text{total}}$) en de som van de effectkwadraten ($SS_{\text{effect}}$) berekenen,
 
 $$
 SS_{\text{total}} = \sum_{i=1}^n (y_i-\bar{y})^2
 $$ 
 
-Where $\bar{y}$ is the grand mean (i.e., the mean of all data points collapsed across groups). To calculate the sum of squares of the effect, we can take the predicted $y$ values ($\hat{y}_i$). In the case of categorical predictors, $\hat{y}_i$ is equal to the mean of the outcome *within* that individual's respective group. Therefore the sum of squares of the effect can be calculated using the following formula:
+Waarbij $bar{y}$ het grote gemiddelde is (d.w.z. het gemiddelde van alle gegevenspunten samengevoegd over de groepen). Om de som van de kwadraten van het effect te berekenen, kunnen we de voorspelde $y$ waarden nemen ($\hat{y}_i$). In het geval van categorische voorspellers is $\hat{y}_i$ gelijk aan het gemiddelde van de uitkomst *binnen* de respectievelijke groep van dat individu. Daarom kan de som van de kwadraten van het effect worden berekend met de volgende formule:
 
 $$
 SS_{\text{effect}} = \sum_{i=1}^n (\hat{y}_i-\bar{y})^2.
 $$
 
-Now we can calculate the eta-squared value,
+Nu kunnen we de waarde van de kwadraten berekenen,
 
 $$
 \eta^2 = \frac{SS_{\text{effect}}}{SS_{\text{total}}}
 $$
 
-The standard error of eta-square can be approximated from @olkin1995:
+De standaardfout van eta-kwadraat kan worden benaderd op basis van @olkin1995:
 
 $$
 SE_{\eta^2}=\sqrt{\frac{4\eta^2\left(1-\eta^2\right)^2\left(n+k-1\right)^2}{\left(n^2-1\right)\left(3+n\right)}}
 $$
 
-The sampling distribution for $\eta^2$ is asymmetric as all the values are bounded in the range, 0 to 1. The confidence interval surrounding $\eta^2$ will likewise be asymmetric so instead of calculating the confidence interval from the standard error, we can instead use a non-central F-distribution using the degrees of freedom between groups (e.g., for three groups: $df_b=k-1=3-1=2$) and the degrees of freedom within groups (e.g., for 100 subjects and three groups: $df_b=n-k=100-3=97$) to obtain the confidence intervals. Another option is to use bootstrapping procedure [i.e., resampling the observed data points to construct a sampling distribution around $\eta^2$, see @BootES] and then take the .025 and .975 quantiles of that distribution. The R code below will compute the proper confidence interval.
+De steekproefverdeling voor $\eta^2$ is asymmetrisch omdat alle waarden begrensd zijn in het bereik van 0 tot 1. Het betrouwbaarheidsinterval rond $\eta^2$ zal ook asymmetrisch zijn, dus in plaats van het betrouwbaarheidsinterval te berekenen op basis van de standaardfout, kunnen we in plaats daarvan een niet-centrale F-verdeling gebruiken met de vrijheidsgraden tussen groepen (bijv, voor drie groepen: $df_b=k-1=3-1=2$) en de vrijheidsgraden binnen groepen (bijvoorbeeld voor 100 proefpersonen en drie groepen: $df_b=n-k=100-3=97$) om de betrouwbaarheidsintervallen te verkrijgen. Een andere optie is om de bootstrappingprocedure te gebruiken [d.w.z. het opnieuw bemonsteren van de waargenomen gegevenspunten om een steekproefverdeling rond $\eta^2$ te construeren, zie @BootES] en dan de .025- en .975-kwantielen van die verdeling te nemen. De R-code hieronder berekent het juiste betrouwbaarheidsinterval.
 
-Where $n$ is the total sample size and $k$ is the number of predictors. In R, we can calculate $\eta^2$ from a one-way ANOVA using the penguin data set from the `palmerpenguins` data package. The `aov` function in base R allows the analyst to model an ANOVA with categorical predictors on the right side (species) of the `~` and the outcome on the left side (body mass of penguin). We can then use the `eta_squared` function in the `effectsize` package to calculate the point estimate and confidence intervals.
+Waarbij $n$ de totale steekproefgrootte is en $k$ het aantal voorspellers. In R kunnen we $\eta^2$ berekenen van een eenzijdige ANOVA met behulp van de pinguïndataset uit het gegevenspakket `palmerpenguins`. Met de `aov` functie in basis-R kan de analist een ANOVA modelleren met categorische voorspellers aan de rechterkant (soort) van de `~` en de uitkomst aan de linkerkant (lichaamsmassa van de pinguïn). We kunnen dan de `eta_squared` functie in het `effectsize` pakket gebruiken om de puntschatting en betrouwbaarheidsintervallen te berekenen.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species
-# outcome: body mass
+# Bijvoorbeeld:
+# groep: soorten
+# uitkomst: lichaamsgewicht
 
 library(palmerpenguins)
 library(effectsize)
 
-# One-Way ANOVA
+# Een-Wag ANOVA
 mdl1 <- aov(data = penguins,
            body_mass_g ~ species)
 
@@ -541,14 +527,14 @@ eta_squared(mdl1,
             alternative = "two.sided")
 ```
 
-The species of the penguin explains the majority of the variation in body mass showing an eta-squared value of $\eta^2$ = .67 \[.62, .71\]. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+De soort pinguïn verklaart het grootste deel van de variatie in lichaamsmassa met een kwadraatwaarde van $eta^2$ = .67 \[.62, .71]. Laten we nu hetzelfde doen met een tweezijdige ANOVA, met zowel `soort` als `seks` als categorische voorspellers.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species and sex
-# outcome: body mass
+# Bijvoorbeeld:
+# groep: soorten en geslacht
+# uitkomst: lichaamsgewicht
 
-# Two-Way ANOVA
+# Twee-Weg ANOVA
 mdl2 <- aov(data = penguins,
            body_mass_g ~ species + sex)
 
@@ -557,27 +543,27 @@ eta_squared(mdl2,
             alternative = "two.sided")
 ```
 
-Notice that the $\eta^2$ does not change for species since the sum of squares is divided by the total sum of squares rather than the residual sum of squares (see partial eta squared). The example shows an eta-squared value for species of $\eta^2$ = .67 \[.62, .72\] and for sex $\eta^2$ = .17 \[.10, .24\].
+Merk op dat de $\eta^2$ niet verandert voor soorten omdat de som van de kwadraten wordt gedeeld door de totale som van de kwadraten in plaats van de residuele som van de kwadraten (zie partiële eta kwadraat). In het voorbeeld is de kwadratische eta voor de soorten .67 en voor het geslacht .17.
 
-### Partial Eta-Squared ($\eta^2_p$) {#sec-etap}
+### Partiële Eta-Kwadraat ($\eta^2_p$) {#sec-etap}
 
-Partial eta-squared is the most commonly reported effect size measure for F-tests. It describes the proportion of variability associated with an effect when the variability associated with all other effects identified in the analysis has been removed from consideration (hence, it is "partial"). If you have access to an ANOVA table, the partial eta-squared for an effect is calculated as:
+Partiële eta-kwadraat is de meest gerapporteerde effectgrootte voor F-tests. Het beschrijft het deel van de variabiliteit dat is geassocieerd met een effect wanneer de variabiliteit die is geassocieerd met alle andere effecten die zijn geïdentificeerd in de analyse buiten beschouwing is gelaten (vandaar dat het "partieel" is). Als je toegang hebt tot een ANOVA-tabel, wordt de partiële eta-kwadraat voor een effect als volgt berekend:
 
 $$
-\eta_p^2 = \frac{ SS_{\text{effect}}}{SS_{\text{effect}}+SS_{\text{error}}}
+\eta_p^2 = \frac{ SS_{\text{effect}}}{SS_{\text{effect}}+SS_{\text{fout}}}
 $$
 
-There are two things to take note of here:
+Er zijn twee dingen waar je op moet letten:
 
-1.  In a one-way ANOVA (one categorical predictor), partial eta-squared and eta-squared are equivalent since $SS_{\text{total}} = SS_{\text{effect}}+SS_{\text{error}}$
-2.  If there are multiple predictors, the denominator will only include the sum of squares of the effect of interest rather than the effect of all predictors (which is the case for the non-partial eta squared).
+1.  In een eenzijdige ANOVA (één categorische voorspeller) zijn partiële eta-kwadraat en eta-kwadraat gelijkwaardig, aangezien $SS_{\text{total}} = SS_{\text{effect}}+SS_{\text{fout}}$.   
+2.  Als er meerdere voorspellers zijn, omvat de noemer alleen de som van de kwadraten van het effect van belang in plaats van het effect van alle voorspellers (wat het geval is voor de niet-partiële eta-kwadraat).
 
-In R, let us compare the partial eta-squared values for a one-way ANOVA and a two-way ANOVA using the `eta_squared` function in the `effectsize` package.
+Laten we in R de partiële eta-kwadraatwaarden voor een eenzijdige ANOVA en een tweeweg ANOVA vergelijken met behulp van de functie `eta_squared` in het pakket `effectsize`.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species
-# outcome: body mass
+# Voorbeeld:
+# groep: soorten
+# uitkomst: lichaamsgewicht
 
 
 # One-Way ANOVA
@@ -589,14 +575,14 @@ eta_squared(mdl1,
             alternative = "two.sided") 
 ```
 
-The species of the penguin explains the majority of the variation in body mass showing a partial eta-squared value of $\eta^2$ = $\eta^2_p$ = .67 \[.62, .71\]. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+De soort pinguïn verklaart het grootste deel van de variatie in lichaamsmassa met een gedeeltelijke kwadraatwaarde van $eta^2$ = $eta^2_p$ = .67 [.62, .71]. Laten we nu hetzelfde doen met een tweezijdige ANOVA, met zowel `soort` als `geslacht` als onze categorische voorspellers.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species and sex
-# outcome: body mass
+# Voorbeeld:
+# groep: soorten en geslacht
+# uitkomst: lichaamsgewicht
 
-# Two-Way ANOVA
+# Twee-Weg ANOVA
 mdl2 <- aov(data = penguins,
            body_mass_g ~ species + sex)
 
@@ -605,101 +591,104 @@ eta_squared(mdl2,
             alternative = "two.sided")
 ```
 
-Once we run a two-way ANOVA, the eta-squared value for species begins to differ. The example shows a partial eta-squared value for species of $\eta^2_p$ = .81 \[.78, .84\] and for sex $\eta^2$ = .53 \[.46, .59\].
+Zodra we een tweezijdige ANOVA uitvoeren, begint de eta-kwadraatwaarde voor soorten te verschillen. Het voorbeeld toont een gedeeltelijke kwadraatwaarde voor soorten van $\eta^2_p$ = .81 \[.78, .84] en voor geslacht $\eta^2$ = .53 \[.46, .59].
 
-### Generalized Eta-Squared ($\eta^2_G$) {#sec-etaG}
+### Gegeneraliseerde Eta-Kwadraat ($\eta^2_G$) {#sec-etaG}
 
-Generalized eta-squared was devised to allow effect size comparisons across studies with different designs, which eta-squared and partial eta-squared cannot help with (refer to for details). If you can (either you are confident that you calculated it right, or the statistical software that you use just happens to return this measure), report generalized eta-squared in addition to eta-squared or partial eta-squared. The biggest advantage of generalized eta-squared is that it facilitates meta-analysis, which is important for the accumulation of knowledge. To calculate generalized eta-squared, the denominator should be the sums of squares of all the non-manipulated variables (i.e., variance of purely individual differences in the outcome rather than individual differences in treatment effects). Note the formula will depend on the design of the study. In R, the `eta_squared` function in the `effectsize` package supports the calculation of generalized eta-squared by using the `generalized=TRUE` argument.
+Gegeneraliseerd eta-kwadraat is ontwikkeld om effectgroottevergelijkingen mogelijk te maken tussen onderzoeken met verschillende designs, waar eta-kwadraat en partieel eta-kwadraat niet bij kunnen helpen (zie voor meer informatie). Als het kan (je bent er zeker van dat je het goed hebt berekend, of de statistische software die je gebruikt geeft toevallig deze maat weer), rapporteer dan naast eta-kwadraat of partieel eta-kwadraat ook gegeneraliseerd eta-kwadraat. Het grootste voordeel van veralgemeend kwadraat is dat het meta-analyse vergemakkelijkt, wat belangrijk is voor het vergaren van kennis. Om de gegeneraliseerde gemeta-kwadraat te berekenen, moet de noemer de som van de kwadraten van alle niet-gemanipuleerde variabelen zijn (d.w.z. variantie van puur individuele verschillen in de uitkomst in plaats van individuele verschillen in behandelingseffecten). Merk op dat de formule afhankelijk is van de opzet van het onderzoek. In R ondersteunt de `eta_squared` functie in het `effectsize` pakket de berekening van gegeneraliseerde eta-squared door het `generalized=TRUE` argument te gebruiken.
 
-### Omega squared corrections ($\omega^2$, $\omega^2_p$) {#sec-omega}
 
-Similar to Hedges' correction for small sample bias in standardized mean differences, $\eta^2$ is also biased. We can apply a correction to $\eta^2$ and obtain a relatively unbiased estimate of the population proportion of variance explained by the predictor. To calculate $\omega$, we need to calculate the within group mean squared errors:
+### Omega kwadraat correcties ($\omega^2$, $\omega^2_p$) {#sec-omega}
 
-$$
-MS_{\text{within}} = \frac{1}{n}\sum_{i=1}^n (y_i-\hat{y}_i)^2.
-$$ Where the predicted values of the outcome, $\hat{y}_i$, are the mean value for the individual's respective group.
+Vergelijkbaar met Hedges' correctie voor small sample bias in gestandaardiseerde gemiddelde verschillen, is $eta^2$ ook vertekend. We kunnen een correctie toepassen op $\eta^2$ en een relatief onvertekende schatting krijgen van het aandeel van de populatie in de variantie dat verklaard wordt door de voorspeller. Om $omega$ te berekenen moeten we de gemiddelde gekwadrateerde fouten binnen de groep berekenen:
+
 
 $$
-\omega^2 = \frac{SS_{\text{effect}}-(k-1)\times MS_{\text{within}}}{SS_{\text{total}} + MS_{\text{within}}}
+MS_{\text{binnen}} = \frac{1}{n}\sum_{i=1}^n (y_i-\hat{y}_i)^2.
+$$ Waar de voorspelde waarden van de uitkomst, $hat{y}_i$, de gemiddelde waarde zijn voor de respectieve groep van het individu
+
+$$
+\omega^2 = \frac{SS_{\text{effect}}-(k-1)\times MS_{\text{tussen}}}{SS_{\text{totaal}} + MS_{\text{tussen}}}
 $$
 
-Where $k$ is the number of groups in the predictor (effect) variable. For partial omega-squared values, we need the mean squared error of effect and the residuals which can easily be calculated from their sum of squares:
+Waar $k$ het aantal groepen in de voorspellende variabele (effect) is. Voor gedeeltelijke omega-kwadraatwaarden hebben we de gemiddelde gekwadrateerde fout van het effect en de residuen nodig, die eenvoudig kunnen worden berekend uit hun som van de kwadraten:
 
 $$
 MS_{\text{effect}} = \frac{SS_{\text{effect}}}{n}
 $$ $$
-MS_{\text{error}} = \frac{SS_{\text{error}}}{n}
-$$ Then to calculate the partial omega squared we can use the following formula:
+MS_{\text{fout}} = \frac{SS_{\text{fout}}}{n}
+$$ Om dan de gedeeltelijke omega in het kwadraat te berekenen, kunnen we de volgende formule gebruiken:
 
 $$
-\omega_p^2 = \frac{(k-1)(MS_{\text{effect}} - MS_{\text{error}})}{(k-1)\times MS_{\text{effect}} + (n-k-1)\times MS_{\text{error}}}
+\omega_p^2 = \frac{(k-1)(MS_{\text{effect}} - MS_{\text{fout}})}{(k-1)\times MS_{\text{effect}} + (n-k-1)\times MS_{\text{fout}}}
 $$
 
-In R, we can use the `omega_squared` function in the `effectsize` package to calculate both $\omega^2$ and $\omega^2_p$. For the first example we will use a one-way ANOVA.
+In R kunnen we de `omega_squared` functie in het `effectsize` pakket gebruiken om zowel $omega^2$ als $omega^2_p$ te berekenen. Voor het eerste voorbeeld gebruiken we een eenzijdige ANOVA.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species
-# outcome: body mass
+# Voorbeeld:
+# groep: soorten
+# uitkomst: lichaamsgewicht
 
 library(palmerpenguins)
 
-# One-Way ANOVA
+# Een-Weg ANOVA
 mdl1 <- aov(data = penguins,
            body_mass_g ~ species)
 
-# omega-squared
+# omega-kwadraat
 omega_squared(mdl1, 
             partial = FALSE,
             alternative = "two.sided")
 
-# partial omega-squared
+# partiële omega-kwadraat
 omega_squared(mdl1, 
               partial = TRUE,
               alternative = "two.sided")
 ```
 
-The species of the penguin explains the majority of the variation in body mass showing an omega-squared value of $\omega^2$ = .67 \[.61, .71\]. Note that the partial and non-partial omega squared values do not show a difference as expected in a one-way ANOVA. Let us now do the same thing with a two-way ANOVA, using both `species` and `sex` as our categorical predictors.
+De soort pinguïn verklaart het grootste deel van de variatie in lichaamsmassa met een omega-kwadraatwaarde van $omega^2$ = .67 [.61, .71]. Merk op dat de gedeeltelijke en niet-partiële omega-kwadraatwaarden geen verschil laten zien zoals verwacht in een eenzijdige ANOVA. Laten we nu hetzelfde doen met een tweezijdige ANOVA, met zowel `soort` als `geslacht` als onze categorische voorspellers.
 
 ```{r,echo=TRUE}
-# Example:
-# group: species and sex
-# outcome: body mass
+# Voorbeeld:
+# groep: soorten en geslacht
+# uitkomst: lichaamsgewicht
 
-# Two-Way ANOVA
+# Twee-Weg ANOVA
 mdl2 <- aov(data = penguins,
            body_mass_g ~ species + sex)
 
-# omega-squared
+# omega-kwadraat
 omega_squared(mdl2, 
             partial = FALSE,
             alternative = "two.sided")
 
-# partial omega-squared
+# partiële omega-kwadraat
 omega_squared(mdl2, 
               partial = TRUE,
               alternative = "two.sided")
 ```
 
-Once we run a two-way ANOVA, the eta-squared value for species diverge. The example shows a partial eta-squared value for species of $\omega^2_p$ = .81 \[.78, .84\] and for sex $\omega^2$ = .53 \[.46, .58\].
+Zodra we een tweezijdige ANOVA uitvoeren, divergeren de eta-kwadraatwaarden voor soorten. Het voorbeeld toont een gedeeltelijke kwadraatwaarde voor soorten van $omega^2_p$ = .81 \[.78, .84] en voor geslacht $omega^2$ = .53 \[.46, .58].
 
 ### Cohen's $f$ {#sec-f}
 
-Cohen's $f$ is defined as the ratio of the standard deviations of the group means and the common standard deviation within each of the groups (note that ANOVA assumes equal variances among groups). Cohen's $f$ is the effect size measure asked for by G\*Power for power analysis for F-tests. This can be calculated easily from the eta-squared value,
+Cohen's $f$ wordt gedefinieerd als de verhouding van de standaarddeviaties van de groepsgemiddelden en de gemeenschappelijke standaarddeviatie binnen elk van de groepen (merk op dat ANOVA uitgaat van gelijke varianties tussen groepen). Cohen's $f$ is de maat voor de effectgrootte die door G*Power wordt gevraagd voor poweranalyse voor F-tests. Deze kan eenvoudig worden berekend uit de eta-kwadraatwaarde,
 
 $$
 f = \sqrt{\frac{\eta^2}{1-\eta^2}}
 $$
 
-or by the $\omega^2$ value,
+of door de $omega^2$ waarde,
 
 $$
 f = \sqrt{\frac{\omega^2}{1-\omega^2}}
 $$
 
-Cohen's $f$ can be interpreted as "the average Cohen's $d$ (i.e., standardized mean difference) between groups". Note that there is no directionality to this effect size ($f$ is always greater than zero), therefore two studies showing the same $f$ with the same groups, can have very different patterns of group mean differences. Note that Cohen's $f$ is also often reported as $f^2$. The confidence intervals for Cohen's $f$ can be computed from the upper bounds and lower bounds of the confidence intervals from eta-square or omega-square using the formulas to calculate $f$ (e.g., for the upper bound $f_{UP} = \sqrt{\frac{\eta^2_{UP}}{1-\eta^2_{UP}}}$).
+Cohen's $f$ kan worden geïnterpreteerd als "de gemiddelde Cohen's $d$ (d.w.z. gestandaardiseerd gemiddeld verschil) tussen groepen". Merk op dat deze effectgrootte geen richting heeft ($f$ is altijd groter dan nul), dus twee onderzoeken met dezelfde $f$ voor dezelfde groepen kunnen heel verschillende patronen van groepsgemiddelde verschillen hebben. Merk op dat Cohen's $f$ ook vaak wordt gerapporteerd als $f^2$. De betrouwbaarheidsintervallen voor Cohen's $f$ kunnen worden berekend uit de boven- en ondergrenzen van de betrouwbaarheidsintervallen van eta kwadraat of omega kwadraat met behulp van de formules om $f$ te berekenen (bijvoorbeeld voor de bovengrens $f_{UP} = \sqrt{frac{\eta^2_{UP}}{1-\eta^2_{UP}}$).
 
-In R, we can use the `cohens_f` function in the `effectsize` package to calculate Cohen's $f$. We will again use example data from the `palmerpenguins` package.
+In R kunnen we de `cohens_f` functie in het `effectsize` pakket gebruiken om Cohen's $f$ te berekenen. We gebruiken weer voorbeeldgegevens uit het pakket `palmerpenguins`.
+
 
 ```{r,echo=TRUE}
 # Example:
@@ -745,9 +734,6 @@ omega_table <- data.frame(omega_sq = MOTE::apa(c(omega_values$Omega2_partial,NA)
 cbind(summary(mdl)[[1]],
       omega_table)
 ```
-
-
-
 
 
 

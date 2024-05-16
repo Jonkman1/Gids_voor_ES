@@ -1,11 +1,11 @@
-# Conclusion
+#Conclusie
 
-## Limitations and Future Directions
+## Beperkingen en toekomstige richtingen
 
-While this guide covers a wide range of effect size and confidence interval methods, there are some limitations to note. First, our instructions focus specifically on applications in behavioral, cognitive, and social science research. The techniques may need to be adapted for other scientific domains. Second, we only cover free and open source options, so proprietary software packages are not discussed. Finally, as new methods and R packages arise, the guide will need to be continually updated, perhaps in a similar manner as Parsons et al. (2022) Open Scholarship terms after publication.
+Hoewel deze handleiding een breed scala aan effectgrootte- en betrouwbaarheidsintervalmethoden bestrijkt, zijn er enkele beperkingen op te merken. Ten eerste richten onze instructies zich specifiek op toepassingen in gedrags-, cognitief en sociaalwetenschappelijk onderzoek. Mogelijk moeten de technieken worden aangepast voor andere wetenschappelijke domeinen. Ten tweede behandelen we alleen vrije en open source opties, dus propriëtaire softwarepakketten worden niet besproken. Ten slotte zal de gids voortdurend moeten worden bijgewerkt naarmate er nieuwe methoden en R-pakketten verschijnen, misschien op een vergelijkbare manier als Parsons et al. (2022) Open Scholarship terms na publicatie.
 
-In the future, we aim to expand the guide by collaborating with experts in other fields to include discipline-specific recommendations. We also plan to incorporate new R packages and techniques as they emerge. Readers are encouraged to consult the cited packages' documentation and peer-reviewed sources to further explore limitations and assumptions of the covered techniques.
+In de toekomst willen we de gids uitbreiden door samen te werken met experts op andere gebieden om vakspecifieke aanbevelingen op te nemen. We zijn ook van plan om nieuwe R-pakketten en -technieken op te nemen zodra deze verschijnen. Lezers worden aangemoedigd om de documentatie van de aangehaalde pakketten en peer-reviewed bronnen te raadplegen om de beperkingen en aannames van de behandelde technieken verder te onderzoeken.
 
-## Conclusion
+## Conclusie
 
-Robust quantification of study results is a central pillar of open and reproducible science. With this collaborative collection of applied instructions, our guide aims to make calculating effect sizes and confidence intervals more accessible. We hope these resources empower both young researchers and experienced scholars across a variety of disciplines to incorporate these crucial statistical practices into their workflows. In our view, more widespread and thoughtful adoption of these methods will greatly strengthen the collective rigor, transparency, and impact of scientific research.
+Robuuste kwantificering van studieresultaten is een centrale pijler van open en reproduceerbare wetenschap. Met deze gezamenlijke verzameling van toegepaste instructies wil onze gids het berekenen van effectgroottes en betrouwbaarheidsintervallen toegankelijker maken. We hopen dat deze hulpmiddelen zowel jonge onderzoekers als ervaren wetenschappers in verschillende disciplines in staat stellen om deze cruciale statistische praktijken in hun werkproces op te nemen. Wij zijn van mening dat een meer wijdverspreide en doordachte toepassing van deze methoden de collectieve nauwkeurigheid, transparantie en impact van wetenschappelijk onderzoek enorm zal versterken.

@@ -1,18 +1,18 @@
 
-# Converting to Odds Ratio
+# Converteren naar Odds Ratio
 
-## From Cohen's $d$
+## Van Cohen's $d$
 
-We can calculate an odds-ratio from a between groups cohen's $d$ ($d_p$):
+We kunnen een oddsratio berekenen op basis van de $d$ van Cohen ($d_p$) tussen groepen:
 
 $$
 OR = \exp\left(\frac{d_p \pi}{\sqrt{3}}\right)
 $$
 
-Where $\exp(\cdot)$ is an exponential transformation (this inverses the logarithm). Using the `d_to_oddsratio` function in the `effectsize` package we can convert $d$ to $OR$.
+Waarbij $exp(\cdot)$ een exponentiële transformatie is (dit inverteert de logaritme). Met de functie `d_to_oddsratio` in het pakket `effectsize` kunnen we $d$ omrekenen naar $OR$.
 
 ```{r,echo=TRUE}
-# Example:
+# Bijvoorbeeld:
 # d = 0.60, n1 = 50, n2 = 70
 
 library(effectsize)
@@ -24,24 +24,24 @@ n2 <- 70
 d_to_oddsratio(d = d, n1 = n1, n2 = n2)
 ```
 
-## From a Pearson Correlation
+## Van een Pearson Correlatie
 
-We can calculate an odds ratio from a Pearson correlation using the following formula:
+We kunnen een odds ratio uit een Pearson correlatie berekenen met de volgende formule:
 
 $$
 OR = \exp\left(\frac{r\pi \sqrt{\frac{n_1+n_2-2}{n_1} + \frac{n_1+n_2-2}{n_2}}}{\sqrt{3(1-r^2)}}\right)
 $$
 
-When sample sizes are equal, this equation can be simplified to be approximately,
+Als de steekproefomvang gelijk is, kan deze vergelijking worden vereenvoudigd tot ongeveer,
 
 $$
 OR = \exp\left(\frac{r\pi \sqrt{4}}{\sqrt{3(1-r^2)}}\right)
 $$
 
-Using the `r_to_oddsratio` function in the `effectsize` package we can convert $d$ to $OR$.
+Gebruik de `r_to_oddsratio` functie in het `effectsize` pakket om $d$ naar $OR$ te converteren.
 
 ```{r,echo=TRUE}
-# Example:
+# Bijvoorbeeld
 # r = .50, n1 = 50, n2 = 70
 
 r <- .40
