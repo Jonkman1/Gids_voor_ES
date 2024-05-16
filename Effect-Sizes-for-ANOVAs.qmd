@@ -691,9 +691,9 @@ In R kunnen we de `cohens_f` functie in het `effectsize` pakket gebruiken om Coh
 
 
 ```{r,echo=TRUE}
-# Example:
-# group: species
-# outcome: body mass
+# Bijvoorbeeld:
+# groep: soorten
+# uitkomst: lichaamsgewicht
 
 # ANOVA
 mdl <- aov(data = penguins,
@@ -703,34 +703,34 @@ cohens_f(mdl,alternative = "two.sided")
 
 ```
 
-In the example above, the difference in body mass between the three penguin species was very large showing a Cohen's $f$ of 1.42 \[1.27, 1.57\].
+In het bovenstaande voorbeeld was het verschil in lichaamsgewicht tussen de drie pinguïnsoorten erg groot met een Cohen's $f$ van 1,42 \[1,27, 1,57].
 
-## Reporting ANOVA results
+## ANOVA-resultaten rapporteren
 
-For ANOVAs/F-tests, you will always need to report two kinds of effects: the omnibus effect of the factor(s) and the effect of planned contrasts or post hoc comparisons.
+Voor ANOVA's/F-tests moet je altijd twee soorten effecten rapporteren: het omnibuseffect van de factor(en) en het effect van geplande contrasten of post-hocvergelijkingen.
 
-For instance, imagine that you are comparing three groups/conditions with a one-way ANOVA. The ANOVA will first return an F-statistic, the degrees of freedom, and the associated p-value. Here, you need to calculate the size of this omnibus factor effect in eta-squared, partial eta-squared, or generalized eta-squared. Suppose the omnibus effect is significant. You now know that there is at least one group that differs from the others. You want to know which group(s) differ from the others, and how much they differ. Therefore, you conduct post hoc comparisons on these groups. Because post hoc comparisons compare each group with the others in pairs, you will get a *t*-statistic and p-value for each comparison. For this, you need to calculate and report Cohen's $d$ or Hedges' $g$.
+Stel je bijvoorbeeld voor dat je drie groepen/condities vergelijkt met een eenzijdige ANOVA. De ANOVA zal eerst een F-statistiek, de vrijheidsgraden en de bijbehorende p-waarde opleveren. Hier moet je de grootte van dit omnibus factor effect berekenen in eta-kwadraat, partiële eta-kwadraat of gegeneraliseerde eta-kwadraat. Stel dat het omnibuseffect significant is. U weet nu dat er ten minste één groep is die verschilt van de anderen. Je wilt weten welke groep(en) verschilt (verschillen) van de anderen en hoeveel ze verschilt (verschillen). Daarom voer je post hoc vergelijkingen uit op deze groepen. Omdat post hoc vergelijkingen elke groep paarsgewijs vergelijken met de anderen, krijg je een *t*-statistiek en p-waarde voor elke vergelijking. Hiervoor moet je Cohen's $d$ of Hedges' $g$ berekenen en rapporteren.
 
-Imagine that you have two independent variables or factors, and you conduct a two-by-two factorial ANOVA. The first thing to do then is look at the interaction. If the interaction is significant, you again report the associated omnibus effect size measures, and proceed to analyze the simple effects. Depending on your research question, you compare the levels of one IV on each level of the other IV. You will report d or g for these simple effects. If the interaction is not significant, you look at the main effects and report the associated omnibus effect. You then proceed to analyze the main effect by comparing the levels of one IV while collapsing/aggregating the levels of the other IV. You will report $d$ or $g$ for these pairwise comparisons.
+Stel je voor dat je twee onafhankelijke variabelen of factoren hebt en je voert een twee-bij-twee factorial ANOVA uit. Het eerste wat je dan doet, is kijken naar de interactie. Als de interactie significant is, rapporteer je opnieuw de bijbehorende omnibus effectgrootte maten en ga je verder met het analyseren van de enkelvoudige effecten. Afhankelijk van je onderzoeksvraag vergelijk je de niveaus van de ene OV op elk niveau van de andere OV. U rapporteert $d$ of $g$ voor deze enkelvoudige effecten. Als de interactie niet significant is, kijk je naar de hoofdeffecten en rapporteer je het bijbehorende omnibuseffect. Vervolgens analyseert u het hoofdeffect door de niveaus van één OV te vergelijken terwijl u de niveaus van de andere OV samenvoegt/aggregeert. U rapporteert $d$ of $g$ voor deze paarsgewijze vergelijkingen.
 
-Note that lower-order effects are not directly interpretable if higher-order effects are significant. If you have a significant interaction in a two-way ANOVA, you cannot interpret the main effects directly. If you have a significant three-way interaction in a three-way ANOVA, you cannot interpret the main effects or the two-way interactions directly, regardless of whether they are significant or not.
+Merk op dat effecten van lagere orde niet direct interpreteerbaar zijn als effecten van hogere orde significant zijn. Als je een significante interactie hebt in een tweezijdige ANOVA, kun je de hoofdeffecten niet direct interpreteren. Als u een significante drieweginteractie hebt in een drieweg ANOVA, kunt u de hoofdeffecten of de tweerichtingsinteracties niet rechtstreeks interpreteren, ongeacht of ze significant zijn of niet.
 
-In R, we can use the `summary` function to display the anova table. We can also append the table to include, for example, partial omega squared values and their respective confidence intervals
+In R kunnen we de functie `summary` gebruiken om de anova-tabel weer te geven. We kunnen de tabel ook aanvullen met bijvoorbeeld gedeeltelijke omega kwadraatwaarden en hun respectievelijke betrouwbaarheidsintervallen.
 
 ```{r,echo=TRUE}
 # ANOVA mdl
 mdl <- aov(data = penguins,
            body_mass_g ~ species + sex)   
 
-# calculate partial omega-squared values
+# bereken partiële omega-kwadraat waarden
 omega_values <- omega_squared(mdl, alternative = "two.sided")
 
-# create table of partial omega-squared values
+# creëer tabel van partiële omega-kwadraat waarden
 omega_table <- data.frame(omega_sq = MOTE::apa(c(omega_values$Omega2_partial,NA)),
                      omega_low = MOTE::apa(c(omega_values$CI_low,NA)),
                      omega_high = MOTE::apa(c(omega_values$CI_high,NA)))
 
-# append omega values to summary of anova table
+# omega waarden toevoegen aan samenvatting van anova tabel
 cbind(summary(mdl)[[1]],
       omega_table)
 ```
