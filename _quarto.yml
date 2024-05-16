@@ -15,7 +15,7 @@ book:
     background: 'white'
     border: true
     header: |
-      ![](margin-header.png)
+      ![](titels-hj.png)
     title: "Inhoudsopgave"
   author:
   - name: Matthew B. Jané
@@ -181,7 +181,7 @@ format:
     code-block-bg: '#f1f1f1'
     code-block-border-left: false
     header-includes: |
-      \titlehead{\includegraphics[width=6in]{cover-image.png}}
+      \titlehead{\includegraphics[width=6in]{cover-hj.png}}
   docx:
     documentclass: scrreprt
     mainfont: 'Arial'
