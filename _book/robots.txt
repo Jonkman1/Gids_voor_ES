@@ -1,1 +1,0 @@
-Sitemap: https://matthewbjane.quarto.pub/guide-to-effect-sizes-and-confidence-intervals/sitemap.xml
