@@ -7,16 +7,16 @@ CI_{lnVR/lnCVR}=lnVR \pm 1.96\cdot SE_{lnVR/lnCVR}
 $$
 
 
-#### **Here is a table for every effect size discussed in this chapter:** {.unnumbered}
+#### **Hier is een tabel voor elke effect size besproken in dit hoofdstuk:** {.unnumbered}
 
-| Type                | Description | Section|
+| Type                | Beschrijving | Sectie|
 |:------|:---------|:----:|
-| **Variability Ratios (VR)**   |     | @sec-vr|
-| $lnVR_\text{ind}$ - Natural Logarithm of variability ratio for independent groups | Used to compare the standard deviations (i.e., the variability) between two groups.  | @sec-vr-ind|
-| $lnVR_\text{dep}$ - Natural Logarithm of variability ratio for dependent groups | Used to compare the standard deviations (i.e., the variability) between paired groups (i.e., repeated measures designs). | @sec-vr-dep|
-|   **Coefficient of Variation Ratios (CVR)**    |     | @sec-cvr |
-|  $lnCVR_\text{ind}$ - Natural Logarithm of coefficient variation ratio for independent groups | Used to compare the variation between two groups. More useful than a variability ratio ($lnVR_\text{ind}$) when there is a relationship between the mean and variance. | @sec-cvr-ind |
-|  $lnCVR_\text{dep}$ - Natural Logarithm of coefficient variation ratio for dependent groups | Used to compare the variation between paired groups (i.e., repeated measures). More useful than a variability ratio ($lnVR_\text{dep}$) when there is a relationship between the mean and variance. | @sec-cvr-ind |
+| **Variabilitijdratio's (VR)**   |     | @sec-vr|
+| $lnVR_\text{ind}$ - Natuurlijke logaritme van variabiliteitsratio voor onafhankelijke groepen | Gebruikt om de standaarddeviaties (d.w.z. de variabiliteit) tussen twee groepen te vergelijken.  | @sec-vr-ind|
+| $lnVR_\text{dep}$ - Natuurlijke logaritme van variabiliteitsratio voor afhankelijke groepen | Gebruikt om de standaarddeviaties (d.w.z. de variabiliteit) tussen gepaarde groepen te vergelijken (d.w.z. herhaalde metingen). | @sec-vr-dep|
+|   **Coëfficient van Variatie Ratio's (CVR)**    |     | @sec-cvr |
+|  $lnCVR_\text{ind}$ - Natuurlijke logaritme van variatiecoëfficiëntverhouding voor onafhankelijke groepen | Wordt gebruikt om de variatie tussen twee groepen te vergelijken. Nuttiger dan een variatiecoëfficiënt ($lnVR_text{ind}$) als er een verband is tussen het gemiddelde en de variantie. | @sec-cvr-ind |
+|  $lnCVR_\text{dep}$ - Natuurlijke logaritme van variatiecoëfficiëntverhouding voor afhankelijke groepen | Wordt gebruikt om de variatie tussen gepaarde groepen te vergelijken (d.w.z. herhaalde metingen). Nuttiger dan een variatiecoëfficiënt ($lnVR_text{dep}$) als er een verband is tussen het gemiddelde en de variantie. | @sec-cvr-ind |
 
 
 ## Verhoudingen variabiliteit {#sec-vr}
@@ -71,7 +71,7 @@ lnVRind$SE <- sqrt(lnVRind$vi)
 lnVRind_low <- lnVRind$yi - 1.96*lnVRind$SE
 lnVRind_high <- lnVRind$yi + 1.96*lnVRind$SE
 
-# print the VR value and confidence intervals
+# druk de VR waarde en betrouwbaarheidsintervallen af
 data.frame(lnVRind = MOTE::apa(lnVRind$yi),
            lnVRind_low = MOTE::apa(lnVRind_low),
            lnVRind_high = MOTE::apa(lnVRind_high))
@@ -138,31 +138,31 @@ data.frame(lnVRdep = MOTE::apa(lnVRdep$yi),
 
 
 
-## Coefficient of Variation Ratios {#sec-cvr}
+## Coëfficient van Variatie Ratioss {#sec-cvr}
 
-### Natural Logarithm of Coefficient of Variation Ratio for independent groups (lnCVR_\text{ind}) {#sec-cvr-ind}
+### Natuurlijke logaritme van de variatiecoëfficiëntverhouding voor onafhankelijke groepen (lnCVR_text{ind}) {#sec-cvr-ind}
 
-The coefficient of variation ratio for independent groups can be calculated by taking the natural logarithm of the coefficient of variation within one group divided by the coefficient of variation in another group,
+De variatiecoëfficiënt voor onafhankelijke groepen kan worden berekend door de natuurlijke logaritme te nemen van de variatiecoëfficiënt binnen één groep gedeeld door de variatiecoëfficiënt in een andere groep,
 
 $$
 lnCVR_\text{ind}=\ln\left(\frac{CV_T}{CV_C}\right) + CF
 $$
 
-Where $CV_T =S_T / M_T$, $CV_C =S_C / M_C$, and $M$ indicates the mean of the respective group. The correction factor, $CF$, is a small sample size bias correction factor that combines that from the lnRR (presented earlier) and the lnVR calculated as,
+Waarbij $CV_T =S_T / M_T$, $CV_C =S_C / M_C$, en $M$ het gemiddelde van de respectieve groep aangeeft. De correctiefactor, $CF$, is een vertekeningscorrectiefactor voor de kleine steekproefomvang die die van de lnRR (eerder gepresenteerd) en de lnVR combineert, berekend als,
 
 $$
 CF=\frac{1}{2(n_T-1)}-\frac{1}{2(n_C-1)} + \frac{S_T^2}{2(n_TM_T^2)} + \frac{S_C^2}{2(n_CM_C^2)}
 $$
-In R, we can simply use the `escalc()` function from the `metafor` package as follows:
+In R kunnen we eenvoudigweg de `escalc()` functie uit het `metafor` pakket als volgt gebruiken:
 
 ```{r,message=FALSE}
-# Example:
-# Group 1: mean = 22.4, standard deviation = 4.5, sample size = 50
-# Group 2: mean = 20.1, standard deviation = 3.5, sample size = 50
+# Bijvoorbeeld:
+# Groep 1: gemiddelde = 22.4, standaard deviatie = 4.5, sample size = 50
+# Groep 2: gemiddelde = 20.1, standaard deviatie = 3.5, sample size = 50
 
 library(metafor)
 
-# prepare the data
+# data voorbereiden
 M1 <- 22.4
 M2 <- 20.1
 SD1 <- 4.5
@@ -181,11 +181,11 @@ lnCVRind <- escalc(
 
 lnCVRind$SE <- sqrt(lnCVRind$vi) 
 
-# calculate confidence interval
+# berekenen betrouwbaarheidsinterval
 lnCVRind_low <- lnCVRind$yi - 1.96*lnCVRind$SE
 lnCVRind_high <- lnCVRind$yi + 1.96*lnCVRind$SE
 
-# print the VR value and confidence intervals
+# druk de VR waarde en betrouwbaarheidsintervallen af
 data.frame(lnCVRind = MOTE::apa(lnCVRind$yi),
            lnCVRind_low = MOTE::apa(lnCVRind_low),
            lnCVRind_high = MOTE::apa(lnCVRind_high))
@@ -193,37 +193,37 @@ data.frame(lnCVRind = MOTE::apa(lnCVRind$yi),
 ```
 
 
-### Natural Logarithm of Coefficient of Variation Ratio for independent groups ($lnCVR_\text{dep}$) {#sec-cvr-dep}
+### Natuurlijke logaritme van de variatiecoëfficiëntverhouding voor onafhankelijke groepen ($lnCVR_\text{dep}$) {#sec-cvr-dep}
 
-The coefficient of variation ratio for dependent groups can be similarly calculated by taking the natural logarithm of the coefficient of variation within one group divided by the coefficient of variation in another group,
+De variatiecoëfficiënt voor afhankelijke groepen kan op vergelijkbare wijze worden berekend door de natuurlijke logaritme te nemen van de variatiecoëfficiënt binnen de ene groep gedeeld door de variatiecoëfficiënt in een andere groep,
 
 $$
 lnCVR_\text{dep}=\ln\left(\frac{CV_T}{CV_C}\right) + CF
 $$
 
-Where $CV_T =S_T / M_T$, $CV_C =S_C / M_C$ and CF is a small sample size bias correction factor that combines that from the $lnVR$ (presented earlier) and the $lnVR$ (note again for dependent cases this is zero and so omitted) calculated as,
+Waarbij $CV_T =S_T / M_T$, $CV_C =S_C / M_C$ en CF een vertekeningscorrectiefactor voor de kleine steekproefomvang is die die van de $lnVR$ (eerder gepresenteerd) combineert met de $lnVR$ (merk op dat deze voor afhankelijke gevallen nul is en dus wordt weggelaten), berekend als,
 
 $$
 CF = \frac{S^2_T}{2n M_T^2} - \frac{S^2_C}{2nM_C^2}
 $$
 
-The standard error of the $lnCVR_\text{dep}$ can be calculated as,
+De standaardfout van de $lnCVR_text{dep}$ kan worden berekend als,
 
 
 $$
 \small{SE_{lnCVR_\text{dep}} = \sqrt{\frac{S^2_T}{n M_T^2} + \frac{S^2_T}{nM_T^2} + \frac{S^4_T}{2n^2 M_T^4} + \frac{S^4_T}{2n^2 M_T^4} + \frac{2rS_CS_T}{n M_C M_T} + \frac{r^2S^2_T S^2_C (M^4_T + M^4_C)}{2n^2M_T^4M^4_C}}}
 $$
-In R, we can simply use the metafor packages escalc() function as follows:
+In R kunnen we eenvoudigweg de functie metafor packages escalc() als volgt gebruiken:
 
 ```{r}
-# Example:
-# Group 1: standard deviation = 4.5
-# Group 2: standard deviation = 3.5
+# Bijvoorbeeld:
+# Groep 1: standaard deviatie = 4.5
+# Groep 2: standaard deviatie = 3.5
 # Sample size = 50
-# Correlation = 0.4
+# Correlatie = 0.4
 library(metafor)
 
-# prepare the data
+# data voorbereiden
 M1 <- 22.4
 M2 <- 20.1
 SD1 <- 4.5
@@ -243,11 +243,11 @@ lnCVRdep <- escalc(
 
 lnCVRdep$SE <- sqrt(lnCVRdep$vi)
 
-# calculate confidence interval
+# berekenen betrouwbaarheidsinterval
 lnCVRdep_low <- lnCVRdep$yi - 1.96*lnCVRdep$SE
 lnCVRdep_high <- lnCVRdep$yi + 1.96*lnCVRdep$SE
 
-# print the CVR value and confidence intervals
+# afdrukken van CVR waarde en betrouwbaarheidsintervallen
 data.frame(lnCVRdep = MOTE::apa(lnCVRdep$yi),
            lnCVRdep_low = MOTE::apa(lnCVRdep_low),
            lnCVRdep_high = MOTE::apa(lnCVRdep_high))

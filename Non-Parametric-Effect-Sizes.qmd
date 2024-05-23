@@ -1,22 +1,22 @@
-# Non-Parametric Tests
+# Non-Parametrische Testen
 
-Sometimes the assumptions of parametric models (e.g., normality of model residuals) are suspect. This is often the case in psychology when using ordinal scales. In these cases a "non-parametric" approach may be helpful. A statistical test being non-parametric means that the parameters (i.e., mean and variance for "normal" Gaussian model) are not estimated; despite popular belief the data themselves are *never* non-parametric. Additionally, these tests are *not* tests of the median [@divine2018wilcoxon]. Rather one can consider than as rank based or proportional odds tests. If the scores you are analyzing are not metric (i.e., ordinal) due to the use of a Likert-Scale and you still use parametric tests such as t-tests, you run the risk of a high false-positive probability (e.g., @liddell2018).
+Soms zijn de aannames van parametrische modellen (bijvoorbeeld normaliteit van modelresiduen) verdacht. Dit is vaak het geval in de psychologie bij het gebruik van ordinale schalen. In deze gevallen kan een "niet-parametrische" benadering nuttig zijn. Een statistische test die niet-parametrisch is, betekent dat de parameters (d.w.z. gemiddelde en variantie voor een "normaal" Gaussiaans model) niet worden geschat; ondanks wat vaak wordt gedacht, zijn de gegevens zelf *nooit* niet-parametrisch. Bovendien zijn deze tests *geen* tests van de mediaan [@divine2018wilcoxon]. Je kunt ze eerder beschouwen als rangordetests of proportionele kanstests. Als de scores die je analyseert niet metrisch zijn (d.w.z. ordinaal) 
 
-If the scores you are analyzing are not metric (i.e., ordinal) due to the use of a Likert scale and you still use parametric tests such as t-tests, you run the risk of a high false-positive probability (e.g., Liddel & Kruschke, 2018). Note that in German, scale anchors have been developed that are very similar to Likert scale but can be interpreted as metric (e.g., Rohrmann, 1978).
+Als de scores die je analyseert niet metrisch (d.w.z. ordinaal) zijn door het gebruik van een Likert-schaal en je toch parametrische tests zoals t-tests gebruikt, loop je het risico op een hoge vals-positieve waarschijnlijkheid (bijv. Liddel & Kruschke, 2018). Merk op dat er in het Duits schaalankers zijn ontwikkeld die erg lijken op de Likert-schaal, maar geïnterpreteerd kunnen worden als metrisch (bijv. Rohrmann, 1978).
 
-We will briefly discuss here two groups of tests that can be applied to the independent and paired samples then present 3 effect sizes that can accompany these tests as well as their calculations and examples in R.
+We zullen hier kort twee groepen tests bespreken die kunnen worden toegepast op de onafhankelijke en gepaarde steekproeven en vervolgens 3 effectgroottes presenteren die bij deze tests kunnen horen, evenals hun berekeningen en voorbeelden in R.
 
-#### **Here is a table for every effect size discussed in this chapter:** {.unnumbered}
+#### **Hier is een tabel voor elke effect size in dit hoofdstuk besproken:** {.unnumbered}
 
-| Type                | Description | Section|
+| Type                | Beschrijving | Sectie|
 |:------|:---------|:----:|
-| **Rank-Biserial Correlation**   |     | @sec-rrb|
-| $r_{rb}$ (dependent groups) - Rank-biserial correlation on dependent groups | A measure of dominance between dependent groups (i.e., repeated measure designs). | @sec-rrb-dep|
-| $r_{rb}$ (independent groups) - Rank Biserial Correlation on independent groups | A measure of dominance between two independent groups. | @sec-rrb-dep|
-|   **Concordance Probability**    |     | @sec-conc-prob |
-|  $p_c$ - Concordance probability | A simple transformation of the rank-biserial correlation and it represents the probability of superiority in one group relative to the other group. This section shows R code for both independent and dependent samples. | @sec-conc-prob |
+| **Rang-Biseriële Correlatie**   |     | @sec-rrb|
+| $r_{rb}$ (afhankelijke groepen) - Rang-biseriële correlatie op afhankelijke groepen | Een maat voor dominantie tussen afhankelijke groepen (d.w.z. herhaalde metingen). | @sec-rrb-dep|
+| $r_{rb}$ (onafhankelijke groepen) - Rang Biseriële Correlatie op onafhankelijke groepen | Een maat voor dominantie tussen twee onafhankelijke groepen. | @sec-rrb-dep|
+|   **Overeenstemmingswaarschijnlijkheid**    |     | @sec-conc-prob |
+|  $p_c$ - Overeenstemmingswaarschijnlijkheid | Een eenvoudige transformatie van de rang-biseriële correlatie en het vertegenwoordigt de waarschijnlijkheid van superioriteit in de ene groep ten opzichte van de andere groep. Deze sectie toont R-code voor zowel onafhankelijke als afhankelijke steekproeven. | @sec-conc-prob |
 |   **Wilcoxon-Mann-Whitney Odds**    |     | @sec-odds |
-|  $O_{WMW}$ - Wilcoxon-Mann-Whitney Odds | Also known as the Generalized Odds Ratio, it transforms the concordance probability to an Odds Ratio. This section shows R code for both independent and dependent samples. | @sec-odds |
+|  $O_{WMW}$ - Wilcoxon-Mann-Whitney Odds | Ook bekend als de Generalized Odds Ratio, transformeert het de concordantiekans naar een Odds Ratio. Deze sectie toont R-code voor zowel onafhankelijke als afhankelijke steekproeven. | @sec-odds |
 
 ## Wilcoxon-Mann-Whitney tests
 
